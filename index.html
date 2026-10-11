@@ -1,10 +1,127 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Website</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>William Lee Meyers | Web Developer</title>
+  <meta name="description" content="My personal portfolio website built with HTML and CSS on GitHub Pages." />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Welcome to My Website!</h1>
-    <p>This is my first website on GitHub Pages.</p>
+  <header class="site-header">
+    <div class="container nav">
+      <div class="brand">WLM</div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <p class="eyebrow">Hello, I'm</p>
+          <h1>William Lee Meyers</h1>
+          <p class="subtitle">Web Developer & Digital Creator</p>
+          <p class="description">
+            I build clean, modern websites and enjoy turning ideas into digital experiences
+            that are easy to use and fun to explore.
+          </p>
+          <div class="cta-group">
+            <a class="button primary" href="#projects">View Projects</a>
+            <a class="button secondary" href="#contact">Contact Me</a>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Profile card">
+          <div class="profile-badge">WL</div>
+          <h2>Available for work</h2>
+          <p>Building websites, portfolios, and digital experiences.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">About Me</p>
+          <h2>Learning, building, and improving every day.</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="info-card">
+            <h3>What I Do</h3>
+            <p>
+              I design and build websites using HTML, CSS, and modern front-end techniques.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3>My Goal</h3>
+            <p>
+              I want to create beautiful web experiences that help people and businesses stand out online.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3>What I Love</h3>
+            <p>
+              I enjoy creating thoughtful layouts, polished visuals, and responsive pages that feel great on any device.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section alt">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Projects</p>
+          <h2>Recent work and ideas</h2>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-icon">01</div>
+            <h3>Portfolio Site</h3>
+            <p>A clean personal website to showcase projects, skills, and contact information.</p>
+          </article>
+
+          <article class="project-card">
+            <div class="project-icon">02</div>
+            <h3>Business Landing Page</h3>
+            <p>A modern landing page designed for a brand or local business to attract visitors.</p>
+          </article>
+
+          <article class="project-card">
+            <div class="project-icon">03</div>
+            <h3>Blog or Showcase</h3>
+            <p>A simple page for writing, product highlights, or a personal journey online.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <div class="container contact-box">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2>Let's build something great together.</h2>
+        </div>
+        <a class="button primary" href="mailto:willsmynamelb@gmail.com">Email Me</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© 2026 William Lee Meyers</p>
+      <p>Built with HTML and CSS</p>
+    </div>
+  </footer>
 </body>
 </html>
