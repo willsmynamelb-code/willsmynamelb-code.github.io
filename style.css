@@ -273,7 +273,7 @@ img {
 
 .vision-grid,
 .program-grid,
-.services-grid,
+.help-grid,
 .stats-grid,
 .involvement-grid {
   display: grid;
@@ -286,7 +286,7 @@ img {
 
 .vision-card,
 .program-card,
-.service-card,
+.help-card,
 .involvement-card,
 .stat-card {
   background: rgba(255, 255, 255, 0.02);
@@ -297,7 +297,7 @@ img {
 
 .vision-card h3,
 .program-card h3,
-.service-card h3,
+.help-card h3,
 .involvement-card h3 {
   margin-top: 0;
   color: var(--white);
@@ -305,10 +305,16 @@ img {
 
 .vision-card p,
 .program-card p,
-.service-card p,
+.help-card p,
 .involvement-card p,
 .stat-card small {
   color: var(--muted);
+}
+
+.mini-icon {
+  font-size: 2rem;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
 }
 
 .program-grid {
@@ -320,17 +326,9 @@ img {
 }
 
 .program-icon,
-.service-icon {
+.help-icon {
   font-size: 2.5rem;
   margin-bottom: 0.9rem;
-}
-
-.services-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.service-card {
-  background: rgba(255, 255, 255, 0.02);
 }
 
 .app-section {
@@ -399,6 +397,15 @@ img {
 
 .mini-card.long {
   height: 90px;
+}
+
+.help-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.text-link {
+  color: var(--accent);
+  font-weight: 700;
 }
 
 .founder-content {
@@ -503,6 +510,11 @@ img {
   color: var(--muted);
 }
 
+.contact-note {
+  color: var(--text) !important;
+  margin-top: 1rem;
+}
+
 .contact-actions {
   display: flex;
   gap: 1rem;
@@ -529,7 +541,7 @@ img {
 @media (max-width: 900px) {
   .vision-grid,
   .program-grid,
-  .services-grid,
+  .help-grid,
   .stats-grid,
   .involvement-grid,
   .hero-content,
