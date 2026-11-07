@@ -18,7 +18,8 @@
     .vision{background:#123c3e;color:#f6f7ef}.vision p{color:#cbdfd7}.vision-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}.vision-card{padding:28px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:19px}.vision-card .icon{font:2rem Georgia,serif;color:#efc88f}.vision-card h3{font-size:1.5rem;margin:12px 0}.vision-card p{font-size:.94rem;line-height:1.75}
     .resources{background:#f6f3ea}.resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.resource{display:flex;flex-direction:column;padding:26px;border:1px solid #d9dfd6;border-radius:16px;background:#fff;min-height:240px}.resource h3{font-size:1.5rem}.resource p{color:#60726c;font-size:.92rem}.resource a{margin-top:auto;color:#235f5a;font-weight:760;text-underline-offset:4px}.disclaimer{font-size:.85rem;color:#667a75;margin-top:25px}.closing{background:#dce9df;text-align:center;padding:76px 25px}.closing h2{max-width:780px;margin:0 auto 18px}.closing p{margin:0 auto 24px}.footer{background:#102e33;color:#d6e8de;padding:38px 0}.footer-grid{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.footer .logo{color:#fff}.footer p{margin:10px 0 0;font-size:.8rem;max-width:550px;color:#bbd0c7}.footer a{color:#d6e8de}
     .mission{background:#eef2ea}.mission .section-head{margin-bottom:20px}.mission-copy{max-width:850px;margin:0 auto}.mission-copy p{font-size:1.06rem;color:#4c6964}.mission-quote{font:italic clamp(1.4rem,3vw,2rem)/1.5 Georgia,serif;color:#245955!important;border-left:4px solid #d4a873;padding-left:25px;margin:26px 0}.mission-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}.mission-pillar{padding:25px;border-radius:15px;background:#fff;border:1px solid var(--line)}.mission-pillar h3{color:#275653;margin-bottom:8px}.mission-pillar p{font-size:.93rem;margin:0}.founder{background:#f4eee3}.founder-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}.founder-grid p{color:#526963}.founder-card{background:#fff;border:1px solid #e1d8c8;border-radius:20px;padding:30px}.founder-card h3{margin-bottom:6px}.founder-meta{font-size:.86rem;color:#7a695b!important}.contact-link{color:#185957;text-decoration-thickness:1px;text-underline-offset:4px;overflow-wrap:anywhere}.footer-links{display:flex;gap:18px;flex-wrap:wrap;align-items:center}.footer-links a{text-decoration:underline;text-underline-offset:3px;font-size:.83rem}
-    .book-overview{width:min(100%,390px);padding:38px 34px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border-radius:24px;box-shadow:0 25px 60px rgba(0,0,0,.2);text-align:left}.book-overview .eyebrow{color:#e8c696}.book-overview h2{font-size:clamp(2rem,3vw,3.1rem);color:#fff;margin:16px 0;letter-spacing:-.035em}.book-overview p{color:#d9e8e0}.book-overview .overview-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:26px 0 14px}.overview-facts div{border-top:1px solid rgba(255,255,255,.25);padding-top:9px}.overview-facts strong{display:block;font:1.6rem Georgia,serif;color:#f5cd96}.overview-facts span{font-size:.71rem;line-height:1.3;color:#e0ede7;display:block}.cover-note{font-size:.76rem!important;margin-bottom:0;color:#d5e2dc!important}.month-details .principle-note{font-size:.79rem;color:#617773;margin-top:10px}
+    .hero-cover{display:block;width:min(100%,340px);height:auto;border-radius:4px;box-shadow:0 22px 55px rgba(0,0,0,.36)}
+    .month-details .principle-note{font-size:.79rem;color:#617773;margin-top:10px}
     @media(max-width:950px){.hero-inner{grid-template-columns:1fr 1fr;gap:2%}.book{width:250px}.book-stage{min-height:400px}.book .subtitle{margin-top:60px}.links{gap:13px}.month-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:740px){.wrap{padding:0 20px}.nav{min-height:66px}.menu-btn{display:block}.links{position:absolute;left:0;right:0;top:66px;display:none;flex-direction:column;align-items:stretch;gap:0;background:var(--paper);padding:10px 24px 20px;border-bottom:1px solid var(--line);box-shadow:0 20px 25px #10313718}.links.open{display:flex}.links a{padding:11px 0}.nav-cta{display:none}.hero-inner{grid-template-columns:1fr;min-height:unset;padding-top:67px;padding-bottom:60px}.hero h1{font-size:clamp(3rem,11vw,4.6rem)}.hero .lead{margin:20px 0}.book-stage{min-height:360px;margin-top:15px}.book{width:220px;transform:rotate(-5deg)}.book .brand{font-size:2rem}.book .subtitle{font-size:1.2rem}.book-ribbon{left:3%;bottom:6%}.benefit-grid{grid-template-columns:1fr;gap:12px;padding:24px 0}.section-pad{padding:67px 0}.split{grid-template-columns:1fr;gap:28px}.notecard{padding:30px}.month-grid{grid-template-columns:repeat(2,1fr)}.month{min-height:95px;padding:15px}.month span{font-size:1.16rem}.month-details{flex-direction:column;gap:5px}.sample-card{padding:35px 28px 35px 38px}.sample-card:after{left:17px}.sample-card h3{font-size:2rem}.vision-cards,.resource-grid,.mission-pillars,.founder-grid{grid-template-columns:1fr}.footer-grid{flex-direction:column}.footer .wrap{padding:0 20px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
@@ -37,17 +38,14 @@
           <p class="hero-sub">Written by William Meyers · Amazon availability not yet confirmed</p>
         </div>
         <div class="book-stage">
-          <div class="book-overview" aria-label="Flagship book information, not final cover artwork">
-            <div class="eyebrow">The flagship book</div>
-            <h2>A Sober<br>Companion</h2>
-            <p>One day at a time. A reflection, a practice, and a thought to carry forward.</p>
-            <div class="overview-facts">
-              <div><strong>365</strong><span>daily reflections</span></div>
-              <div><strong>12</strong><span>monthly themes</span></div>
-              <div><strong>3</strong><span>closing sections</span></div>
-            </div>
-            <p class="cover-note">Book information graphic. Final approved cover to be added separately.</p>
-          </div>
+          <img
+            class="hero-cover"
+            src="tyme-sober-companion-cover.webp"
+            width="720"
+            height="1152"
+            alt="Approved cover of T.Y.M.E. — Today You Mean Everything: A Sober Companion by William Meyers, with a golden sunrise over mountains, a lake, and a winding path."
+            fetchpriority="high"
+            decoding="async">
         </div>
       </div>
     </section>
