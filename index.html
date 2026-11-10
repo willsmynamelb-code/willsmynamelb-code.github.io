@@ -71,14 +71,22 @@
     .vision-copy .vision-signature{display:flex;flex-direction:column;gap:2px;margin:0;font-size:.91rem;line-height:1.5}
     .vision-signature span{color:#cbdfd7;font-size:.86rem}
     .vision-copy .vision-note{color:#b9d1c9;font-size:.88rem;line-height:1.65;margin:16px 0 26px}
-    .support-vision{background:#eee9dc;border-bottom:1px solid var(--line)}
-    .support-vision-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:center}
+    .vision-invitation{background:#e7eee6;color:var(--ink)}
+    .invitation-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(215px,.7fr);gap:clamp(24px,5vw,62px);align-items:center}
+    .vision-invitation .eyebrow{color:#80512f}
+    .vision-invitation h2{font-size:clamp(2rem,3.6vw,3.1rem);max-width:18ch;margin:9px 0 22px}
+    .invitation-copy p{color:#435f5b;max-width:60ch;margin:0 0 14px;line-height:1.75}
+    .invitation-copy p:last-child{margin-bottom:0}
+    .invitation-action{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+    .invitation-action .btn{min-height:48px;text-align:center}
+    .invitation-action p{font-size:.83rem;line-height:1.55;color:#536b66;max-width:30ch;margin:0}
+    .support-vision{background:#eee9dc;border-bottom:1px solid var(--line);padding:34px 0 38px}
+    .support-vision-inner{max-width:1200px}
     .support-vision .eyebrow{color:#83562f}
-    .support-vision h2{font-size:clamp(2rem,3.6vw,3.05rem);margin:8px 0 18px}
-    .support-vision p{color:#4c6964;max-width:65ch;margin:0}
-    .support-vision .btn{max-width:270px;text-align:center}
-    @media(max-width:740px){.support-vision-inner{grid-template-columns:1fr;gap:24px}.support-vision .btn{width:fit-content}}
-
+    .support-vision h2{font-size:clamp(1.65rem,2.5vw,2.25rem);margin:5px 0 10px}
+    .support-vision p{color:#4c6964;max-width:90ch;margin:0;font-size:.96rem}
+    @media(max-width:740px){.invitation-layout{grid-template-columns:1fr;gap:25px}.invitation-action .btn{width:fit-content}.support-vision{padding:32px 0}}
+    
     @media(max-width:950px){.vision-layout{grid-template-columns:1fr;gap:23px}.vision h2{margin-top:8px}}
     @media(max-width:740px){.vision-copy p{font-size:1rem}.vision-statement{margin:25px 0}}
 
@@ -112,24 +120,38 @@
         </div>
         <div class="vision-copy">
           <p>My vision for <strong>T.Y.M.E. (Today You Mean Everything)</strong> is to help create a world where no one is defined by their past, their struggles, or their mistakes.</p>
-          <p>T.Y.M.E. began with books shaped by lived experience and the belief that change can begin today. But the vision reaches beyond any one book or any one person's story.</p>
-          <p>We all have a story to tell. What we have learned through struggle may be exactly what someone else needs to hear.</p>
-          <p>When we share those lessons, we pass a flashlight to someone finding their way through the dark. We cannot walk the road for them, but we can help them see the next step. If my story gives even one person hope or the courage to begin again, it will have been worth telling. And when that person shares what they have learned, the light travels farther, reaching people and generations we may never meet.</p>
-          <p>My hope is for T.Y.M.E. to grow beyond the page into a compassionate, recovery-centered community built on responsibility, connection, and practical support. Over time, I envision helping people connect with qualified counseling and therapy, sober-living resources, and eventually exploring partnerships to develop appropriately licensed treatment and rehabilitation services.</p>
-          <p class="vision-note">These are goals for the future, not services T.Y.M.E. currently provides. For now, we begin with books, reflection, and links to independent resources.</p>
+          <p>T.Y.M.E. began with books inspired by lived experience and a simple belief: meaningful change can begin today. But the vision extends far beyond any one book or one person's story.</p>
+          <p><strong>We all have a story to tell.</strong> The lessons we gain through our hardest experiences may be exactly what someone else needs to find their way forward.</p>
+          <p>I think of it as passing a flashlight to someone in the dark. We cannot walk their path for them, but we can help them see the next step. If sharing my story brings hope to even one person, it will have been worth telling. And when others share what they have learned, that light reaches farther.</p>
+          <p>My hope is to grow T.Y.M.E. into a compassionate, recovery-centered community offering encouragement, connection, and practical resources. Over time, I envision partnerships with qualified professionals and organizations providing counseling, therapy, sober living, and eventually licensed treatment and rehabilitation services.</p>
+          <p class="vision-note">These are goals for the future. Today, our work begins with books, reflection, and connections to independent resources.</p>
           <blockquote class="vision-statement">Because your past does not define your future, and today, you mean everything.</blockquote>
           <p class="vision-signature"><strong>William Meyers</strong><span>Founder, T.Y.M.E.</span></p>
         </div>
       </div>
     </section>
-    <section class="section-pad support-vision" id="support" aria-labelledby="support-title">
+    <section class="section-pad vision-invitation" id="share" aria-labelledby="share-title">
+      <div class="wrap invitation-layout">
+        <div class="invitation-copy">
+          <div class="eyebrow">Be part of the Vision</div>
+          <h2 id="share-title">Every Story Matters. Every Voice Can Make a Difference.</h2>
+          <p>Your experiences, ideas, and perspectives may help shape something meaningful.</p>
+          <p>Whether you know of a helpful resource, have an idea for the future of T.Y.M.E., or simply want to connect, I welcome hearing from you.</p>
+          <p>Together, we can help ensure that the lessons we've learned continue to light the way for others.</p>
+        </div>
+        <div class="invitation-action">
+          <a class="btn btn-dark" href="mailto:willsmynamelb@gmail.com?subject=Connecting%20with%20T.Y.M.E.">Share Your Thoughts ↗</a>
+          <p>Please avoid including private medical or recovery details in email.</p>
+        </div>
+      </div>
+    </section>
+    <section class="support-vision" id="support" aria-labelledby="support-title">
       <div class="wrap support-vision-inner">
         <div>
-          <div class="eyebrow">Help the message travel</div>
+          <div class="eyebrow">Other ways to help</div>
           <h2 id="support-title">Help the Vision Grow</h2>
-          <p>A story can reach farther when someone passes it on. You can support T.Y.M.E. by sharing the books, connecting others with helpful resources, or reaching out about partnerships and future ways to contribute.</p>
+          <p>You can support T.Y.M.E. by recommending the books, sharing helpful resources, or introducing people and organizations who believe in this mission. Financial contributions are not being collected through this website at this time.</p>
         </div>
-        <a class="btn btn-dark" href="mailto:willsmynamelb@gmail.com?subject=Supporting%20the%20T.Y.M.E.%20Vision">Connect about supporting T.Y.M.E. ↗</a>
       </div>
     </section>
     <section class="section-pad resources" id="resources"><div class="wrap"><div class="section-head"><div class="eyebrow" style="color:#a47150">Help is already here</div><h2>Resources for Recovery &amp; Rebuilding</h2><p>Independent organizations offering recovery support, crisis help, reentry services, housing assistance, and employment resources.</p></div><div class="resource-grid"><div class="resource"><h3>Find treatment</h3><p>Use the U.S. government’s confidential treatment locator to explore mental health and substance-use treatment facilities.</p><a href="https://findtreatment.gov/" target="_blank" rel="noopener noreferrer">Visit FindTreatment.gov ↗</a></div><div class="resource"><h3>Find a meeting</h3><p>SMART Recovery offers a meeting finder for online and in-person mutual-support meetings.</p><a href="https://support.smartrecovery.org/find-a-smart-meeting" target="_blank" rel="noopener noreferrer">Find a SMART meeting ↗</a></div><div class="resource"><h3>Talk to someone now</h3><p>In the U.S., call or text 988 for the Suicide &amp; Crisis Lifeline. For treatment referral and information, call 1-800-662-HELP (4357).</p><a href="https://988lifeline.org/" target="_blank" rel="noopener noreferrer">Visit the 988 Lifeline ↗</a></div></div><h3 class="resource-subhead">Reentry, housing &amp; employment</h3><div class="resource-grid resource-grid--reentry"><div class="resource"><h3>Dignity and Power Now</h3><p>Healing, peer support, mutual aid, and leadership programs for people and families affected by incarceration.</p><a href="https://dignityandpowernow.org/programs" target="_blank" rel="noopener noreferrer">Explore Dignity and Power Now ↗</a></div><div class="resource"><h3>Anti-Recidivism Coalition</h3><p>Reentry support, life coaching, employment and education guidance, and housing programs for eligible members.</p><a href="https://antirecidivism.org/our-programs/supportive-services/" target="_blank" rel="noopener noreferrer">Explore ARC services ↗</a></div><div class="resource"><h3>Rescue-A-Life Foundation</h3><p>Eligible Los Angeles County residents recently released from incarceration may qualify for limited help with a security deposit and first month’s rent.</p><a href="https://rescuealifefoundation.org/jsrap-rental-assistance-program/" target="_blank" rel="noopener noreferrer">Check rental assistance eligibility ↗</a></div><div class="resource"><h3>California Department of Rehabilitation</h3><p>Employment and independent-living services for eligible Californians with disabilities, including counseling, training, and job-search support.</p><a href="https://www.dor.ca.gov/Home/EmploymentServices" target="_blank" rel="noopener noreferrer">Explore DOR employment services ↗</a></div></div><p class="disclaimer">These are independent third-party resources, not T.Y.M.E. programs. Services, eligibility, and availability vary; contact each organization for current information. If there is immediate danger, call local emergency services.</p></div></section>
