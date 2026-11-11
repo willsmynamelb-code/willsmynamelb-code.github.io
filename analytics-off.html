@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#103a3c">
+  <title>Analytics Exclusion | T.Y.M.E.</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:#faf8f1;color:#173a3d;font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+    main{max-width:440px;width:100%;padding:36px 28px;border:1px solid #d9e3da;border-radius:18px;background:#fff;box-shadow:0 16px 50px #103a3c0c}
+    .brand{font-weight:800;letter-spacing:.15em;font-size:1rem;color:#2a6965}h1{font:400 2rem/1.2 Georgia,serif;margin:18px 0}
+    p{color:#526c67;margin:12px 0 0}.status{font-weight:700;color:#236656}.error{color:#9d3a2a}
+    a{display:inline-block;padding:13px 20px;background:#103a3c;color:#fff;text-decoration:none;border-radius:99px;margin-top:26px;font-weight:700}
+    a:focus-visible{outline:3px solid #cc835b;outline-offset:4px}
+    small{display:block;margin-top:22px;color:#64746f}
+  </style>
+  <script>
+    // The same origin and storage key are used by the main site's Analytics opt-out.
+    (function () {
+      var success = false;
+      try {
+        localStorage.setItem('tyme_analytics_opt_out_v1', '1');
+        success = localStorage.getItem('tyme_analytics_opt_out_v1') === '1';
+      } catch (error) {}
+      window['ga-disable-G-Y46CQ8WRY5'] = true;
+      window.addEventListener('DOMContentLoaded', function () {
+        var title = document.getElementById('status');
+        var details = document.getElementById('details');
+        if (success) {
+          title.textContent = 'Analytics is OFF for this browser';
+          details.textContent = 'Your visits to T.Y.M.E. from this browser will not be recorded by Google Analytics. Other visitors are still counted.';
+        } else {
+          title.textContent = 'Could not save your setting';
+          title.className = 'status error';
+          details.textContent = 'Chrome blocked site storage. Open this page in regular Chrome, allow site data, and try again.';
+        }
+      }, {once:true});
+    })();
+  </script>
+</head>
+<body>
+  <main>
+    <div class="brand">T.Y.M.E.</div>
+    <h1 class="status" id="status">Checking Analytics setting…</h1>
+    <p id="details">Checking your browser's saved exclusion.</p>
+    <a href="/">Visit T.Y.M.E. website</a>
+    <small>Keep this page as your home-screen shortcut to reactivate or confirm the exclusion whenever you need.</small>
+  </main>
+</body>
+</html>
