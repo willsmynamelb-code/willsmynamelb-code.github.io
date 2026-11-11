@@ -1,6 +1,38 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Browser-specific Analytics exclusion, evaluated before the Google tag loads. -->
+  <script>
+    (function () {
+      const storageKey = 'tyme_analytics_opt_out_v1';
+      const disableFlag = 'ga-disable-G-Y46CQ8WRY5';
+      const command = window.location.hash;
+      const enableOptOut = command === '#tyme-analytics-off';
+      const disableOptOut = command === '#tyme-analytics-on';
+      let saved = true;
+      let optedOut = false;
+      try {
+        if (enableOptOut) localStorage.setItem(storageKey, '1');
+        if (disableOptOut) localStorage.removeItem(storageKey);
+        optedOut = localStorage.getItem(storageKey) === '1';
+      } catch (error) {
+        saved = false;
+        optedOut = enableOptOut;
+      }
+      // Google's documented per-measurement-ID switch prevents data collection.
+      window[disableFlag] = optedOut;
+      if (enableOptOut || disableOptOut) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+        window.addEventListener('DOMContentLoaded', function () {
+          window.alert(saved
+            ? (optedOut
+              ? 'T.Y.M.E. Analytics is OFF for this browser. Your visits will no longer be counted.'
+              : 'T.Y.M.E. Analytics is ON for this browser. Your visits can be counted again.')
+            : 'This browser did not allow the setting to be saved. Please use regular Chrome with site storage enabled.');
+        }, { once: true });
+      }
+    })();
+  </script>
   <!-- Google Analytics: T.Y.M.E. Website -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y46CQ8WRY5"></script>
   <script>
