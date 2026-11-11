@@ -185,6 +185,27 @@
     const menu=document.getElementById('menuButton'),nav=document.getElementById('navLinks');
     menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.textContent=open?'×':'☰';menu.setAttribute('aria-label',open?'Close navigation':'Open navigation')});
     nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰';menu.setAttribute('aria-label','Open navigation')}));
+    // Count visits to the Amazon paperback and Kindle listings separately.
+    // These are outbound-link clicks, not confirmed purchases.
+    const bookClickEvents={
+      'B0HQY8BFKL':'amazon_paperback_click',
+      'B0HQV7DYGN':'amazon_kindle_click'
+    };
+    document.querySelectorAll('a[href]').forEach(link=>{
+      const url=new URL(link.href);
+      if(!/^(www\.)?amazon\.com$/i.test(url.hostname))return;
+      const match=url.pathname.match(/\/dp\/([A-Z0-9]{10})(?:\/|$)/i);
+      if(!match)return;
+      const eventName=bookClickEvents[match[1].toUpperCase()];
+      if(!eventName)return;
+      link.addEventListener('click',()=>{
+        gtag('event',eventName,{
+          book_title:'T.Y.M.E. A Sober Companion',
+          link_url:url.href,
+          link_text:link.textContent.trim().slice(0,100)
+        });
+      });
+    });
     document.getElementById('year').textContent=String(new Date().getFullYear());
   </script>
 </body>
