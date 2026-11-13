@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>T.Y.M.E. Connectivity Test</title>
+</head>
+<body>
+  <p>This page is used to test whether visitors can access the T.Y.M.E. website.</p>
+  <script>
+    (function () {
+      "use strict";
+      if (window.parent === window) return;
+      const nonce = new URLSearchParams(window.location.search).get("nonce");
+      if (!nonce) return;
+      window.parent.postMessage({type: "TYME_HEALTHCHECK_V1", nonce: nonce}, "*");
+    })();
+  </script>
+</body>
+</html>
