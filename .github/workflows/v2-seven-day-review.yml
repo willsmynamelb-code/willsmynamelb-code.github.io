@@ -1,0 +1,98 @@
+name: T.Y.M.E. Seven-Day Reader Design QA
+on:
+  push:
+    branches:
+      - tyme-seven-day-reader-visual-v2-2026-11-16
+permissions:
+  contents: read
+jobs:
+  reader-responsive-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test dependencies
+        run: npm install --no-save --no-package-lock playwright-core
+      - name: Run website and reflection-reader checks
+        run: |
+          mkdir -p v2-qa/screenshots
+          node <<'NODE'
+          const fs=require('fs'),path=require('path');
+          const {chromium}=require('playwright-core');
+          const binary=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium'].find(f=>fs.existsSync(f));
+          if(!binary)throw Error('Chromium not found');
+          const formats=[
+            {name:'desktop-1440',width:1440,height:900},
+            {name:'laptop-1024',width:1024,height:768},
+            {name:'phone-390',width:390,height:844},
+            {name:'phone-320',width:320,height:640}
+          ];
+          (async()=>{
+            const browser=await chromium.launch({headless:true,executablePath:binary,args:['--no-sandbox']});
+            let failed=0;const rows=[];
+            for(const v of formats){
+              const page=await browser.newPage({viewport:{width:v.width,height:v.height},deviceScaleFactor:1});
+              const errors=[];page.on('pageerror',e=>errors.push(e.message));
+              await page.route(/^https?:/,r=>r.abort());
+              await page.goto('file://'+path.join(process.cwd(),'index.html'),{waitUntil:'load'});
+              await page.screenshot({path:'v2-qa/screenshots/'+v.name+'-hero.png'});
+              await page.locator('#development').scrollIntoViewIfNeeded();
+              await page.screenshot({path:'v2-qa/screenshots/'+v.name+'-reader-day1.png'});
+              const initial=await page.locator('.reader-entry:not([hidden])').count()===1&&
+                await page.locator('#readerDay1').isVisible()&&
+                await page.locator('#reader-prev').isDisabled();
+              let visited=true;
+              for(let n=2;n<=7;n++){
+                await page.locator('#reader-next').click();
+                const good=await page.locator('#readerDay'+n).isVisible()&&
+                  (await page.locator('#reader-page').textContent()).trim()===n+' / 7'&&
+                  await page.locator('.reader-entry:not([hidden])').count()===1;
+                visited=visited&&good;
+              }
+              const finalDay=await page.locator('#reader-next').isDisabled()&&await page.locator('#reader-finish').isVisible();
+              await page.locator('#development').scrollIntoViewIfNeeded();
+              await page.screenshot({path:'v2-qa/screenshots/'+v.name+'-reader-day7.png'});
+              await page.locator('#reader-prev').click();
+              const previous=await page.locator('#readerDay6').isVisible();
+              await page.locator('[data-reader-select="7"]').focus();
+              await page.keyboard.press('Home');
+              const keyboard=await page.locator('#readerDay1').isVisible()&&await page.locator('[data-reader-select="1"]').getAttribute('aria-pressed')==='true';
+              let nav=true;
+              if(v.width<=740){
+                await page.locator('#menuButton').click();
+                const opened=await page.locator('#menuButton').getAttribute('aria-expanded')==='true';
+                await page.locator('#navLinks a[href="#development"]').click();
+                nav=opened&&await page.locator('#menuButton').getAttribute('aria-expanded')==='false';
+              }
+              await page.locator('#vision').scrollIntoViewIfNeeded();
+              await page.screenshot({path:'v2-qa/screenshots/'+v.name+'-vision.png'});
+              const layout=await page.evaluate(()=>{
+                const ids=Array.from(document.querySelectorAll('[id]')).map(x=>x.id);
+                const missing=Array.from(document.querySelectorAll('a[href^="#"]')).map(x=>x.getAttribute('href').slice(1)).filter(x=>x&&!ids.includes(x));
+                const sun=document.querySelector('.vision-sunrise');
+                const cover=document.querySelector('.hero-cover');
+                const dayBtns=Array.from(document.querySelectorAll('.reader-day-btn')).map(e=>Math.round(e.getBoundingClientRect().height));
+                return {scrollWidth:document.documentElement.scrollWidth,viewportWidth:innerWidth,overflow:document.documentElement.scrollWidth>innerWidth,missingLinks:missing,coverLoaded:cover.complete&&cover.naturalWidth>0,sunVisible:!!sun&&sun.getBoundingClientRect().width>100,buttonsTallEnough:dayBtns.every(x=>x>=44),dayButtonCount:dayBtns.length};
+              });
+              const row={viewport:v.name,initial,visitedAllSeven:visited,finalDay,previous,keyboard,nav,layout,errors};
+              row.passed=initial&&visited&&finalDay&&previous&&keyboard&&nav&&
+                !layout.overflow&&layout.missingLinks.length===0&&layout.coverLoaded&&layout.sunVisible&&layout.buttonsTallEnough&&layout.dayButtonCount===7&&errors.length===0;
+              rows.push(row);if(!row.passed)failed++;
+              await page.close();
+            }
+            await browser.close();
+            fs.writeFileSync('v2-qa/report.json',JSON.stringify(rows,null,2));
+            fs.writeFileSync('v2-qa/report.txt',rows.map(r=>r.viewport+': '+(r.passed?'PASS':'FAIL')+JSON.stringify(r)).join('\n'));
+            console.log('TYME_V2_QA_RESULTS '+JSON.stringify(rows));
+            if(failed)process.exitCode=1;
+          })().catch(e=>{console.error(e);process.exitCode=1});
+          NODE
+      - name: Upload QA screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tyme-seven-day-v2-review
+          path: v2-qa/
