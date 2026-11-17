@@ -233,6 +233,10 @@
       .book-purchase-actions{flex-direction:column}
       .book-purchase-actions .btn{width:100%}
     }
+
+    /* Screenshot QA correction: prevent orphan last word in the mission headline. */
+    @media(min-width:741px){.hero h1{font-size:clamp(3.2rem,5.8vw,5rem)}}
+    @media(max-width:350px){.hero h1{font-size:2.35rem}}
 </style>
 </head>
 <body>
