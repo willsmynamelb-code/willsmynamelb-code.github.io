@@ -52,7 +52,8 @@ jobs:
                   await page.locator('.reader-entry:not([hidden])').count()===1;
                 visited=visited&&good;
               }
-              const finalDay=await page.locator('#reader-next').isDisabled()&&await page.locator('#reader-finish').isVisible();
+              const finalDay=await page.locator('#reader-next').isDisabled()&&await page.locator('#reader-finish').isVisible()&&await page.locator('[data-reader-select="7"]').getAttribute('aria-pressed')==='true';
+              await page.waitForTimeout(400);
               await page.evaluate(()=>window.scrollTo({top:document.getElementById('development').getBoundingClientRect().top+scrollY-76,behavior:'instant'}));
               await page.screenshot({path:'v2-qa/screenshots/'+v.name+'-reader-day7.png'});
               await page.locator('#reader-prev').click();
