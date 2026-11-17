@@ -512,7 +512,7 @@
   </div>
 </section>
 </main>
-  <footer class="footer"><div class="wrap footer-grid"><div><a class="logo" href="#home">T.Y.M.E.<small>TODAY YOU MEAN EVERYTHING</small></a><p>© <span id="year"></span> William Lee Meyers. All rights reserved.</p><p><em>A Sober Companion</em> is an independent publication and is not affiliated with, reviewed by, or endorsed by any recovery fellowship. T.Y.M.E. does not currently provide treatment, emergency response, or housing services.</p><p>We use Google Analytics to measure website visits and clicks to Amazon listings. <a href="/analytics-off.html">Turn off analytics for this browser</a>.</p></div><div class="footer-nav">
+  <footer class="footer"><div class="wrap footer-grid"><div><a class="logo" href="#home">T.Y.M.E.<small>TODAY YOU MEAN EVERYTHING</small></a><p>© <span id="year"></span> William Lee Meyers. All rights reserved.</p><p><em>A Sober Companion</em> is an independent publication and is not affiliated with, reviewed by, or endorsed by any recovery fellowship. T.Y.M.E. does not currently provide treatment, emergency response, or housing services.</p><p>We use Google Analytics to measure website visits, navigation in the free seven-day reader, and clicks to Amazon listings. We do not collect answers to the reflection questions. <a href="/analytics-off.html">Turn off analytics for this browser</a>.</p></div><div class="footer-nav">
   <nav aria-label="Footer navigation">
     <a href="#development">Reflections</a>
     <a href="#journey">The Book</a>
@@ -532,6 +532,25 @@
     const readerNext=document.getElementById('reader-next');
     const readerTop=document.getElementById('development');
     let selectedReadingDay=1;
+    // Aggregate reader-use signals only. Do not send day numbers, responses,
+    // reflection text, account data, or identifiers in custom event parameters.
+    // Honor the existing per-browser Analytics exclusion before every event.
+    function trackReaderEvent(eventName) {
+      if (window['ga-disable-G-Y46CQ8WRY5'] === true || typeof window.gtag !== 'function') return;
+      window.gtag('event', eventName);
+    }
+    // A section view is counted only when the reader toolbar becomes visible.
+    // This is an exposure signal, not evidence that a reflection was read.
+    const readerToolbar=document.querySelector('.reader-toolbar');
+    if(readerToolbar && 'IntersectionObserver' in window){
+      const readerViewObserver=new IntersectionObserver((entries,observer)=>{
+        if(entries.some(entry=>entry.isIntersecting && entry.intersectionRatio>=0.5)){
+          trackReaderEvent('tyme_reader_view');
+          observer.disconnect();
+        }
+      },{threshold:0.5});
+      readerViewObserver.observe(readerToolbar);
+    }
     function showReadingDay(day, options={}) {
       selectedReadingDay=Math.max(1,Math.min(7,day));
       readingEntries.forEach(entry=>{entry.hidden=Number(entry.dataset.readerDay)!==selectedReadingDay;});
@@ -563,7 +582,14 @@
       });
     });
     readerPrev.addEventListener('click',()=>showReadingDay(selectedReadingDay-1,{reposition:true}));
-    readerNext.addEventListener('click',()=>showReadingDay(selectedReadingDay+1,{reposition:true}));
+    readerNext.addEventListener('click',()=>{
+      showReadingDay(selectedReadingDay+1,{reposition:true});
+      trackReaderEvent('tyme_reader_next');
+    });
+    const readerExploreBook=document.querySelector('#reader-finish a[href="#journey"]');
+    if(readerExploreBook){
+      readerExploreBook.addEventListener('click',()=>trackReaderEvent('tyme_reader_explore_book'));
+    }
 
     const chapters=[["January","The Courage to Begin"],["February","Trusting What We Cannot Control"],["March","The Choice to Let Go"],["April","Looking Without Looking Away"],["May","The Courage to Be Known"],["June","Making Room for Change"],["July","Strength With Open Hands"],["August","The Lives Our Choices Touch"],["September","Repair, One Choice at a Time"],["October","The Practice of Returning"],["November","Listening Beyond the Noise"],["December","A Life Given Back"]];
     const steps=["One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve"];
