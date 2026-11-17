@@ -286,6 +286,62 @@
     }
     @media(prefers-reduced-motion:reduce){.reader-progress-fill{transition:none}}
 
+
+    /* V3 focused chapter-portal refinement: restrained decorative language, stronger hierarchy. */
+    .journey .journey-browser{border-radius:23px;box-shadow:0 21px 49px rgba(26,53,48,.13);border:1px solid rgba(27,78,74,.17)}
+    .journey .month-selector-head{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#173E40;color:#F1D09E;padding:20px 22px 0;font-size:.73rem;font-weight:850;letter-spacing:.15em}
+    .journey .selector-meta{color:#AEC6BC;font-size:.64rem;letter-spacing:.12em;white-space:nowrap}
+    .journey .month-grid{padding:17px 19px 22px;gap:9px;background:#173E40}
+    .journey .month-pick{position:relative;background:#295A58;border:1px solid #4A7872;border-radius:12px;min-height:58px;font-size:.98rem;box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:background-color .18s ease,transform .18s ease,box-shadow .18s ease}
+    .journey .month-pick:hover{background:#356C67;border-color:#7B9F96}
+    .journey .month-pick.active{background:#E9BF77;color:#163D3B;border-color:#F4D697;box-shadow:0 7px 18px rgba(4,25,23,.16),inset 0 1px 0 rgba(255,255,255,.42)}
+    .journey .month-pick.active::after{content:"";position:absolute;bottom:6px;left:calc(50% - 10px);height:2px;width:20px;background:#45655B;border-radius:99px;opacity:.68}
+    .journey .month-pick:focus-visible,.journey .month-nav:focus-visible{outline:3px solid #D17C4C;outline-offset:3px}
+    .journey .month-panel{position:relative;isolation:isolate;min-height:0;overflow:hidden;padding:29px 32px 24px;background:linear-gradient(135deg,#FFFEFA 0%,#FAF8F0 72%,#F3EBDD 100%)}
+    .journey .month-panel::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(#DBAC6D,#98B5A7)}
+    .journey .month-panel-accent{position:absolute;right:-42px;top:64px;width:146px;z-index:-1;opacity:.24;pointer-events:none}
+    .journey .month-panel-accent svg{display:block;max-width:100%}
+    .journey .month-meta{position:relative;z-index:1;align-items:center;font-size:.77rem;color:#51736B;letter-spacing:.09em}
+    .journey .month-meta span:first-child{color:#245C55}
+    .journey .month-feature{min-height:182px;padding-top:33px;position:relative;z-index:1}
+    .journey .chapter-eyebrow{display:flex;align-items:center;gap:9px;color:#8B613A;font-size:.69rem;font-weight:800;letter-spacing:.13em}
+    .journey .chapter-eyebrow-mark{width:21px;height:1px;background:#B68A59}
+    .journey .month-panel h3{font:400 clamp(1.65rem,2.5vw,2.25rem)/1.22 Georgia,serif;letter-spacing:-.018em;color:#184441;max-width:17ch;margin:16px 0 12px}
+    .journey .month-summary{color:#4B6861;max-width:45ch;font-size:.99rem;line-height:1.65;margin:0 0 24px}
+    .journey .month-actions{position:relative;z-index:1;border-top:1px solid #DCD9CC;padding-top:19px;align-items:center}
+    .journey .month-nav{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:10px 16px;min-width:109px;min-height:46px;border-radius:12px;font-size:.9rem;background:#F8FAF6;border:1px solid #C8D6CC;color:#245853;box-shadow:0 2px 4px rgba(20,53,45,.03)}
+    .journey .month-nav-next{background:#215B56;color:#FFF;border-color:#215B56}
+    .journey .month-nav:hover{background:#E6EEE7}
+    .journey .month-nav-next:hover{background:#2E6A63}
+    .journey .month-nav-arrow{font-size:1.17rem;line-height:1}
+    .journey .month-index{font-size:.79rem;font-weight:800;letter-spacing:.1em;color:#496F66;white-space:nowrap}
+    .journey .month-index span{padding:0 6px;color:#A1AEA3;font-weight:400}
+    .journey .book-purchase-row{background:rgba(255,255,255,.46);border:1px solid #DACFC0;border-radius:18px;margin-top:25px;padding:22px 25px}
+    @media(max-width:740px){
+      .journey .month-selector-head{padding:17px 17px 0}
+      .journey .month-grid{gap:7px;padding:14px 16px 19px}
+      .journey .month-pick{min-height:55px;font-size:.91rem;border-radius:11px}
+      .journey .month-panel{padding:23px 23px 21px}
+      .journey .month-feature{padding-top:31px;min-height:176px}
+      .journey .month-panel h3{font-size:clamp(1.75rem,6vw,2.2rem);max-width:18ch}
+      .journey .month-panel-accent{width:108px;right:-29px;top:57px;opacity:.17}
+      .journey .month-summary{font-size:.97rem;max-width:32ch}
+      .journey .month-nav{min-width:103px}
+      .journey .book-purchase-row{padding:19px}
+    }
+    @media(max-width:370px){
+      .journey .selector-meta{font-size:.52rem;letter-spacing:.04em}
+      .journey .month-selector-head{font-size:.62rem;letter-spacing:.06em}
+      .journey .month-grid{gap:6px;padding:13px}
+      .journey .month-pick{min-height:52px;font-size:.86rem}
+      .journey .month-panel{padding:21px 18px 19px}
+      .journey .month-meta{font-size:.69rem}
+      .journey .month-nav{min-width:93px;padding:9px 11px}
+      .journey .month-index{font-size:.72rem}
+      .journey .month-panel-accent{display:none}
+    }
+    @media(prefers-reduced-motion:reduce){.journey .month-pick{transition:none}}
+
 </style>
 </head>
 <body>
@@ -440,7 +496,26 @@
     </div>
   </div>
 </section>
-<section class="section-pad journey" id="journey"><div class="wrap journey-layout"><div class="section-head"><div class="eyebrow" style="color:#80512f">Inside the book</div><h2>Twelve months.<br>One day at a time.</h2><p>Each month draws from a Step of recovery. Tap to explore the book's chapter themes.</p></div><div class="journey-browser"><div class="month-grid" id="monthGrid" role="group" aria-label="Choose a month"><button class="month-pick active" type="button" data-month="0" aria-pressed="true" aria-controls="monthPanel" aria-label="January, Step 1: The Courage to Begin">Jan</button><button class="month-pick" type="button" data-month="1" aria-pressed="false" aria-controls="monthPanel" aria-label="February, Step 2: Trusting What We Cannot Control">Feb</button><button class="month-pick" type="button" data-month="2" aria-pressed="false" aria-controls="monthPanel" aria-label="March, Step 3: The Choice to Let Go">Mar</button><button class="month-pick" type="button" data-month="3" aria-pressed="false" aria-controls="monthPanel" aria-label="April, Step 4: Looking Without Looking Away">Apr</button><button class="month-pick" type="button" data-month="4" aria-pressed="false" aria-controls="monthPanel" aria-label="May, Step 5: The Courage to Be Known">May</button><button class="month-pick" type="button" data-month="5" aria-pressed="false" aria-controls="monthPanel" aria-label="June, Step 6: Making Room for Change">Jun</button><button class="month-pick" type="button" data-month="6" aria-pressed="false" aria-controls="monthPanel" aria-label="July, Step 7: Strength With Open Hands">Jul</button><button class="month-pick" type="button" data-month="7" aria-pressed="false" aria-controls="monthPanel" aria-label="August, Step 8: The Lives Our Choices Touch">Aug</button><button class="month-pick" type="button" data-month="8" aria-pressed="false" aria-controls="monthPanel" aria-label="September, Step 9: Repair, One Choice at a Time">Sep</button><button class="month-pick" type="button" data-month="9" aria-pressed="false" aria-controls="monthPanel" aria-label="October, Step 10: The Practice of Returning">Oct</button><button class="month-pick" type="button" data-month="10" aria-pressed="false" aria-controls="monthPanel" aria-label="November, Step 11: Listening Beyond the Noise">Nov</button><button class="month-pick" type="button" data-month="11" aria-pressed="false" aria-controls="monthPanel" aria-label="December, Step 12: A Life Given Back">Dec</button></div><div class="month-panel" id="monthPanel" role="region" aria-live="polite" aria-label="Selected month"><div class="month-meta"><span id="monthHeading">January</span><span id="monthStep">Step One of Twelve</span></div><h3 id="monthDescription">The Courage to Begin</h3><div class="month-actions"><button class="month-nav" type="button" id="monthPrev" aria-label="Previous month">‹ <span>Previous</span></button><button class="month-nav" type="button" id="monthNext" aria-label="Next month"><span>Next</span> ›</button></div></div></div></div><div class="wrap book-purchase-row" aria-label="Book formats">
+<section class="section-pad journey" id="journey"><div class="wrap journey-layout"><div class="section-head"><div class="eyebrow" style="color:#80512f">Inside the book</div><h2>Twelve months.<br>One day at a time.</h2><p>Each month draws from a Step of recovery. Tap to explore the book's chapter themes.</p></div><div class="journey-browser"><div class="month-selector-head"><span>CHAPTER THEMES</span><span class="selector-meta">12 MONTHS · 12 STEPS</span></div><div class="month-grid" id="monthGrid" role="group" aria-label="Choose a month"><button class="month-pick active" type="button" data-month="0" aria-pressed="true" aria-controls="monthPanel" aria-label="January, Step 1: The Courage to Begin">Jan</button><button class="month-pick" type="button" data-month="1" aria-pressed="false" aria-controls="monthPanel" aria-label="February, Step 2: Trusting What We Cannot Control">Feb</button><button class="month-pick" type="button" data-month="2" aria-pressed="false" aria-controls="monthPanel" aria-label="March, Step 3: The Choice to Let Go">Mar</button><button class="month-pick" type="button" data-month="3" aria-pressed="false" aria-controls="monthPanel" aria-label="April, Step 4: Looking Without Looking Away">Apr</button><button class="month-pick" type="button" data-month="4" aria-pressed="false" aria-controls="monthPanel" aria-label="May, Step 5: The Courage to Be Known">May</button><button class="month-pick" type="button" data-month="5" aria-pressed="false" aria-controls="monthPanel" aria-label="June, Step 6: Making Room for Change">Jun</button><button class="month-pick" type="button" data-month="6" aria-pressed="false" aria-controls="monthPanel" aria-label="July, Step 7: Strength With Open Hands">Jul</button><button class="month-pick" type="button" data-month="7" aria-pressed="false" aria-controls="monthPanel" aria-label="August, Step 8: The Lives Our Choices Touch">Aug</button><button class="month-pick" type="button" data-month="8" aria-pressed="false" aria-controls="monthPanel" aria-label="September, Step 9: Repair, One Choice at a Time">Sep</button><button class="month-pick" type="button" data-month="9" aria-pressed="false" aria-controls="monthPanel" aria-label="October, Step 10: The Practice of Returning">Oct</button><button class="month-pick" type="button" data-month="10" aria-pressed="false" aria-controls="monthPanel" aria-label="November, Step 11: Listening Beyond the Noise">Nov</button><button class="month-pick" type="button" data-month="11" aria-pressed="false" aria-controls="monthPanel" aria-label="December, Step 12: A Life Given Back">Dec</button></div><div class="month-panel" id="monthPanel" role="region" aria-live="polite" aria-label="Selected month">
+    <div class="month-panel-accent" aria-hidden="true"><svg viewBox="0 0 190 152" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+      <circle cx="106" cy="62" r="35" fill="#E4BF84" opacity=".22"/>
+      <path d="M44 72a62 62 0 0 1 124 0M24 72a82 82 0 0 1 164 0" stroke="#C89658" stroke-width="1.5" opacity=".42"/>
+      <path d="M3 102c25-25 48-7 72-19s38-19 58-3 38-4 57-10" stroke="#7FA69A" stroke-width="3" stroke-linecap="round"/>
+      <path d="M3 121c36-12 61-8 88-21s65 2 99-16" stroke="#A6C0AA" stroke-width="2" stroke-linecap="round"/>
+      <path d="M99 150c-24-16 10-24 21-37s-3-18-15-26" stroke="#C79556" stroke-width="5" stroke-linecap="round" opacity=".65"/>
+    </svg></div>
+    <div class="month-meta"><span id="monthHeading">January</span><span id="monthStep">Step One of Twelve</span></div>
+    <div class="month-feature">
+      <div class="chapter-eyebrow"><span class="chapter-eyebrow-mark" aria-hidden="true"></span> A CHAPTER IN THE JOURNEY</div>
+      <h3 id="monthDescription">The Courage to Begin</h3>
+      <p id="monthSummary" class="month-summary">Begin with honesty about where you are, and the possibility of a different next step.</p>
+    </div>
+    <div class="month-actions">
+      <button class="month-nav" type="button" id="monthPrev" aria-label="Previous month"><span class="month-nav-arrow" aria-hidden="true">←</span><span>Previous</span></button>
+      <span id="monthIndex" class="month-index" aria-label="Month 1 of 12">01 <span aria-hidden="true">/</span> 12</span>
+      <button class="month-nav month-nav-next" type="button" id="monthNext" aria-label="Next month"><span>Next</span><span class="month-nav-arrow" aria-hidden="true">→</span></button>
+    </div>
+  </div></div></div><div class="wrap book-purchase-row" aria-label="Book formats">
       <div class="book-purchase-copy"><strong>Want to keep reading?</strong><span>Explore the complete book in the format that works for you.</span></div>
       <div class="book-purchase-actions">
         <a class="btn btn-dark" href="https://www.amazon.com/dp/B0HQY8BFKL" target="_blank" rel="noopener noreferrer">Paperback on Amazon ↗</a>
@@ -592,6 +667,7 @@
     }
 
     const chapters=[["January","The Courage to Begin"],["February","Trusting What We Cannot Control"],["March","The Choice to Let Go"],["April","Looking Without Looking Away"],["May","The Courage to Be Known"],["June","Making Room for Change"],["July","Strength With Open Hands"],["August","The Lives Our Choices Touch"],["September","Repair, One Choice at a Time"],["October","The Practice of Returning"],["November","Listening Beyond the Noise"],["December","A Life Given Back"]];
+    const chapterSummaries=["Begin with honesty about where you are, and the possibility of a different next step.","Consider what it means to seek support without needing to control every outcome.","Explore how letting go can become an act of courage rather than defeat.","Make room for a clearer look at yourself, with compassion alongside responsibility.","Reflect on the freedom that can come from being known and telling the truth.","Notice what you are ready to change, and what patience might make possible.","Approach growth with humility, asking for help when strength alone is not enough.","Consider how your choices affect others, and how connection can guide repair.","Take responsibility where you can, one meaningful choice at a time.","Practice returning to awareness when life becomes difficult or distracting.","Listen for the quieter wisdom beyond fear, urgency, and familiar noise.","Reflect on what it means to carry recovery into service, connection, and daily life."];
     const steps=["One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve"];
     const monthButtons=Array.from(document.querySelectorAll('.month-pick'));
     let currentMonth=0;
@@ -601,6 +677,11 @@
       document.getElementById('monthHeading').textContent=chapters[currentMonth][0];
       document.getElementById('monthStep').textContent='Step '+steps[currentMonth]+' of Twelve';
       document.getElementById('monthDescription').textContent=chapters[currentMonth][1];
+      document.getElementById('monthSummary').textContent=chapterSummaries[currentMonth];
+      const monthIndex=document.getElementById('monthIndex');
+      const currentNumber=String(currentMonth+1).padStart(2,'0');
+      monthIndex.innerHTML=currentNumber+' <span aria-hidden="true">/</span> 12';
+      monthIndex.setAttribute('aria-label','Month '+(currentMonth+1)+' of 12');
       if(focusButton) monthButtons[currentMonth].focus();
     }
     monthButtons.forEach((button,i)=>{button.addEventListener('click',()=>showMonth(i));button.addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowDown'){event.preventDefault();showMonth(i+1,true);}else if(event.key==='ArrowLeft'||event.key==='ArrowUp'){event.preventDefault();showMonth(i-1,true);}else if(event.key==='Home'){event.preventDefault();showMonth(0,true);}else if(event.key==='End'){event.preventDefault();showMonth(11,true);}});});
