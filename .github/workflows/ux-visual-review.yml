@@ -1,0 +1,87 @@
+name: T.Y.M.E. UX visual review
+on:
+  push:
+    branches:
+      - ux-redesign-review-2026-11-16
+permissions:
+  contents: read
+jobs:
+  screenshot-and-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser controller
+        run: npm install --no-save --no-package-lock playwright-core
+      - name: Capture and test responsive website
+        run: |
+          mkdir -p ux-qa/screenshots
+          node <<'NODE'
+          const fs=require('fs');
+          const path=require('path');
+          const {chromium}=require('playwright-core');
+          const chrome=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium'].find(p=>fs.existsSync(p));
+          if(!chrome)throw Error('Chrome not found on runner');
+          const cases=[
+            {name:'desktop-1440',width:1440,height:900},
+            {name:'laptop-1024',width:1024,height:768},
+            {name:'phone-390',width:390,height:844},
+            {name:'phone-320',width:320,height:640},
+          ];
+          (async()=>{
+            const browser=await chromium.launch({headless:true,executablePath:chrome,args:['--no-sandbox']});
+            const results=[];
+            let failures=0;
+            for(const v of cases){
+              const page=await browser.newPage({viewport:{width:v.width,height:v.height},deviceScaleFactor:1});
+              const errors=[];
+              page.on('pageerror',e=>errors.push(e.message));
+              await page.route(/^https?:/,route=>route.abort());
+              await page.goto('file://'+path.join(process.cwd(),'index.html'),{waitUntil:'load',timeout:30000});
+              await page.screenshot({path:'ux-qa/screenshots/'+v.name+'-first-screen.png'});
+              await page.screenshot({path:'ux-qa/screenshots/'+v.name+'-full.png',fullPage:true});
+              const info=await page.evaluate(()=>{
+                const ids=Array.from(document.querySelectorAll('[id]')).map(x=>x.id);
+                const missing=Array.from(document.querySelectorAll('a[href^="#"]')).map(x=>x.getAttribute('href').slice(1)).filter(x=>x&&!ids.includes(x));
+                const hero=document.querySelector('.hero');
+                const first=document.querySelector('#development');
+                const fb=document.querySelector('.connect-band');
+                const book=document.querySelector('#journey');
+                const positions=[first,fb,book].map(el=>Math.round(el.getBoundingClientRect().top+scrollY));
+                const buttons=Array.from(document.querySelectorAll('.action-row .btn')).map(el=>({text:el.innerText,width:Math.round(el.getBoundingClientRect().width),height:Math.round(el.getBoundingClientRect().height)}));
+                const cover=document.querySelector('.hero-cover');
+                return {scrollWidth:document.documentElement.scrollWidth,viewportWidth:innerWidth,overflow:document.documentElement.scrollWidth>innerWidth,missingTargets:missing,sectionPositions:positions,heroHeight:Math.round(hero.getBoundingClientRect().height),coverLoaded:cover.complete&&cover.naturalWidth>0,buttons};
+              });
+              if(v.width<=740){
+                await page.locator('#menuButton').click();
+                info.mobileMenuOpened=await page.locator('#menuButton').getAttribute('aria-expanded')==='true';
+                await page.locator('#navLinks a[href="#development"]').click();
+                info.mobileMenuClosed=await page.locator('#menuButton').getAttribute('aria-expanded')==='false';
+              }
+              await page.locator('.month-pick[data-month="1"]').click();
+              info.monthSelectorWorks=(await page.locator('#monthHeading').innerText())==='February';
+              info.viewport=v.name;
+              info.errors=errors;
+              info.pass=!info.overflow&&info.coverLoaded&&info.missingTargets.length===0&&info.errors.length===0&&info.monthSelectorWorks&&
+                (v.width>740||(info.mobileMenuOpened&&info.mobileMenuClosed));
+              if(!info.pass)failures++;
+              results.push(info);
+              await page.close();
+            }
+            await browser.close();
+            fs.writeFileSync('ux-qa/results.json',JSON.stringify(results,null,2));
+            const summary=['# T.Y.M.E. Responsive UX Browser Review','',...results.map(r=>'## '+r.viewport+' '+(r.pass?'PASS':'FAIL')+'\n- Horizontal overflow: '+r.overflow+'\n- Cover loaded: '+r.coverLoaded+'\n- Hero height: '+r.heroHeight+'px\n- Primary buttons: '+JSON.stringify(r.buttons)+'\n- Month selector: '+r.monthSelectorWorks+'\n- Navigation: '+JSON.stringify([r.mobileMenuOpened,r.mobileMenuClosed])+'\n- JS errors: '+JSON.stringify(r.errors)+'\n')];
+            fs.writeFileSync('ux-qa/summary.md',summary.join('\n'));
+            console.log('TYME_QA_RESULTS '+JSON.stringify(results));
+            if(failures)process.exitCode=1;
+          })().catch(e=>{console.error(e);process.exitCode=1});
+          NODE
+      - name: Save screenshots and test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tyme-ux-review-screenshots
+          path: ux-qa/
