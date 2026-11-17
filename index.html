@@ -379,6 +379,107 @@
     .book-stage { margin-top: 16px; padding-bottom: 12px; }
     .hero-cover { width: min(54vw, 206px); }
   }
+
+    /* Phase 2 design proposal: The Illuminated Page. Scoped to the free reader. */
+    .reflection .reader-intro{margin-bottom:34px}
+    .reflection .reader-intro h2{letter-spacing:-.035em}
+    .reflection .reader-shell{filter:none}
+    .reflection .reader-toolbar{
+      background:linear-gradient(180deg,#f7f0e6 0%,#f2e9dc 100%);
+      border-color:#dcd0bc;
+      padding:22px 26px 0;
+      border-radius:16px 16px 0 0;
+    }
+    .reflection .reader-toolbar-title{color:#254f4a;letter-spacing:.15em;font-size:.76rem}
+    .reflection #reader-count{color:#315b56;font-size:.78rem;letter-spacing:.07em}
+    .reflection .reader-day-selector{gap:9px;margin:19px 0 18px}
+    .reflection .reader-day-btn{
+      background:#fffcf6;border-color:#b7c9bd;color:#285951;
+      min-height:48px;font-size:.82rem;line-height:1.2;padding:10px 5px;
+    }
+    .reflection .reader-day-btn:hover{background:#e9f0e9}
+    .reflection .reader-day-btn.active{
+      background:#205b56;border-color:#205b56;color:#fff;
+      box-shadow:0 2px 6px rgba(16,57,55,.13);
+    }
+    .reflection .reader-progress{height:5px;background:#ddd8ca}
+    .reflection .reader-progress-fill{background:#af744e}
+    .reflection #reader-article{scroll-margin-top:95px}
+    .reflection .reader-shell .sample-card{
+      background:linear-gradient(148deg,#fffdf8 0%,#fffaf2 100%);
+      border-color:#d9c9b3;
+      box-shadow:0 16px 42px rgba(35,55,46,.075);
+      padding:57px clamp(35px,7vw,77px) 62px;
+    }
+    .reflection .reader-shell .sample-card::before{
+      content:"";position:absolute;top:0;left:0;right:0;height:2px;
+      background:linear-gradient(90deg,#b88b58 0 88px,#e9dfcf 88px 100%);
+    }
+    .reflection .reader-shell .sample-card::after{
+      left:25px;border-color:rgba(174,139,92,.32);
+    }
+    .reflection .reader-entry .sample-date{
+      color:#79543c;font-size:.78rem;letter-spacing:.16em;font-weight:800;
+    }
+    .reflection .reader-shell .sample-card h3{
+      font:400 clamp(2.05rem,4.25vw,2.9rem)/1.14 Georgia,'Times New Roman',serif;
+      letter-spacing:-.032em;color:#173b3a;
+      margin:17px 0 20px;max-width:23ch;text-wrap:balance;
+    }
+    .reflection .reader-shell .sample-card h3:focus-visible{
+      outline:3px solid #b56f47;outline-offset:6px;border-radius:2px;
+    }
+    .reflection .reader-shell .epigraph{
+      font:italic clamp(1.16rem,2.1vw,1.33rem)/1.55 Georgia,'Times New Roman',serif;
+      color:#76543c;border-left:2px solid #c79c64;padding-left:18px;
+      max-width:52ch;margin-bottom:28px;
+    }
+    .reflection .reader-shell .sample-card .body p{
+      color:#304843;font-size:1.055rem;line-height:1.9;
+      max-width:59ch;margin-bottom:1.24em;
+    }
+    .reflection .reader-shell .reader-entry > p:not(.epigraph){
+      color:#334d47;font-size:1.015rem;line-height:1.78;max-width:59ch;
+    }
+    .reflection .reader-shell .prompt-label{
+      color:#245b54;letter-spacing:.15em;font-size:.76rem;
+      font-weight:850;margin:29px 0 9px;
+    }
+    .reflection .reader-shell .prompt-label::before{
+      content:"";display:inline-block;vertical-align:middle;
+      width:18px;height:1px;background:#bc9461;margin-right:10px;
+    }
+    .reflection .reader-controls{
+      border-top:1px solid #e2d8c9;padding-top:20px;margin-top:22px;
+    }
+    .reflection .reader-page{color:#315c55;letter-spacing:.045em}
+    @media(max-width:740px){
+      .reflection .reader-toolbar{padding:19px 16px 0}
+      .reflection .reader-shell .sample-card{padding:39px 28px 41px 39px}
+      .reflection .reader-shell .sample-card::after{left:19px}
+      .reflection .reader-shell .sample-card h3{font-size:clamp(1.92rem,6.3vw,2.45rem)}
+      .reflection .reader-shell .sample-card .body p{font-size:1rem;line-height:1.84}
+    }
+    @media(max-width:560px){
+      .reflection .reader-toolbar{padding:18px 14px 0}
+      .reflection .reader-day-selector{
+        display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
+        margin:17px 0 18px;
+      }
+      .reflection .reader-day-btn{
+        flex:0 0 calc((100% - 24px)/4);
+        min-width:0;min-height:48px;font-size:.82rem;padding:9px 2px;
+        white-space:nowrap;
+      }
+      .reflection .reader-toolbar-title{font-size:.73rem}
+      .reflection #reader-count{font-size:.73rem}
+      .reflection .reader-shell .sample-card{padding:35px 23px 38px 35px}
+      .reflection .reader-shell .sample-card::after{left:16px}
+      .reflection .reader-shell .epigraph{padding-left:13px;margin-bottom:23px}
+      .reflection .reader-shell .sample-card h3{font-size:clamp(1.9rem,7.4vw,2.2rem)}
+      .reflection .reader-shell .sample-card .body p{line-height:1.82}
+      .reflection .reader-shell .prompt-label{margin-top:25px}
+    }
   </style>
 </head>
 <body>
@@ -509,7 +610,7 @@
         <button type="button" class="reader-arrow reader-arrow-next" id="reader-next" aria-label="Next day's reflection">Next day <span aria-hidden="true">→</span></button>
       </div>
       <div class="reader-finish" id="reader-finish" hidden>
-        <span class="eyebrow">Your first week is complete</span>
+        <span class="eyebrow">You've reached day seven</span>
         <h3>Keep the next right day close.</h3>
         <p>Continue through the book or stay connected to T.Y.M.E. for more encouragement and reflection.</p>
         <div class="reader-finish-actions">
@@ -642,7 +743,13 @@
     const readingEntries=Array.from(document.querySelectorAll('[data-reader-day]'));
     const readerPrev=document.getElementById('reader-prev');
     const readerNext=document.getElementById('reader-next');
-    const readerTop=document.getElementById('development');
+    const readerArticle=document.getElementById('reader-article');
+    // Programmatic focus announces the newly displayed reflection to keyboard
+    // and screen-reader users; headings do not enter the normal Tab order.
+    readingEntries.forEach(entry=>{
+      const heading=entry.querySelector('h3');
+      if(heading) heading.tabIndex=-1;
+    });
     let selectedReadingDay=1;
     // Aggregate reader-use signals only. Do not send day numbers, responses,
     // reflection text, account data, or identifiers in custom event parameters.
@@ -678,8 +785,12 @@
       document.getElementById('reader-progress-fill').style.width=(selectedReadingDay/7*100)+'%';
       document.getElementById('reader-finish').hidden=selectedReadingDay!==7;
       if(options.focusButton){readingButtons[selectedReadingDay-1].focus();}
+      if(options.focusHeading){
+        const heading=readingEntries[selectedReadingDay-1].querySelector('h3');
+        if(heading) heading.focus({preventScroll:true});
+      }
       if(options.reposition){
-        readerTop.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+        readerArticle.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
       }
     }
     readingButtons.forEach(button=>{
@@ -693,9 +804,9 @@
         }
       });
     });
-    readerPrev.addEventListener('click',()=>showReadingDay(selectedReadingDay-1,{reposition:true}));
+    readerPrev.addEventListener('click',()=>showReadingDay(selectedReadingDay-1,{reposition:true,focusHeading:true}));
     readerNext.addEventListener('click',()=>{
-      showReadingDay(selectedReadingDay+1,{reposition:true});
+      showReadingDay(selectedReadingDay+1,{reposition:true,focusHeading:true});
       trackReaderEvent('tyme_reader_next');
     });
     const readerExploreBook=document.querySelector('#reader-finish a[href="#journey"]');
