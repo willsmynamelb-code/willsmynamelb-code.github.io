@@ -342,7 +342,44 @@
     }
     @media(prefers-reduced-motion:reduce){.journey .month-pick{transition:none}}
 
-</style>
+
+  /* ILLUMINATED PATH: artwork preview on development branch only.
+     This changes background presentation, not content, tracking, links, or behavior. */
+  .hero {
+    background-color: #092e33;
+    background-image:
+      linear-gradient(90deg,
+        rgba(5,35,40,.96) 0%,
+        rgba(7,40,43,.91) 29%,
+        rgba(9,44,44,.76) 47%,
+        rgba(9,44,44,.38) 69%,
+        rgba(9,44,44,.12) 100%),
+      url("illuminated-path-hero.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+  .hero::after { display: none; }
+  @media (max-width: 740px) {
+    .hero {
+      background-image:
+        linear-gradient(180deg,
+          rgba(5,35,40,.98) 0%,
+          rgba(7,38,42,.97) 30%,
+          rgba(8,40,43,.88) 54%,
+          rgba(8,40,43,.68) 77%,
+          rgba(8,40,43,.56) 100%),
+        url("illuminated-path-hero.svg");
+      background-position: 72% 48%;
+    }
+    /* Mobile refinement: bring the free reader closer without changing copy. */
+    .hero-inner { padding-top: 31px; padding-bottom: 15px; row-gap: 0; }
+    .hero .lead { margin: 16px 0; }
+    .hero-secondary-links { margin-top: 15px; }
+    .book-stage { margin-top: 16px; padding-bottom: 12px; }
+    .hero-cover { width: min(54vw, 206px); }
+  }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
