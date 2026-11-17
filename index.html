@@ -172,20 +172,143 @@
     .facebook-follow-btn:hover{background:#d9e8df}
     .facebook-follow-btn svg{flex-shrink:0}
     @media(max-width:740px){.facebook-follow-btn{width:100%}}
-  </style>
+  
+    /* Experience redesign proposal: clearer first actions, community discovery, mobile reading. */
+    .links a:hover,.links a:focus-visible{color:#854320}
+    .hero .eyebrow{letter-spacing:.13em;font-size:.73rem}
+    .hero-secondary-links{display:flex;align-items:center;flex-wrap:wrap;column-gap:20px;row-gap:8px;margin-top:22px;font-size:.91rem}
+    .hero-secondary-links a{color:#e6eee5;text-underline-offset:5px;line-height:1.65}
+    .hero-secondary-links a:hover{color:#f5cd96}
+    .connect-band{background:#e7eee6}
+    .connect-inner{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.7fr);gap:clamp(24px,5vw,64px);align-items:center}
+    .connect-band .eyebrow,.contact-section .eyebrow{color:#80512f}
+    .connect-band h2{max-width:21ch;font-size:clamp(2rem,3.7vw,3.4rem)}
+    .connect-band p{max-width:61ch;color:#45635e;font-size:1.05rem}
+    .connect-actions{display:flex;flex-direction:column;align-items:flex-start;gap:15px}
+    .connect-actions .btn{text-align:center;min-height:52px}
+    .quiet-link{font-weight:700;color:#215e59;text-underline-offset:5px}
+    .mission-about{grid-template-columns:1fr;max-width:850px;margin:0 auto}
+    .contact-section{background:#f1eadd}
+    .contact-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.85fr);gap:clamp(25px,5vw,70px);align-items:start}
+    .contact-copy p{font-size:1.05rem;color:#486560}
+    .contact-copy .contact-note{font-size:.9rem}
+    .contact-section .founder-card{scroll-margin-top:94px}
+    .footer-nav{display:flex;flex-direction:column;align-items:flex-end;gap:19px}
+    .footer-nav nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px 18px;max-width:360px}
+    .footer-nav a{font-size:.88rem;text-underline-offset:4px}
+    @media(max-width:950px){
+      .connect-inner,.contact-layout{grid-template-columns:1fr}
+      .connect-actions{align-items:flex-start}
+      .footer-nav{align-items:flex-start}
+      .footer-nav nav{justify-content:flex-start}
+    }
+    @media(max-width:740px){
+      .hero-inner{padding-top:39px;padding-bottom:28px}
+      .hero h1{font-size:clamp(2.8rem,10vw,4.2rem);letter-spacing:-.045em}
+      .hero .lead{font-size:1.04rem;line-height:1.68}
+      .hero .eyebrow{font-size:.65rem;letter-spacing:.1em}
+      .hero-secondary-links{margin-top:18px;gap:9px 18px}
+      .book-stage{min-height:unset;margin-top:34px;padding-bottom:20px}
+      .hero-cover{width:min(63vw,248px)}
+      .connect-inner,.contact-layout{gap:25px}
+      .connect-actions .btn{width:100%}
+      .footer-nav nav{gap:13px 19px}
+    }
+    @media(max-width:420px){
+      .hero h1{font-size:clamp(2.65rem,9.6vw,3.1rem)}
+      .hero-secondary-links{font-size:.85rem}
+      .connect-band h2{font-size:2rem}
+    }
+
+    /* Book-format options live alongside book content, not only in the hero. */
+    .book-purchase-row{margin-top:28px;padding-top:24px;border-top:1px solid #d6cbbd;display:flex;align-items:center;justify-content:space-between;gap:22px}
+    .book-purchase-copy{display:flex;flex-direction:column;gap:3px}
+    .book-purchase-copy strong{font:400 1.5rem Georgia,serif}
+    .book-purchase-copy span{color:#536e6a;font-size:.92rem}
+    .book-purchase-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .book-kindle-btn{background:#fff;color:#173a3d;border-color:#a4bbb1}
+    .book-kindle-btn:hover{background:#edf4ed}
+    @media(max-width:740px){
+      .book-purchase-row{flex-direction:column;align-items:stretch}
+      .book-purchase-actions{flex-direction:column}
+      .book-purchase-actions .btn{width:100%}
+    }
+
+    /* Screenshot QA correction: prevent orphan last word in the mission headline. */
+    @media(min-width:741px){.hero h1{font-size:clamp(3.2rem,5.8vw,5rem)}}
+    @media(max-width:350px){.hero h1{font-size:2.35rem}}
+</style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
-  <header class="nav-wrap"><nav class="nav wrap" aria-label="Main navigation"><a class="logo" href="#home">T.Y.M.E.<small>TODAY YOU MEAN EVERYTHING</small></a><button id="menuButton" class="menu-btn" aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation">☰</button><div class="links" id="navLinks"><a href="#journey">The Book</a><a href="#development">Read a Sample</a><a href="#mission">Our Story</a><a href="#vision">The Vision</a><a href="#resources">Resources</a><a href="#contact">Contact</a></div><a class="btn btn-dark nav-cta" href="#journey">Discover the Book ↗</a></nav></header>
+  <header class="nav-wrap">
+  <nav class="nav wrap" aria-label="Main navigation">
+    <a class="logo" href="#home">T.Y.M.E.<small>TODAY YOU MEAN EVERYTHING</small></a>
+    <button id="menuButton" class="menu-btn" aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation">☰</button>
+    <div class="links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#development">Reflections</a>
+      <a href="#connect">Connect</a>
+      <a href="#journey">The Book</a>
+      <a href="#mission">Our Story</a>
+      <a href="#resources">Resources</a>
+    </div>
+    <a class="btn btn-dark nav-cta" href="#development">Read a Reflection ↓</a>
+  </nav>
+</header>
   <main id="main-content" tabindex="-1">
-    <section class="hero" id="home"><div class="wrap hero-inner"><div><div class="eyebrow">Now available</div><h1>You can begin<br><em>right where you are.</em></h1><p class="lead"><strong>T.Y.M.E. — Today You Mean Everything: A Sober Companion</strong> by William Meyers offers 365 daily reflections for recovery and everyday life. Honest reflection. Practical action. One day at a time.</p><div class="action-row"><a class="btn btn-primary" href="https://www.amazon.com/dp/B0HQY8BFKL" target="_blank" rel="noopener noreferrer">Buy Paperback · $17.99 ↗</a><a class="btn btn-outline" href="https://www.amazon.com/dp/B0HQV7DYGN" target="_blank" rel="noopener noreferrer">Get Kindle · $6.99 ↗</a></div><a class="hero-sample-link" href="#development">Read a free sample <span aria-hidden="true">↓</span></a></div><div class="book-stage"><img class="hero-cover" src="tyme-sober-companion-cover.webp" width="720" height="1152" alt="A Sober Companion by William Meyers, sunrise over mountains, a lake, and winding path" fetchpriority="high" decoding="async"></div></div><div id="book" class="wrap quick-facts" aria-label="Book highlights"><div><strong>365</strong><span>Daily reflections</span></div><div><strong>12</strong><span>Monthly themes</span></div><div><strong>Paperback + Kindle</strong><span>Available on Amazon</span></div></div></section>
+    <section class="hero" id="home">
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <div class="eyebrow">Daily reflections · Recovery · Personal growth</div>
+      <h1>You can begin<br><em>right where you are.</em></h1>
+      <p class="lead"><strong>T.Y.M.E. — Today You Mean Everything: A Sober Companion</strong> by William Meyers offers 365 daily reflections for recovery and everyday life. Honest reflection. Practical action. One day at a time.</p>
+      <div class="action-row">
+        <a class="btn btn-primary" href="#development">Read a Free Reflection ↓</a>
+        <a class="btn btn-outline" href="#journey">Explore the Book ↓</a>
+      </div>
+      <div class="hero-secondary-links" aria-label="More ways to connect with T.Y.M.E.">
+        <a href="https://www.facebook.com/tyme.today.you.mean.everything" target="_blank" rel="noopener noreferrer">Follow on Facebook ↗</a>
+        <a href="https://www.amazon.com/dp/B0HQY8BFKL" target="_blank" rel="noopener noreferrer">Paperback ↗</a>
+        <a href="https://www.amazon.com/dp/B0HQV7DYGN" target="_blank" rel="noopener noreferrer">Kindle ↗</a>
+      </div>
+    </div>
+    <div class="book-stage">
+      <img class="hero-cover" src="tyme-sober-companion-cover.webp" width="720" height="1152" alt="A Sober Companion by William Meyers, sunrise over mountains, a lake, and winding path" fetchpriority="high" decoding="async">
+    </div>
+  </div>
+  <div id="book" class="wrap quick-facts" aria-label="Book highlights">
+    <div><strong>365</strong><span>Daily reflections</span></div>
+    <div><strong>12</strong><span>Monthly themes</span></div>
+    <div><strong>Paperback + Kindle</strong><span>Available on Amazon</span></div>
+  </div>
+</section>
     
     
-    <section class="section-pad journey" id="journey"><div class="wrap journey-layout"><div class="section-head"><div class="eyebrow" style="color:#80512f">Inside the book</div><h2>Twelve months.<br>One day at a time.</h2><p>Each month draws from a Step of recovery. Tap to explore the book's chapter themes.</p></div><div class="journey-browser"><div class="month-grid" id="monthGrid" role="group" aria-label="Choose a month"><button class="month-pick active" type="button" data-month="0" aria-pressed="true" aria-controls="monthPanel" aria-label="January, Step 1: The Courage to Begin">Jan</button><button class="month-pick" type="button" data-month="1" aria-pressed="false" aria-controls="monthPanel" aria-label="February, Step 2: Trusting What We Cannot Control">Feb</button><button class="month-pick" type="button" data-month="2" aria-pressed="false" aria-controls="monthPanel" aria-label="March, Step 3: The Choice to Let Go">Mar</button><button class="month-pick" type="button" data-month="3" aria-pressed="false" aria-controls="monthPanel" aria-label="April, Step 4: Looking Without Looking Away">Apr</button><button class="month-pick" type="button" data-month="4" aria-pressed="false" aria-controls="monthPanel" aria-label="May, Step 5: The Courage to Be Known">May</button><button class="month-pick" type="button" data-month="5" aria-pressed="false" aria-controls="monthPanel" aria-label="June, Step 6: Making Room for Change">Jun</button><button class="month-pick" type="button" data-month="6" aria-pressed="false" aria-controls="monthPanel" aria-label="July, Step 7: Strength With Open Hands">Jul</button><button class="month-pick" type="button" data-month="7" aria-pressed="false" aria-controls="monthPanel" aria-label="August, Step 8: The Lives Our Choices Touch">Aug</button><button class="month-pick" type="button" data-month="8" aria-pressed="false" aria-controls="monthPanel" aria-label="September, Step 9: Repair, One Choice at a Time">Sep</button><button class="month-pick" type="button" data-month="9" aria-pressed="false" aria-controls="monthPanel" aria-label="October, Step 10: The Practice of Returning">Oct</button><button class="month-pick" type="button" data-month="10" aria-pressed="false" aria-controls="monthPanel" aria-label="November, Step 11: Listening Beyond the Noise">Nov</button><button class="month-pick" type="button" data-month="11" aria-pressed="false" aria-controls="monthPanel" aria-label="December, Step 12: A Life Given Back">Dec</button></div><div class="month-panel" id="monthPanel" role="region" aria-live="polite" aria-label="Selected month"><div class="month-meta"><span id="monthHeading">January</span><span id="monthStep">Step One of Twelve</span></div><h3 id="monthDescription">The Courage to Begin</h3><div class="month-actions"><button class="month-nav" type="button" id="monthPrev" aria-label="Previous month">‹ <span>Previous</span></button><button class="month-nav" type="button" id="monthNext" aria-label="Next month"><span>Next</span> ›</button></div></div></div></div></section>
     <section class="section-pad reflection" id="development"><div class="wrap"><div class="section-head sample-wrap" style="text-align:center"><div class="eyebrow" style="color:#80512f">Read a sample · January 1</div><h2>A moment from the book.</h2></div><article class="sample-card sample-wrap"><div class="sample-date">JANUARY 1 · STEP ONE</div><h3>You Have Arrived</h3><p class="epigraph">Sometimes a new beginning looks just like an ordinary morning.</p><div class="body"><p>Sunlight crosses the kitchen table. Outside, a truck shifts gears and moves on. Everything looks familiar, but this day has never been lived.</p><p>You may have called this day one before. You may be tired of promises, especially your own. Yet your willingness to try today matters.</p><p>Place your feet on the floor. Feel what holds you steady. Take one unhurried breath. You are here.</p><p>Step One begins with honesty about what addiction has cost and what you haven't been able to control. The truth may ache, but seeing it clearly is not the same as condemning yourself. It gives you somewhere real to begin.</p><p>Outside, the morning continues, and you can meet it one honest step at a time.</p></div><div class="prompt-label">Today's Practice</div><p>Find one quiet minute. Notice your feet on the floor. Name one truth about your recovery, then choose one small way to honor it.</p><div class="prompt-label">Ask Yourself</div><p>What truth could help me take my next step?</p><div class="prompt-label">Carry This With You</div><p class="entry-last">This day is still yours to live.</p></article></div></section>
+<section class="section-pad connect-band" id="connect" aria-labelledby="connect-title">
+  <div class="wrap connect-inner">
+    <div>
+      <div class="eyebrow">Keep the reflection going</div>
+      <h2 id="connect-title">A place to return to, one day at a time.</h2>
+      <p>Follow T.Y.M.E. for reflections, encouragement, and updates as this recovery-centered community grows. Start with the free reading above, and stay connected in the way that works for you.</p>
+    </div>
+    <div class="connect-actions">
+      <a class="btn btn-dark" href="https://www.facebook.com/tyme.today.you.mean.everything" target="_blank" rel="noopener noreferrer">Follow T.Y.M.E. on Facebook ↗</a>
+      <a class="quiet-link" href="#contact">Questions or ideas? Contact T.Y.M.E. ↓</a>
+    </div>
+  </div>
+</section>
+<section class="section-pad journey" id="journey"><div class="wrap journey-layout"><div class="section-head"><div class="eyebrow" style="color:#80512f">Inside the book</div><h2>Twelve months.<br>One day at a time.</h2><p>Each month draws from a Step of recovery. Tap to explore the book's chapter themes.</p></div><div class="journey-browser"><div class="month-grid" id="monthGrid" role="group" aria-label="Choose a month"><button class="month-pick active" type="button" data-month="0" aria-pressed="true" aria-controls="monthPanel" aria-label="January, Step 1: The Courage to Begin">Jan</button><button class="month-pick" type="button" data-month="1" aria-pressed="false" aria-controls="monthPanel" aria-label="February, Step 2: Trusting What We Cannot Control">Feb</button><button class="month-pick" type="button" data-month="2" aria-pressed="false" aria-controls="monthPanel" aria-label="March, Step 3: The Choice to Let Go">Mar</button><button class="month-pick" type="button" data-month="3" aria-pressed="false" aria-controls="monthPanel" aria-label="April, Step 4: Looking Without Looking Away">Apr</button><button class="month-pick" type="button" data-month="4" aria-pressed="false" aria-controls="monthPanel" aria-label="May, Step 5: The Courage to Be Known">May</button><button class="month-pick" type="button" data-month="5" aria-pressed="false" aria-controls="monthPanel" aria-label="June, Step 6: Making Room for Change">Jun</button><button class="month-pick" type="button" data-month="6" aria-pressed="false" aria-controls="monthPanel" aria-label="July, Step 7: Strength With Open Hands">Jul</button><button class="month-pick" type="button" data-month="7" aria-pressed="false" aria-controls="monthPanel" aria-label="August, Step 8: The Lives Our Choices Touch">Aug</button><button class="month-pick" type="button" data-month="8" aria-pressed="false" aria-controls="monthPanel" aria-label="September, Step 9: Repair, One Choice at a Time">Sep</button><button class="month-pick" type="button" data-month="9" aria-pressed="false" aria-controls="monthPanel" aria-label="October, Step 10: The Practice of Returning">Oct</button><button class="month-pick" type="button" data-month="10" aria-pressed="false" aria-controls="monthPanel" aria-label="November, Step 11: Listening Beyond the Noise">Nov</button><button class="month-pick" type="button" data-month="11" aria-pressed="false" aria-controls="monthPanel" aria-label="December, Step 12: A Life Given Back">Dec</button></div><div class="month-panel" id="monthPanel" role="region" aria-live="polite" aria-label="Selected month"><div class="month-meta"><span id="monthHeading">January</span><span id="monthStep">Step One of Twelve</span></div><h3 id="monthDescription">The Courage to Begin</h3><div class="month-actions"><button class="month-nav" type="button" id="monthPrev" aria-label="Previous month">‹ <span>Previous</span></button><button class="month-nav" type="button" id="monthNext" aria-label="Next month"><span>Next</span> ›</button></div></div></div></div><div class="wrap book-purchase-row" aria-label="Book formats">
+      <div class="book-purchase-copy"><strong>Want to keep reading?</strong><span>Explore the complete book in the format that works for you.</span></div>
+      <div class="book-purchase-actions">
+        <a class="btn btn-dark" href="https://www.amazon.com/dp/B0HQY8BFKL" target="_blank" rel="noopener noreferrer">Paperback on Amazon ↗</a>
+        <a class="btn book-kindle-btn" href="https://www.amazon.com/dp/B0HQV7DYGN" target="_blank" rel="noopener noreferrer">Kindle on Amazon ↗</a>
+      </div>
+    </div></section>
     
     
-    <section class="section-pad mission" id="mission"><div class="wrap"><div class="mission-about"><div class="mission-copy"><div class="eyebrow" style="color:#80512f">The purpose behind T.Y.M.E.</div><h2>Today is where change begins.</h2><p>We cannot change yesterday, but we can choose how we meet today. T.Y.M.E. brings honest reflection, responsibility, compassion, and connection to people navigating recovery and everyday life.</p><p class="mission-quote">We don't deny the past. We learn from it. We don't ignore the future. We prepare for it.</p><h3 id="about">About the founder</h3><p>T.Y.M.E. was founded by William Lee Meyers, who writes as William Meyers. His lived experiences with addiction and mental health challenges helped shape this project and the book <em>A Sober Companion</em>.</p><p><a class="contact-link" href="https://www.amazon.com/author/williammeyerstyme" target="_blank" rel="noopener noreferrer">Meet the Author on Amazon</a></p></div><aside class="founder-card" id="contact"><h3>Connect with T.Y.M.E.</h3><p>Questions about the book, partnership ideas, or thoughts about the broader recovery mission are welcome.</p><p><strong>Email</strong><br><a class="contact-link" href="mailto:willsmynamelb@gmail.com">willsmynamelb@gmail.com</a></p><a class="btn btn-dark" href="mailto:willsmynamelb@gmail.com?subject=T.Y.M.E.%20inquiry">Send an Email ↗</a><p style="font-size:.9rem;margin:14px 0 0"><a class="btn facebook-follow-btn" href="https://www.facebook.com/tyme.today.you.mean.everything" target="_blank" rel="noopener noreferrer"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M22 12a10 10 0 1 0-11.56 9.87v-6.98H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.98A10 10 0 0 0 22 12Z"/></svg>Follow T.Y.M.E. on Facebook ↗</a></p><p style="font-size:.82rem;margin:20px 0 0">T.Y.M.E. does not currently offer housing, treatment, or clinical services.</p></aside></div></div></section>
+    <section class="section-pad mission" id="mission"><div class="wrap"><div class="mission-about"><div class="mission-copy"><div class="eyebrow" style="color:#80512f">The purpose behind T.Y.M.E.</div><h2>Today is where change begins.</h2><p>We cannot change yesterday, but we can choose how we meet today. T.Y.M.E. brings honest reflection, responsibility, compassion, and connection to people navigating recovery and everyday life.</p><p class="mission-quote">We don't deny the past. We learn from it. We don't ignore the future. We prepare for it.</p><h3 id="about">About the founder</h3><p>T.Y.M.E. was founded by William Lee Meyers, who writes as William Meyers. His lived experiences with addiction and mental health challenges helped shape this project and the book <em>A Sober Companion</em>.</p><p><a class="contact-link" href="https://www.amazon.com/author/williammeyerstyme" target="_blank" rel="noopener noreferrer">Meet the Author on Amazon</a></p></div></div></div></section>
     <section class="section-pad vision" id="vision" aria-labelledby="vision-title">
       <div class="wrap vision-layout">
         <div class="vision-heading">
@@ -222,8 +345,29 @@
     </section>
     <section class="section-pad resources" id="resources"><div class="wrap"><div class="section-head"><div class="eyebrow" style="color:#80512f">Help is already here</div><h2>Resources for Recovery &amp; Rebuilding</h2><p>Independent organizations offering recovery support, crisis help, reentry services, housing assistance, and employment resources.</p></div><div class="resource-grid"><div class="resource"><h3>Find treatment</h3><p>Use the U.S. government’s confidential treatment locator to explore mental health and substance-use treatment facilities.</p><a href="https://findtreatment.gov/" target="_blank" rel="noopener noreferrer">Visit FindTreatment.gov ↗</a></div><div class="resource"><h3>Find a meeting</h3><p>SMART Recovery offers a meeting finder for online and in-person mutual-support meetings.</p><a href="https://support.smartrecovery.org/find-a-smart-meeting" target="_blank" rel="noopener noreferrer">Find a SMART meeting ↗</a></div><div class="resource"><h3>Talk to someone now</h3><p>In the U.S., call or text 988 for the Suicide &amp; Crisis Lifeline. For treatment referral and information, call 1-800-662-HELP (4357).</p><a href="https://988lifeline.org/" target="_blank" rel="noopener noreferrer">Visit the 988 Lifeline ↗</a></div></div><h3 class="resource-subhead">Reentry, housing &amp; employment</h3><div class="resource-grid resource-grid--reentry"><div class="resource"><h3>Dignity and Power Now</h3><p>Healing, peer support, mutual aid, and leadership programs for people and families affected by incarceration.</p><a href="https://dignityandpowernow.org/programs" target="_blank" rel="noopener noreferrer">Explore Dignity and Power Now ↗</a></div><div class="resource"><h3>Anti-Recidivism Coalition</h3><p>Reentry support, life coaching, employment and education guidance, and housing programs for eligible members.</p><a href="https://antirecidivism.org/our-programs/supportive-services/" target="_blank" rel="noopener noreferrer">Explore ARC services ↗</a></div><div class="resource"><h3>Rescue-A-Life Foundation</h3><p>Eligible Los Angeles County residents recently released from incarceration may qualify for limited help with a security deposit and first month’s rent.</p><a href="https://rescuealifefoundation.org/jsrap-rental-assistance-program/" target="_blank" rel="noopener noreferrer">Check rental assistance eligibility ↗</a></div><div class="resource"><h3>California Department of Rehabilitation</h3><p>Employment and independent-living services for eligible Californians with disabilities, including counseling, training, and job-search support.</p><a href="https://www.dor.ca.gov/Home/EmploymentServices" target="_blank" rel="noopener noreferrer">Explore DOR employment services ↗</a></div></div><p class="disclaimer">These are independent third-party resources, not T.Y.M.E. programs. Services, eligibility, and availability vary; contact each organization for current information. If there is immediate danger, call local emergency services.</p></div></section>
     
-  </main>
-  <footer class="footer"><div class="wrap footer-grid"><div><a class="logo" href="#home">T.Y.M.E.<small>TODAY YOU MEAN EVERYTHING</small></a><p>© <span id="year"></span> William Lee Meyers. All rights reserved.</p><p><em>A Sober Companion</em> is an independent publication and is not affiliated with, reviewed by, or endorsed by any recovery fellowship. T.Y.M.E. does not currently provide treatment, emergency response, or housing services.</p><p>We use Google Analytics to measure website visits and clicks to Amazon listings. <a href="/analytics-off.html">Turn off analytics for this browser</a>.</p></div><div><a href="#home">Back to top ↑</a></div></div></footer>
+  <section class="section-pad contact-section" id="contact" aria-labelledby="contact-title">
+  <div class="wrap contact-layout">
+    <div class="contact-copy">
+      <div class="eyebrow">Get in touch</div>
+      <h2 id="contact-title">Let's keep the conversation going.</h2>
+      <p>Whether you're reaching out about the book, sharing an idea, or exploring a possible partnership, you can contact T.Y.M.E. here.</p>
+      <p class="contact-note">Please do not include private medical or recovery details in email. T.Y.M.E. does not provide clinical or emergency services.</p>
+    </div>
+    <aside class="founder-card"><h3>Connect with T.Y.M.E.</h3><p>Questions about the book, partnership ideas, or thoughts about the broader recovery mission are welcome.</p><p><strong>Email</strong><br><a class="contact-link" href="mailto:willsmynamelb@gmail.com">willsmynamelb@gmail.com</a></p><a class="btn btn-dark" href="mailto:willsmynamelb@gmail.com?subject=T.Y.M.E.%20inquiry">Send an Email ↗</a><p style="font-size:.9rem;margin:14px 0 0"><a class="btn facebook-follow-btn" href="https://www.facebook.com/tyme.today.you.mean.everything" target="_blank" rel="noopener noreferrer"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M22 12a10 10 0 1 0-11.56 9.87v-6.98H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.98A10 10 0 0 0 22 12Z"/></svg>Follow T.Y.M.E. on Facebook ↗</a></p><p style="font-size:.82rem;margin:20px 0 0">T.Y.M.E. does not currently offer housing, treatment, or clinical services.</p></aside>
+  </div>
+</section>
+</main>
+  <footer class="footer"><div class="wrap footer-grid"><div><a class="logo" href="#home">T.Y.M.E.<small>TODAY YOU MEAN EVERYTHING</small></a><p>© <span id="year"></span> William Lee Meyers. All rights reserved.</p><p><em>A Sober Companion</em> is an independent publication and is not affiliated with, reviewed by, or endorsed by any recovery fellowship. T.Y.M.E. does not currently provide treatment, emergency response, or housing services.</p><p>We use Google Analytics to measure website visits and clicks to Amazon listings. <a href="/analytics-off.html">Turn off analytics for this browser</a>.</p></div><div class="footer-nav">
+  <nav aria-label="Footer navigation">
+    <a href="#development">Reflections</a>
+    <a href="#journey">The Book</a>
+    <a href="#mission">Our Story</a>
+    <a href="#resources">Resources</a>
+    <a href="#contact">Contact</a>
+    <a href="https://www.facebook.com/tyme.today.you.mean.everything" target="_blank" rel="noopener noreferrer">Facebook ↗</a>
+  </nav>
+  <a class="footer-top" href="#home">Back to top ↑</a>
+</div></div></footer>
   <script>
     const chapters=[["January","The Courage to Begin"],["February","Trusting What We Cannot Control"],["March","The Choice to Let Go"],["April","Looking Without Looking Away"],["May","The Courage to Be Known"],["June","Making Room for Change"],["July","Strength With Open Hands"],["August","The Lives Our Choices Touch"],["September","Repair, One Choice at a Time"],["October","The Practice of Returning"],["November","Listening Beyond the Noise"],["December","A Life Given Back"]];
     const steps=["One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve"];
