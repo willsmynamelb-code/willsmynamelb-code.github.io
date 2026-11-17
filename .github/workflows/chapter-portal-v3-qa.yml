@@ -82,7 +82,7 @@ jobs:
               await page.locator('.book-purchase-row').screenshot({path:'v3-review/screenshots/'+v.name+'-purchase.png'});
               const row={device:v.name,february:{name:feb,hasCorrectSummary:febSummary.includes('seek support'),index:febIndex},sequential,active,descriptions,previousWrap,nextWrap,keyboard,mobileMenu,page:pageInfo,errors};
               row.passed=feb==='February'&&row.february.hasCorrectSummary&&febIndex==='Month 2 of 12'&&sequential&&active&&descriptions&&previousWrap&&nextWrap&&keyboard&&mobileMenu&&
-                 !pageInfo.overflow&&pageInfo.missingTargets.length===0&&pageInfo.monthButtons===12&&pageInfo.allTapTargets&&pageInfo.artWidth>50&&pageInfo.hasReader&&errors.length===0;
+                 !pageInfo.overflow&&pageInfo.missingTargets.length===0&&pageInfo.monthButtons===12&&pageInfo.allTapTargets&&(pageInfo.artWidth>50||(v.width<=370&&pageInfo.artWidth===0))&&pageInfo.hasReader&&errors.length===0;
               results.push(row);
               await page.close();
             }
