@@ -237,6 +237,55 @@
     /* Screenshot QA correction: prevent orphan last word in the mission headline. */
     @media(min-width:741px){.hero h1{font-size:clamp(3.2rem,5.8vw,5rem)}}
     @media(max-width:350px){.hero h1{font-size:2.35rem}}
+
+    /* Version 2: accessible first-week reader and restrained brand illustration */
+    .reader-intro{text-align:center;margin-bottom:30px}
+    .reader-intro .eyebrow{color:#80512f}
+    .reader-intro p{margin:14px auto 0;color:#4f6863;font-size:1.04rem;max-width:59ch}
+    .reader-shell{max-width:830px;border-radius:17px}
+    .reader-toolbar{border:1px solid #e3d8c7;border-bottom:0;background:#f3ede1;padding:19px 22px 0;border-radius:17px 17px 0 0}
+    .reader-toolbar-title{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:.73rem;font-weight:800;letter-spacing:.12em;color:#315b56}
+    .reader-dot{width:8px;height:8px;background:#C88760;border-radius:50%}
+    #reader-count{margin-left:auto;white-space:nowrap;font-size:.69rem;color:#617773}
+    .reader-day-selector{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:16px 0 18px}
+    .reader-day-btn{background:#fff;border:1px solid #c9d6cc;color:#315e58;border-radius:999px;min-height:44px;padding:9px 5px;cursor:pointer;font-size:.78rem;font-weight:760;transition:background .2s,color .2s,border-color .2s}
+    .reader-day-btn:hover{background:#e5eee6}
+    .reader-day-btn.active{background:#215c58;color:#fff;border-color:#215c58}
+    .reader-day-btn:focus-visible,.reader-arrow:focus-visible{outline:3px solid #b76d49;outline-offset:3px}
+    .reader-progress{height:4px;background:#d5d7ce;overflow:hidden;border-radius:99px}
+    .reader-progress-fill{height:100%;width:14.2857%;background:#B87450;transition:width .25s ease}
+    .reader-shell .sample-card{border-radius:0 0 7px 7px;box-shadow:0 14px 35px rgba(20,58,50,.06)}
+    .reader-entry[hidden],.reader-finish[hidden]{display:none!important}
+    .reader-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:18px 0 0}
+    .reader-arrow{min-height:48px;padding:10px 17px;border:1px solid #bbcfc5;border-radius:100px;color:#245b56;background:#fff;cursor:pointer;font-weight:760;display:inline-flex;align-items:center;justify-content:center;gap:9px;line-height:1.25}
+    .reader-arrow-next{color:#fff;background:#215c58;border-color:#215c58}
+    .reader-arrow:disabled{opacity:.43;cursor:not-allowed}
+    .reader-arrow:not(:disabled):hover{filter:brightness(.94)}
+    .reader-page{font-size:.87rem;color:#56716c;font-weight:750;white-space:nowrap}
+    .reader-finish{margin-top:24px;padding:28px;background:#e7eee6;border:1px solid #c6d8ca;border-radius:17px}
+    .reader-finish .eyebrow{color:#8c5739}
+    .reader-finish h3{margin:10px 0;color:#1c4a48}
+    .reader-finish p{color:#48675f}
+    .reader-finish-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .vision-sunrise{width:min(100%,310px);height:auto;display:block;margin:36px auto 0;filter:drop-shadow(0 10px 22px rgba(0,0,0,.12))}
+    @media(max-width:740px){
+      .reader-toolbar{padding:17px 12px 0}
+      .reader-day-selector{grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+      .reader-day-btn{font-size:.67rem;padding:8px 1px;min-height:45px}
+      .reader-shell .sample-card{padding:35px 23px 35px 35px}
+      .reader-controls{margin-top:15px}
+      .reader-arrow{font-size:.85rem;padding:9px 11px}
+      .reader-finish-actions{flex-direction:column}
+      .reader-finish-actions .btn{width:100%}
+      .vision-sunrise{width:min(100%,265px);margin:24px auto 0}
+    }
+    @media(max-width:355px){
+      .reader-toolbar-title{font-size:.67rem}
+      .reader-day-btn{font-size:.62rem;padding-inline:0}
+      .reader-arrow{font-size:.75rem;padding:9px}
+    }
+    @media(prefers-reduced-motion:reduce){.reader-progress-fill{transition:none}}
+
 </style>
 </head>
 <body>
@@ -285,7 +334,99 @@
 </section>
     
     
-    <section class="section-pad reflection" id="development"><div class="wrap"><div class="section-head sample-wrap" style="text-align:center"><div class="eyebrow" style="color:#80512f">Read a sample · January 1</div><h2>A moment from the book.</h2></div><article class="sample-card sample-wrap"><div class="sample-date">JANUARY 1 · STEP ONE</div><h3>You Have Arrived</h3><p class="epigraph">Sometimes a new beginning looks just like an ordinary morning.</p><div class="body"><p>Sunlight crosses the kitchen table. Outside, a truck shifts gears and moves on. Everything looks familiar, but this day has never been lived.</p><p>You may have called this day one before. You may be tired of promises, especially your own. Yet your willingness to try today matters.</p><p>Place your feet on the floor. Feel what holds you steady. Take one unhurried breath. You are here.</p><p>Step One begins with honesty about what addiction has cost and what you haven't been able to control. The truth may ache, but seeing it clearly is not the same as condemning yourself. It gives you somewhere real to begin.</p><p>Outside, the morning continues, and you can meet it one honest step at a time.</p></div><div class="prompt-label">Today's Practice</div><p>Find one quiet minute. Notice your feet on the floor. Name one truth about your recovery, then choose one small way to honor it.</p><div class="prompt-label">Ask Yourself</div><p>What truth could help me take my next step?</p><div class="prompt-label">Carry This With You</div><p class="entry-last">This day is still yours to live.</p></article></div></section>
+    <section class="section-pad reflection" id="development" aria-labelledby="reader-title">
+  <div class="wrap">
+    <div class="section-head sample-wrap reader-intro">
+      <div class="eyebrow">A free seven-day reading experience</div>
+      <h2 id="reader-title">Seven days to begin.</h2>
+      <p>Start with January 1, then turn the page through the first week of <em>A Sober Companion</em>. A fresh reflection, a small practice, and one question at a time.</p>
+    </div>
+    <div class="reader-shell sample-wrap">
+      <div class="reader-toolbar">
+        <div class="reader-toolbar-title"><span class="reader-dot" aria-hidden="true"></span> THE FIRST WEEK <span id="reader-count">DAY 1 OF 7</span></div>
+        <div class="reader-day-selector" role="group" aria-label="Select a day of reflection"><button type="button" class="reader-day-btn active" data-reader-select="1" aria-pressed="true" aria-controls="readerDay1" aria-label="Read January 1">Jan 1</button><button type="button" class="reader-day-btn" data-reader-select="2" aria-pressed="false" aria-controls="readerDay2" aria-label="Read January 2">Jan 2</button><button type="button" class="reader-day-btn" data-reader-select="3" aria-pressed="false" aria-controls="readerDay3" aria-label="Read January 3">Jan 3</button><button type="button" class="reader-day-btn" data-reader-select="4" aria-pressed="false" aria-controls="readerDay4" aria-label="Read January 4">Jan 4</button><button type="button" class="reader-day-btn" data-reader-select="5" aria-pressed="false" aria-controls="readerDay5" aria-label="Read January 5">Jan 5</button><button type="button" class="reader-day-btn" data-reader-select="6" aria-pressed="false" aria-controls="readerDay6" aria-label="Read January 6">Jan 6</button><button type="button" class="reader-day-btn" data-reader-select="7" aria-pressed="false" aria-controls="readerDay7" aria-label="Read January 7">Jan 7</button></div>
+        <div class="reader-progress" aria-hidden="true"><div class="reader-progress-fill" id="reader-progress-fill"></div></div>
+      </div>
+      <article class="sample-card" id="reader-article"><div class="reader-entry" id="readerDay1" data-reader-day="1" role="region" aria-label="January 1 reflection">
+  <div class="sample-date">JANUARY 1 · STEP ONE</div>
+  <h3>You Have Arrived</h3>
+  <p class="epigraph">Sometimes a new beginning looks just like an ordinary morning.</p>
+  <div class="body"><p>Sunlight crosses the kitchen table. Outside, a truck shifts gears and moves on. Everything looks familiar, but this day has never been lived.</p><p>You may have called this day one before. You may be tired of promises, especially your own. Yet your willingness to try today matters.</p><p>Place your feet on the floor. Feel what holds you steady. Take one unhurried breath. You are here.</p><p>Step One begins with honesty about what addiction has cost and what you haven't been able to control. The truth may ache, but seeing it clearly is not the same as condemning yourself. It gives you somewhere real to begin.</p><p>Outside, the morning continues, and you can meet it one honest step at a time.</p></div>
+  <div class="prompt-label">Today's Practice</div><p>Find one quiet minute. Notice your feet on the floor. Name one truth about your recovery, then choose one small way to honor it.</p>
+  <div class="prompt-label">Ask Yourself</div><p>What truth could help me take my next step?</p>
+  <div class="prompt-label">Carry This With You</div><p class="entry-last">This day is still yours to live.</p>
+</div>
+<div class="reader-entry" id="readerDay2" data-reader-day="2" role="region" aria-label="January 2 reflection" hidden>
+  <div class="sample-date">JANUARY 2 · STEP ONE</div>
+  <h3>You Are Not Every Thought You Think</h3>
+  <p class="epigraph">A thought can be loud without being true.</p>
+  <div class="body"><p>You’ll never stay sober. You always wreck it. Everybody knows it, and honestly, so do you.</p><p>The voice has your history memorized, and it talks in your own accent, which is why it sounds so much like the truth.</p><p>Listen closely. It says always and never as if it knows your future. It says everybody as if it has asked them. And it leaves out every morning you got up anyway.</p><p>You don’t have to shout it down; arguing only gives it the floor. Try putting five words in front of it instead: I’m having the thought that I’ll never stay sober. The sentence is the same, but now you’re standing a step back from it. Something in your chest may loosen a notch and let the next breath go deeper.</p><p>The voice will probably be back tomorrow. So will you.</p></div>
+  <div class="prompt-label">Today's Practice</div><p>When the old voice starts up today, repeat its sentence with five words in front: I’m having the thought that…</p>
+  <div class="prompt-label">Ask Yourself</div><p>Which recurring thought have I accepted without examination?</p>
+  <div class="prompt-label">Carry This With You</div><p class="entry-last">You are the listener, not every voice you hear.</p>
+</div>
+<div class="reader-entry" id="readerDay3" data-reader-day="3" role="region" aria-label="January 3 reflection" hidden>
+  <div class="sample-date">JANUARY 3 · STEP ONE</div>
+  <h3>You Are Not the Worst Thing You Did</h3>
+  <p class="epigraph">A mistake can be part of your story without defining who you are.</p>
+  <div class="body"><p>The woman in the third folding chair has her grocery-store badge clipped to her coat. It shows her first name. For eleven winters she called herself something else, under her breath: “thief.” Anything decent she did got filed as a thief being nice.</p><p>Two years ago, someone in this circle asked her to say what she had done in one sentence, no labels. Only what happened. She told it to the floor: “I took money from my mother’s purse, more than once, and let my brother take the blame.”</p><p>She hadn't excused what she'd done. She was learning to carry the truth without wearing it as her name.</p><p>She can say it now without looking down, though her face still goes hot. The radiator knocks. She stirs too much sugar into a paper cup and waits for the next person to talk.</p></div>
+  <div class="prompt-label">Today's Practice</div><p>When an old name for yourself returns, be still a moment. Remember what happened without forgetting that there is more to you.</p>
+  <div class="prompt-label">Ask Yourself</div><p>What can I take responsibility for without condemning myself?</p>
+  <div class="prompt-label">Carry This With You</div><p class="entry-last">Repair is more truthful than endless self-punishment.</p>
+</div>
+<div class="reader-entry" id="readerDay4" data-reader-day="4" role="region" aria-label="January 4 reflection" hidden>
+  <div class="sample-date">JANUARY 4 · STEP ONE</div>
+  <h3>The Freedom of Beginning Again</h3>
+  <p class="epigraph">Beginning again doesn't erase yesterday. It changes what you do today.</p>
+  <div class="body"><p>A hardware-store calendar hangs by the kitchen door. Pencil X’s mark the first two days of January. The third square is empty.</p><p>You planned to attend a recovery meeting each evening. You went the first two nights. Yesterday, tired and unsure what to say, you stayed home.</p><p>Morning light falls across the calendar. Your eyes find the empty square, as though it cancels the others.</p><p>But those first two nights happened. You showed up. You listened. You sat among people who understood.</p><p>Stand quietly. Let your shoulders settle. Acknowledge why yesterday was difficult without judging yourself.</p><p>The fourth square is empty too. The day has barely begun. You can ask for support and return to the meeting tonight. There's room for another X.</p><p>The calendar hangs a little crooked on its nail.</p></div>
+  <div class="prompt-label">Today's Practice</div><p>Before noon, call or text one safe person. Tell them how you're doing and what support you need today.</p>
+  <div class="prompt-label">Ask Yourself</div><p>What has helped me before that I can return to today?</p>
+  <div class="prompt-label">Carry This With You</div><p class="entry-last">A new beginning is a different response, not a spotless past.</p>
+</div>
+<div class="reader-entry" id="readerDay5" data-reader-day="5" role="region" aria-label="January 5 reflection" hidden>
+  <div class="sample-date">JANUARY 5 · STEP ONE</div>
+  <h3>Stop Abandoning Yourself</h3>
+  <p class="epigraph">Your yes should be a choice, not a reflex.</p>
+  <div class="body"><p>At your cousin’s birthday, the coats are piled on the bed and the music keeps getting louder.</p><p>When you finally stand, she catches your sleeve. “You’re leaving already? It’s not even ten.” You hear yourself say, “Okay, one more hour,” and sit back down.</p><p>That yes was out before you checked it. Maybe you’ve done it for years, keeping the peace and swallowing what you needed. It kept you safe once. You can be grateful for that and still put it down.</p><p>The bass comes up through the floor into your feet. Let a breath go all the way out.</p><p>Honesty doesn’t have to be harsh. “I need to head home. Happy birthday.” Her face may fall, and you can care about that and still go.</p><p>You dig your coat out from the bottom of the pile.</p></div>
+  <div class="prompt-label">Today's Practice</div><p>Before you say yes to anything today, wait one breath and ask yourself, quietly: Do I mean this?</p>
+  <div class="prompt-label">Ask Yourself</div><p>When did I say yes because I feared disappointing someone?</p>
+  <div class="prompt-label">Carry This With You</div><p class="entry-last">Love should make room for both people.</p>
+</div>
+<div class="reader-entry" id="readerDay6" data-reader-day="6" role="region" aria-label="January 6 reflection" hidden>
+  <div class="sample-date">JANUARY 6 · STEP ONE</div>
+  <h3>The Courage to Feel</h3>
+  <p class="epigraph">You can feel something fully without letting it decide for you.</p>
+  <div class="body"><p>It’s after two in the morning, and the feeling you’ve been stepping around has found you, with nothing between you and it.</p><p>You know what the old way offered on nights like this. You don’t have to do anything with this feeling except have it.</p><p>Let it be the size it is, and give it a plain name: sad, scared, furious, ashamed, lonely.</p><p>Find where it lives, maybe a weight under the ribs, and rest a hand there. A hand fixes nothing and keeps you company anyway.</p><p>A feeling may have something to tell you without telling the whole truth. Anger may rise when you're hurt. Fear may be an old hurt returning. It could still be here at dawn, in a different shape.</p><p>Across the city, a few other windows are lit.</p><p>You are allowed to be awake.</p></div>
+  <div class="prompt-label">Today's Practice</div><p>When a hard feeling rises today, name it and give yourself sixty seconds before deciding what to do next.</p>
+  <div class="prompt-label">Ask Yourself</div><p>What might this feeling be telling me, and what might it not know?</p>
+  <div class="prompt-label">Carry This With You</div><p class="entry-last">Listen to the feeling, then question its orders.</p>
+</div>
+<div class="reader-entry" id="readerDay7" data-reader-day="7" role="region" aria-label="January 7 reflection" hidden>
+  <div class="sample-date">JANUARY 7 · STEP ONE</div>
+  <h3>You Need Not Earn Your Right to Be Here</h3>
+  <p class="epigraph">Worth is not a reward for getting everything right.</p>
+  <div class="body"><p>Some of us came into recovery with a list ready, the jobs we used to hold and the most sober days we ever strung together. We thought we had to prove we were worth helping.</p><p>Nobody asked for the list.</p><p>The first Step asks for one honest admission: we couldn’t get out of our addiction on our own. Saying it out loud felt like giving up our last bit of pride. But our dignity was still there.</p><p>Worth that has to be earned can be lost on a bad day, and we have bad days. We are still responsible for what comes next, and the work is hard. But we were worth helping before any of it began.</p></div>
+  <div class="prompt-label">Today's Practice</div><p>Today, think of one thing you've been trying to handle alone. Ask someone you trust for a little help, without feeling you have to prove you deserve it.</p>
+  <div class="prompt-label">Ask Yourself</div><p>Whose approval am I still trying to earn?</p>
+  <div class="prompt-label">Carry This With You</div><p class="entry-last">Growth starts from the dignity you already have.</p>
+</div></article>
+      <div class="reader-controls" aria-label="Reflection page controls">
+        <button type="button" class="reader-arrow" id="reader-prev" disabled aria-label="Previous day's reflection"><span aria-hidden="true">←</span> Previous day</button>
+        <span id="reader-page" class="reader-page">1 / 7</span>
+        <button type="button" class="reader-arrow reader-arrow-next" id="reader-next" aria-label="Next day's reflection">Next day <span aria-hidden="true">→</span></button>
+      </div>
+      <div class="reader-finish" id="reader-finish" hidden>
+        <span class="eyebrow">Your first week is complete</span>
+        <h3>Keep the next right day close.</h3>
+        <p>Continue through the book or stay connected to T.Y.M.E. for more encouragement and reflection.</p>
+        <div class="reader-finish-actions">
+          <a class="btn btn-dark" href="#journey">Explore the Full Book ↓</a>
+          <a class="btn book-kindle-btn" href="https://www.facebook.com/tyme.today.you.mean.everything" target="_blank" rel="noopener noreferrer">Follow T.Y.M.E. ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="section-pad connect-band" id="connect" aria-labelledby="connect-title">
   <div class="wrap connect-inner">
     <div>
@@ -314,6 +455,20 @@
         <div class="vision-heading">
           <div class="eyebrow">Looking ahead</div>
           <h2 id="vision-title">The Vision</h2>
+
+<svg class="vision-sunrise" viewBox="0 0 340 205" width="340" height="205" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="tymeSunGlow" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F6DCAC"/><stop offset="100%" stop-color="#D9AB73"/></linearGradient>
+    <linearGradient id="tymeHillFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#40786F"/><stop offset="100%" stop-color="#1C5552"/></linearGradient>
+  </defs>
+  <circle cx="170" cy="89" r="53" fill="url(#tymeSunGlow)" opacity=".94"/>
+  <path d="M72 89a98 98 0 0 1 196 0M37 91a133 133 0 0 1 266 0" fill="none" stroke="#E9C68C" stroke-width="1.5" opacity=".45"/>
+  <path d="M0 145Q44 94 89 124T170 111T265 120T340 100V205H0Z" fill="#427D71" opacity=".75"/>
+  <path d="M0 160Q72 115 130 144T252 139T340 143V205H0Z" fill="url(#tymeHillFill)"/>
+  <path d="M0 181Q56 158 114 173T225 163T340 162V205H0Z" fill="#174B4B"/>
+  <path d="M171 205C147 191 157 180 179 170C202 158 200 150 182 143" fill="none" stroke="#EED6AD" stroke-width="12" stroke-linecap="round" opacity=".78"/>
+  <path d="M172 205C151 192 160 181 180 171C198 161 198 153 183 145" fill="none" stroke="#F8E6C8" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+</svg>
         </div>
         <div class="vision-copy">
           <p>My vision for <strong>T.Y.M.E. (Today You Mean Everything)</strong> is to help create a world where no one is defined by their past, their struggles, or their mistakes.</p>
@@ -369,6 +524,47 @@
   <a class="footer-top" href="#home">Back to top ↑</a>
 </div></div></footer>
   <script>
+
+    /* First-week reader: one complete reflection at a time, including keyboard navigation. */
+    const readingButtons=Array.from(document.querySelectorAll('[data-reader-select]'));
+    const readingEntries=Array.from(document.querySelectorAll('[data-reader-day]'));
+    const readerPrev=document.getElementById('reader-prev');
+    const readerNext=document.getElementById('reader-next');
+    const readerTop=document.getElementById('development');
+    let selectedReadingDay=1;
+    function showReadingDay(day, options={}) {
+      selectedReadingDay=Math.max(1,Math.min(7,day));
+      readingEntries.forEach(entry=>{entry.hidden=Number(entry.dataset.readerDay)!==selectedReadingDay;});
+      readingButtons.forEach(button=>{
+        const active=Number(button.dataset.readerSelect)===selectedReadingDay;
+        button.classList.toggle('active',active);
+        button.setAttribute('aria-pressed',String(active));
+      });
+      readerPrev.disabled=selectedReadingDay===1;
+      readerNext.disabled=selectedReadingDay===7;
+      document.getElementById('reader-page').textContent=selectedReadingDay+' / 7';
+      document.getElementById('reader-count').textContent='DAY '+selectedReadingDay+' OF 7';
+      document.getElementById('reader-progress-fill').style.width=(selectedReadingDay/7*100)+'%';
+      document.getElementById('reader-finish').hidden=selectedReadingDay!==7;
+      if(options.focusButton){readingButtons[selectedReadingDay-1].focus();}
+      if(options.reposition){
+        readerTop.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+      }
+    }
+    readingButtons.forEach(button=>{
+      button.addEventListener('click',()=>showReadingDay(Number(button.dataset.readerSelect)));
+      button.addEventListener('keydown',event=>{
+        const index=Number(button.dataset.readerSelect);
+        if(event.key==='ArrowRight'||event.key==='ArrowLeft'||event.key==='Home'||event.key==='End'){
+          event.preventDefault();
+          const day=event.key==='Home'?1:event.key==='End'?7:event.key==='ArrowRight'?Math.min(7,index+1):Math.max(1,index-1);
+          showReadingDay(day,{focusButton:true});
+        }
+      });
+    });
+    readerPrev.addEventListener('click',()=>showReadingDay(selectedReadingDay-1,{reposition:true}));
+    readerNext.addEventListener('click',()=>showReadingDay(selectedReadingDay+1,{reposition:true}));
+
     const chapters=[["January","The Courage to Begin"],["February","Trusting What We Cannot Control"],["March","The Choice to Let Go"],["April","Looking Without Looking Away"],["May","The Courage to Be Known"],["June","Making Room for Change"],["July","Strength With Open Hands"],["August","The Lives Our Choices Touch"],["September","Repair, One Choice at a Time"],["October","The Practice of Returning"],["November","Listening Beyond the Noise"],["December","A Life Given Back"]];
     const steps=["One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve"];
     const monthButtons=Array.from(document.querySelectorAll('.month-pick'));
