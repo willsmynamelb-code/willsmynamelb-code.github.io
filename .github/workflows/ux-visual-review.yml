@@ -76,7 +76,7 @@ jobs:
             }
             await browser.close();
             fs.writeFileSync('ux-qa/results.json',JSON.stringify(results,null,2));
-            const summary=['# T.Y.M.E. Responsive UX Browser Review','',...results.map(r=>'## '+r.viewport+' '+(r.pass?'PASS':'FAIL')+'\n- Horizontal overflow: '+r.overflow+'\n- Cover loaded: '+r.coverLoaded +'\n- Hero height: '+r.heroHeight+'px\n- Heading lines: '+r.heroHeadingLines+'\n- Primary buttons: +JSON.stringify(r.buttons)+'\n- Month selector: '+r.monthSelectorWorks+'\n- Navigation: '+JSON.stringify([r.mobileMenuOpened,r.mobileMenuClosed])+'\n- JS errors: '+JSON.stringify(r.errors)+'\n')];
+            const summary=['# T.Y.M.E. Responsive UX Browser Review','',...results.map(r=>'## '+r.viewport+' '+(r.pass?'PASS':'FAIL')+'\n- Horizontal overflow: '+r.overflow+'\n- Cover loaded: '+r.coverLoaded +'\n- Hero height: '+r.heroHeight+'px\n- Heading lines: '+r.heroHeadingLines+'\n- Primary buttons: '+JSON.stringify(r.buttons)+'\n- Month selector: '+r.monthSelectorWorks+'\n- Navigation: '+JSON.stringify([r.mobileMenuOpened,r.mobileMenuClosed])+'\n- JS errors: '+JSON.stringify(r.errors)+'\n')];
             fs.writeFileSync('ux-qa/summary.md',summary.join('\n'));
             console.log('TYME_QA_RESULTS '+JSON.stringify(results));
             if(failures)process.exitCode=1;
