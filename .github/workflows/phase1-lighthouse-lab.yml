@@ -1,0 +1,39 @@
+name: Phase 1 Lighthouse lab (branch only)
+on:
+  push:
+    branches: [phase1-approved-figma-implementation]
+    paths: [index.html, phase1-illuminated.css, .github/workflows/phase1-lighthouse-lab.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install lab browser and auditor
+        run: |
+          npm install --no-save lighthouse playwright
+          npx playwright install --with-deps chromium
+      - name: Audit local branch copy without GA traffic
+        run: |
+          mkdir -p qa-results
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/tyme-lh.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          sleep 2
+          export CHROME_PATH="$(node -p "require('playwright').chromium.executablePath()")"
+          npx lighthouse http://127.0.0.1:8765/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --blocked-url-patterns='*googletagmanager.com*' --blocked-url-patterns='*google-analytics.com*' --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=qa-results/mobile.json --quiet
+          npx lighthouse http://127.0.0.1:8765/ --preset=desktop --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --blocked-url-patterns='*googletagmanager.com*' --blocked-url-patterns='*google-analytics.com*' --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=qa-results/desktop.json --quiet
+          node -e "for(const mode of ['mobile','desktop']){const x=require('./qa-results/'+mode+'.json');console.log('LIGHTHOUSE '+mode.toUpperCase(),JSON.stringify({scores:Object.fromEntries(Object.entries(x.categories).map(([k,v])=>[k,Math.round(v.score*100)])),lcp:x.audits['largest-contentful-paint']?.numericValue,cls:x.audits['cumulative-layout-shift']?.numericValue,tbt:x.audits['total-blocking-time']?.numericValue}));}"
+      - name: Save lab artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase1-lighthouse-lab
+          path: qa-results/
+          retention-days: 7
