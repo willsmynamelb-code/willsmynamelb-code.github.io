@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - phase1-approved-figma-implementation
+      - phase1-figma-visual-fidelity-hero
     paths:
       - index.html
       - phase1-illuminated.css
