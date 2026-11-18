@@ -1,0 +1,73 @@
+name: Temporary Phase 1 Figma visual-fidelity comparisons (NO DEPLOY)
+on:
+  push:
+    branches: [phase1-figma-visual-fidelity-hero]
+    paths: [.github/workflows/temporary-figma-fidelity-qa.yml]
+permissions:
+  contents: read
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save playwright
+      - name: Render exact-viewpoint graphic variants using isolated Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p qa-results/figma-fidelity
+          python3 -m http.server 8877 --bind 127.0.0.1 >/tmp/tyme-fidelity.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          cat > /tmp/tyme-study.mjs <<'JS'
+          import { createRequire } from 'node:module';
+          import { writeFileSync } from 'node:fs';
+          const require=createRequire(process.cwd()+'/package.json');
+          const { chromium }=require('playwright');
+          const browser=await chromium.launch({headless:true,executablePath:'/usr/bin/google-chrome'});
+          const variants={
+            baseline:'',
+            geometry:`@media (min-width:1280px){.hero{background-size:max(100%,1529px) auto;background-position:right bottom}}
+@media (max-width:740px){.hero{background-size:auto 1254px;background-position:-1083px -85px}}`,
+            cinematic:`@media (min-width:1280px){.hero{background-size:max(100%,1529px) auto;background-position:right bottom}.hero::before{background:linear-gradient(90deg,rgba(1,32,35,.72),rgba(3,36,39,.46) 39%,rgba(6,39,42,.08) 75%,rgba(6,39,42,.03))}}
+@media (max-width:740px){.hero{background-size:auto 1254px;background-position:-1083px -85px}.hero::before{background:linear-gradient(180deg,rgba(1,31,34,.96) 0%,rgba(2,35,38,.92) 28%,rgba(4,42,42,.74) 48%,rgba(8,47,45,.43) 64%,rgba(10,46,46,.09) 95%)}}`
+          };
+          const report=[];
+          for(const width of [320,360,390,768,1024,1440]){
+            const context=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});
+            await context.route(/google-analytics\.com|googletagmanager\.com|facebook\.com|amazon\.com/,r=>r.abort());
+            for(const [variant,override] of Object.entries(variants)){
+              const page=await context.newPage();
+              await page.goto('http://127.0.0.1:8877/',{waitUntil:'domcontentloaded'});
+              await page.evaluate(()=>document.fonts.ready);
+              await page.locator('.hero-cover').evaluate(el=>el.decode().catch(()=>{}));
+              if(override) await page.addStyleTag({content:override});
+              const data=await page.evaluate(()=>{
+                const box=x=>{const r=document.querySelector(x).getBoundingClientRect();return {x:Math.round(r.x),y:Math.round(r.y),width:Math.round(r.width),height:Math.round(r.height)}};
+                const hero=getComputedStyle(document.querySelector('.hero'));
+                return {docWidth:document.documentElement.scrollWidth,hero:box('.hero'),copy:box('.hero-copy'),cover:box('.hero-cover'),caption:box('.cover-caption'),facts:box('.quick-facts'),bgSize:hero.backgroundSize,bgPos:hero.backgroundPosition};
+              });
+              report.push({width,variant,...data});
+              if(data.docWidth>width+1)throw Error('Horizontal overflow at '+width+' '+variant);
+              if(width!==768&&width!==1024) await page.locator('.hero').screenshot({path:'qa-results/figma-fidelity/'+width+'-'+variant+'.png',animations:'disabled'});
+              await page.close();
+            }
+            await context.close();
+          }
+          writeFileSync('qa-results/figma-fidelity/metrics.json',JSON.stringify(report,null,2));
+          console.log('VISUAL STUDY '+JSON.stringify(report.filter(x=>[390,1440].includes(x.width))));
+          await browser.close();
+          JS
+          cp /tmp/tyme-study.mjs ./temporary-tyme-study.mjs
+          node ./temporary-tyme-study.mjs
+      - name: Upload visual-only screenshots and measured geometry
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase1-figma-visual-study
+          path: qa-results/figma-fidelity/
+          retention-days: 2
