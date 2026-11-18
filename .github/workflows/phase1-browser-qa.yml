@@ -1,0 +1,45 @@
+# Runs exclusively on the approved implementation branch.
+# This workflow does not deploy, publish, merge, or create a PR.
+name: Phase 1 browser QA (branch only)
+
+on:
+  push:
+    branches:
+      - phase1-approved-figma-implementation
+    paths:
+      - index.html
+      - phase1-illuminated.css
+      - 'fonts/**'
+      - 'qa/**'
+      - '.github/workflows/phase1-browser-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-qa:
+    name: Playwright responsive, reader, privacy and accessibility QA
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Read approved branch code
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install QA tooling (runner only, not committed)
+        run: npm install --no-save playwright @axe-core/playwright
+      - name: Install isolated test browser
+        run: npx playwright install --with-deps chromium
+      - name: Run headless browser checks without sending analytics
+        run: node qa/phase1-browser-qa.mjs
+      - name: Save text report and screenshots as CI artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase1-browser-qa-results
+          path: qa-results/
+          if-no-files-found: warn
+          retention-days: 7
