@@ -574,6 +574,9 @@ br.mobile-title-break { display:none; }
   .footer { padding-block:44px; }
 }
 
+/* Avoid double-counting section margin + root scroll padding for this shortcut.
+   The global 98px scroll padding already clears the sticky navigation. */
+#vision { scroll-margin-top:0; }
 /* Small third invitation: native #vision anchor keeps reader and book CTAs primary. */
 .hero .action-row .btn-vision-jump {
   border:1px solid rgba(233,196,138,.9);
