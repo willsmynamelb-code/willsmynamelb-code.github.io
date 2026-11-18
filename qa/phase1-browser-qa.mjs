@@ -8,6 +8,14 @@ import AxeBuilder from '@axe-core/playwright';
 
 const BASE = 'http://127.0.0.1:8765/';
 const widths = [320, 360, 390, 768, 1024, 1440];
+// Approved Figma node geometry, at identical CSS-pixel viewport widths.
+const figma = {
+  320: {copy:[24,115],cover:[50,840,220],factsY:1254},
+  360: {copy:[24,115],cover:[70,811,220],factsY:1225},
+  390: {copy:[24,124],cover:[85,738,220],factsY:1178},
+  1440:{copy:[96,184],cover:[1016,200,300],factsY:860}
+};
+const near=(a,b)=>Math.abs(a-b)<=3;
 const report = { branch: process.env.GITHUB_REF_NAME || 'local', checks: [], viewports: [], axe: [], pageErrors: [], consoleErrors: [], notes: [] };
 const checks = (name, condition, details = '') => {
   report.checks.push({ name, pass: Boolean(condition), details });
@@ -66,6 +74,14 @@ try {
     report.viewports.push(metrics);
     console.log('VIEWPORT METRICS '+JSON.stringify(metrics));
     checks(width+'px horizontal reflow',metrics.scrollWidth<=width+1,'scrollWidth '+metrics.scrollWidth);
+    if(figma[width]) {
+      const f=figma[width];
+      const match=near(metrics.heroCopy.x,f.copy[0])&&near(metrics.heroCopy.y,f.copy[1])
+        &&near(metrics.heroCover.x,f.cover[0])&&near(metrics.heroCover.y,f.cover[1])
+        &&near(metrics.heroCover.w,f.cover[2])&&near(metrics.factsY,f.factsY);
+      checks(width+'px approved Figma hero geometry within 3px',match,
+        'copy '+JSON.stringify(metrics.heroCopy)+' cover '+JSON.stringify(metrics.heroCover)+' factsY '+metrics.factsY);
+    }
     checks(width+'px original SVG background',metrics.svgLoaded);
     checks(width+'px authentic cover(s) loaded',metrics.coverLoaded);
     checks(width+'px primary controls min 44px',metrics.smallControls.length===0,JSON.stringify(metrics.smallControls));
@@ -128,6 +144,8 @@ try {
   await page.keyboard.press('Home');
   await verify('Keyboard Home returns to January month',async()=>await page.locator('#monthHeading').textContent()==='January');
 
+  const anchors=await page.locator('a[href^="#"]').evaluateAll(els=>els.map(el=>({href:el.getAttribute('href'),exists:!!document.getElementById(el.getAttribute('href').slice(1))})));
+  checks('Every internal anchor points to an existing element',anchors.every(x=>x.exists),JSON.stringify(anchors.filter(x=>!x.exists)));
   const links=await page.locator('a[target="_blank"]').evaluateAll(els=>els.map(el=>({href:el.href,rel:el.rel})));
   checks('External new-tab links protect opener',links.every(x=>x.rel.includes('noopener')),JSON.stringify(links.filter(x=>!x.rel.includes('noopener'))));
   const preserved=await page.evaluate(()=>({
@@ -158,7 +176,7 @@ try {
 
   // Audit a representative mobile and desktop page. Axe is a supplementary
   // signal, not WCAG certification; report both existing and introduced risks.
-  for(const width of [390,1440]) {
+  for(const width of [320,390,768,1440]) {
     await page.setViewportSize({width,height:900});
     await page.goto(BASE,{waitUntil:'domcontentloaded'});
     const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze();
