@@ -226,6 +226,9 @@ try {
     });
     checks('Text-only font scaling has no horizontal page overflow at '+width+'px',
       !scalable.horizontal,JSON.stringify(scalable));
+    const monthButtonsFit=await page.locator('.month-actions .month-nav').evaluateAll(els=>
+      els.every(el=>el.scrollWidth<=el.clientWidth+2));
+    checks('Month navigation labels fit buttons at 200% text size, '+width+'px',monthButtonsFit);
     if(width===320 || width===390) await page.screenshot({path:'qa-results/text-scale-200-percent-'+width+'.png',
       fullPage:false,animations:'disabled'});
   }
