@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <meta charset="utf-8">
   <!-- Browser-specific Analytics exclusion, evaluated before the Google tag loads. -->
   <script>
     (function () {
@@ -41,7 +42,6 @@
     gtag('js', new Date());
     gtag('config', 'G-Y46CQ8WRY5');
   </script>
-  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#123b3b">
   <meta name="google-site-verification" content="Q0JXhoE1F8M22vj-tkuUU8DXQn4P7_MRL0kgPdAnFzM" />
@@ -481,6 +481,10 @@
       .reflection .reader-shell .prompt-label{margin-top:25px}
     }
   </style>
+  <!-- Phase 1 approved design. Local font files; no third-party font request. -->
+  <link rel="preload" href="fonts/libre-baskerville-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="illuminated-path-hero.svg" as="image" fetchpriority="high">
+  <link rel="stylesheet" href="phase1-illuminated.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -503,12 +507,12 @@
     <section class="hero" id="home">
   <div class="wrap hero-inner">
     <div class="hero-copy">
-      <div class="eyebrow">Daily reflections · Recovery · Personal growth</div>
-      <h1>You can begin<br><em>right where you are.</em></h1>
+      <div class="eyebrow">Daily reflections · Recovery<span class="hero-extra-eyebrow"> · Personal growth</span></div>
+      <h1>You can begin<br><em>right where<br class="mobile-title-break"> you are.</em></h1>
       <p class="lead"><strong>T.Y.M.E. — Today You Mean Everything: A Sober Companion</strong> by William Meyers offers 365 daily reflections for recovery and everyday life. Honest reflection. Practical action. One day at a time.</p>
       <div class="action-row">
-        <a class="btn btn-primary" href="#development">Read a Free Reflection ↓</a>
-        <a class="btn btn-outline" href="#journey">Explore the Book ↓</a>
+        <a class="btn btn-primary" href="#development">Read a Free Reflection</a>
+        <a class="btn btn-outline" href="#journey">Explore the Book</a>
       </div>
       <div class="hero-secondary-links" aria-label="More ways to connect with T.Y.M.E.">
         <a href="https://www.facebook.com/tyme.today.you.mean.everything" target="_blank" rel="noopener noreferrer">Follow on Facebook ↗</a>
@@ -518,6 +522,7 @@
     </div>
     <div class="book-stage">
       <img class="hero-cover" src="tyme-sober-companion-cover.webp" width="720" height="1152" alt="A Sober Companion by William Meyers, sunrise over mountains, a lake, and winding path" fetchpriority="high" decoding="async">
+      <div class="cover-caption">A Sober Companion · William Meyers</div>
     </div>
   </div>
   <div id="book" class="wrap quick-facts" aria-label="Book highlights">
@@ -538,7 +543,7 @@
     <div class="reader-shell sample-wrap">
       <div class="reader-toolbar">
         <div class="reader-toolbar-title"><span class="reader-dot" aria-hidden="true"></span> THE FIRST WEEK <span id="reader-count" role="status" aria-live="polite" aria-atomic="true">DAY 1 OF 7</span></div>
-        <div class="reader-day-selector" role="group" aria-label="Select a day of reflection"><button type="button" class="reader-day-btn active" data-reader-select="1" aria-pressed="true" aria-controls="readerDay1" aria-label="Read January 1">Jan 1</button><button type="button" class="reader-day-btn" data-reader-select="2" aria-pressed="false" aria-controls="readerDay2" aria-label="Read January 2">Jan 2</button><button type="button" class="reader-day-btn" data-reader-select="3" aria-pressed="false" aria-controls="readerDay3" aria-label="Read January 3">Jan 3</button><button type="button" class="reader-day-btn" data-reader-select="4" aria-pressed="false" aria-controls="readerDay4" aria-label="Read January 4">Jan 4</button><button type="button" class="reader-day-btn" data-reader-select="5" aria-pressed="false" aria-controls="readerDay5" aria-label="Read January 5">Jan 5</button><button type="button" class="reader-day-btn" data-reader-select="6" aria-pressed="false" aria-controls="readerDay6" aria-label="Read January 6">Jan 6</button><button type="button" class="reader-day-btn" data-reader-select="7" aria-pressed="false" aria-controls="readerDay7" aria-label="Read January 7">Jan 7</button></div>
+        <div class="reader-day-selector" role="group" aria-label="Select a day of reflection"><button type="button" class="reader-day-btn active" data-reader-select="1" aria-pressed="true" aria-controls="readerDay1" aria-label="Jan 1, read January 1 reflection">Jan 1</button><button type="button" class="reader-day-btn" data-reader-select="2" aria-pressed="false" aria-controls="readerDay2" aria-label="Jan 2, read January 2 reflection">Jan 2</button><button type="button" class="reader-day-btn" data-reader-select="3" aria-pressed="false" aria-controls="readerDay3" aria-label="Jan 3, read January 3 reflection">Jan 3</button><button type="button" class="reader-day-btn" data-reader-select="4" aria-pressed="false" aria-controls="readerDay4" aria-label="Jan 4, read January 4 reflection">Jan 4</button><button type="button" class="reader-day-btn" data-reader-select="5" aria-pressed="false" aria-controls="readerDay5" aria-label="Jan 5, read January 5 reflection">Jan 5</button><button type="button" class="reader-day-btn" data-reader-select="6" aria-pressed="false" aria-controls="readerDay6" aria-label="Jan 6, read January 6 reflection">Jan 6</button><button type="button" class="reader-day-btn" data-reader-select="7" aria-pressed="false" aria-controls="readerDay7" aria-label="Jan 7, read January 7 reflection">Jan 7</button></div>
         <div class="reader-progress" aria-hidden="true"><div class="reader-progress-fill" id="reader-progress-fill"></div></div>
       </div>
       <article class="sample-card" id="reader-article"><div class="reader-entry" id="readerDay1" data-reader-day="1" role="region" aria-label="January 1 reflection">
@@ -610,7 +615,7 @@
         <button type="button" class="reader-arrow reader-arrow-next" id="reader-next" aria-label="Next day's reflection">Next day <span aria-hidden="true">→</span></button>
       </div>
       <div class="reader-finish" id="reader-finish" hidden>
-        <span class="eyebrow">You've reached day seven</span>
+        <span class="eyebrow">January 7 selected</span>
         <h3>Keep the next right day close.</h3>
         <p>Continue through the book or stay connected to T.Y.M.E. for more encouragement and reflection.</p>
         <div class="reader-finish-actions">
@@ -621,20 +626,8 @@
     </div>
   </div>
 </section>
-<section class="section-pad connect-band" id="connect" aria-labelledby="connect-title">
-  <div class="wrap connect-inner">
-    <div>
-      <div class="eyebrow">Keep the reflection going</div>
-      <h2 id="connect-title">A place to return to, one day at a time.</h2>
-      <p>Follow T.Y.M.E. for reflections, encouragement, and updates as this recovery-centered community grows. Start with the free reading above, and stay connected in the way that works for you.</p>
-    </div>
-    <div class="connect-actions">
-      <a class="btn btn-dark" href="https://www.facebook.com/tyme.today.you.mean.everything" target="_blank" rel="noopener noreferrer">Follow T.Y.M.E. on Facebook ↗</a>
-      <a class="quiet-link" href="#contact">Questions or ideas? Contact T.Y.M.E. ↓</a>
-    </div>
-  </div>
-</section>
-<section class="section-pad journey" id="journey"><div class="wrap journey-layout"><div class="section-head"><div class="eyebrow" style="color:#80512f">Inside the book</div><h2>Twelve months.<br>One day at a time.</h2><p>Each month draws from a Step of recovery. Tap to explore the book's chapter themes.</p></div><div class="journey-browser"><div class="month-selector-head"><span>CHAPTER THEMES</span><span class="selector-meta">12 MONTHS · 12 STEPS</span></div><div class="month-grid" id="monthGrid" role="group" aria-label="Choose a month"><button class="month-pick active" type="button" data-month="0" aria-pressed="true" aria-controls="monthPanel" aria-label="January, Step 1: The Courage to Begin">Jan</button><button class="month-pick" type="button" data-month="1" aria-pressed="false" aria-controls="monthPanel" aria-label="February, Step 2: Trusting What We Cannot Control">Feb</button><button class="month-pick" type="button" data-month="2" aria-pressed="false" aria-controls="monthPanel" aria-label="March, Step 3: The Choice to Let Go">Mar</button><button class="month-pick" type="button" data-month="3" aria-pressed="false" aria-controls="monthPanel" aria-label="April, Step 4: Looking Without Looking Away">Apr</button><button class="month-pick" type="button" data-month="4" aria-pressed="false" aria-controls="monthPanel" aria-label="May, Step 5: The Courage to Be Known">May</button><button class="month-pick" type="button" data-month="5" aria-pressed="false" aria-controls="monthPanel" aria-label="June, Step 6: Making Room for Change">Jun</button><button class="month-pick" type="button" data-month="6" aria-pressed="false" aria-controls="monthPanel" aria-label="July, Step 7: Strength With Open Hands">Jul</button><button class="month-pick" type="button" data-month="7" aria-pressed="false" aria-controls="monthPanel" aria-label="August, Step 8: The Lives Our Choices Touch">Aug</button><button class="month-pick" type="button" data-month="8" aria-pressed="false" aria-controls="monthPanel" aria-label="September, Step 9: Repair, One Choice at a Time">Sep</button><button class="month-pick" type="button" data-month="9" aria-pressed="false" aria-controls="monthPanel" aria-label="October, Step 10: The Practice of Returning">Oct</button><button class="month-pick" type="button" data-month="10" aria-pressed="false" aria-controls="monthPanel" aria-label="November, Step 11: Listening Beyond the Noise">Nov</button><button class="month-pick" type="button" data-month="11" aria-pressed="false" aria-controls="monthPanel" aria-label="December, Step 12: A Life Given Back">Dec</button></div><div class="month-panel" id="monthPanel" role="region" aria-live="polite" aria-label="Selected month">
+
+<section class="section-pad journey" id="journey"><div class="wrap journey-layout"><div class="section-head"><div class="eyebrow" style="color:#80512f">Inside the book</div><h2>Twelve months.<br>One day at a time.</h2><p>Each month draws from a Step of recovery. Tap to explore the book's chapter themes.</p></div><div class="journey-cover"><img src="tyme-sober-companion-cover.webp" width="720" height="1152" alt="Cover of A Sober Companion by William Meyers" loading="lazy" decoding="async"><p>William Meyers</p></div><div class="journey-browser"><div class="month-selector-head"><span>CHAPTER THEMES</span><span class="selector-meta">12 MONTHS · 12 STEPS</span></div><div class="month-grid" id="monthGrid" role="group" aria-label="Choose a month"><button class="month-pick active" type="button" data-month="0" aria-pressed="true" aria-controls="monthPanel" aria-label="January, Step 1: The Courage to Begin">Jan</button><button class="month-pick" type="button" data-month="1" aria-pressed="false" aria-controls="monthPanel" aria-label="February, Step 2: Trusting What We Cannot Control">Feb</button><button class="month-pick" type="button" data-month="2" aria-pressed="false" aria-controls="monthPanel" aria-label="March, Step 3: The Choice to Let Go">Mar</button><button class="month-pick" type="button" data-month="3" aria-pressed="false" aria-controls="monthPanel" aria-label="April, Step 4: Looking Without Looking Away">Apr</button><button class="month-pick" type="button" data-month="4" aria-pressed="false" aria-controls="monthPanel" aria-label="May, Step 5: The Courage to Be Known">May</button><button class="month-pick" type="button" data-month="5" aria-pressed="false" aria-controls="monthPanel" aria-label="June, Step 6: Making Room for Change">Jun</button><button class="month-pick" type="button" data-month="6" aria-pressed="false" aria-controls="monthPanel" aria-label="July, Step 7: Strength With Open Hands">Jul</button><button class="month-pick" type="button" data-month="7" aria-pressed="false" aria-controls="monthPanel" aria-label="August, Step 8: The Lives Our Choices Touch">Aug</button><button class="month-pick" type="button" data-month="8" aria-pressed="false" aria-controls="monthPanel" aria-label="September, Step 9: Repair, One Choice at a Time">Sep</button><button class="month-pick" type="button" data-month="9" aria-pressed="false" aria-controls="monthPanel" aria-label="October, Step 10: The Practice of Returning">Oct</button><button class="month-pick" type="button" data-month="10" aria-pressed="false" aria-controls="monthPanel" aria-label="November, Step 11: Listening Beyond the Noise">Nov</button><button class="month-pick" type="button" data-month="11" aria-pressed="false" aria-controls="monthPanel" aria-label="December, Step 12: A Life Given Back">Dec</button></div><div class="month-panel" id="monthPanel" role="region" aria-live="polite" aria-label="Selected month">
     <div class="month-panel-accent" aria-hidden="true"><svg viewBox="0 0 190 152" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
       <circle cx="106" cy="62" r="35" fill="#E4BF84" opacity=".22"/>
       <path d="M44 72a62 62 0 0 1 124 0M24 72a82 82 0 0 1 164 0" stroke="#C89658" stroke-width="1.5" opacity=".42"/>
@@ -695,6 +688,19 @@
         </div>
       </div>
     </section>
+    <section class="section-pad connect-band" id="connect" aria-labelledby="connect-title">
+  <div class="wrap connect-inner">
+    <div>
+      <div class="eyebrow">Keep the reflection going</div>
+      <h2 id="connect-title">A place to return to, one day at a time.</h2>
+      <p>Follow T.Y.M.E. for reflections, encouragement, and updates as this recovery-centered community grows. Start with the free reading above, and stay connected in the way that works for you.</p>
+    </div>
+    <div class="connect-actions">
+      <a class="btn btn-dark" href="https://www.facebook.com/tyme.today.you.mean.everything" target="_blank" rel="noopener noreferrer">Follow T.Y.M.E. on Facebook ↗</a>
+      <a class="quiet-link" href="#contact">Questions or ideas? Contact T.Y.M.E. ↓</a>
+    </div>
+  </div>
+</section>
     <section class="section-pad vision-invitation" id="share" aria-labelledby="share-title">
       <div class="wrap invitation-layout">
         <div class="invitation-copy">
@@ -741,6 +747,22 @@
     /* First-week reader: one complete reflection at a time, including keyboard navigation. */
     const readingButtons=Array.from(document.querySelectorAll('[data-reader-select]'));
     const readingEntries=Array.from(document.querySelectorAll('[data-reader-day]'));
+    // Arrange existing, approved prompts into a side panel for the Figma editorial
+    // layout. Text is moved, never rewritten, captured, stored, or transmitted.
+    readingEntries.forEach(entry=>{
+      if(entry.querySelector('.reader-prompts')) return;
+      const labels=Array.from(entry.children).filter(child=>child.classList.contains('prompt-label'));
+      if(!labels.length) return;
+      const panel=document.createElement('aside');
+      panel.className='reader-prompts';
+      panel.setAttribute('aria-label','Practice and reflection prompts');
+      labels.forEach(label=>{
+        const paragraph=label.nextElementSibling;
+        panel.appendChild(label);
+        if(paragraph && paragraph.tagName==='P') panel.appendChild(paragraph);
+      });
+      entry.appendChild(panel);
+    });
     const readerPrev=document.getElementById('reader-prev');
     const readerNext=document.getElementById('reader-next');
     const readerArticle=document.getElementById('reader-article');
