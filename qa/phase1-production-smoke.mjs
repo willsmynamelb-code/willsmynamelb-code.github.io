@@ -20,7 +20,7 @@ let browser;
 try {
   browser=await chromium.launch({headless:true});
   const context=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});
-  await context.route(/google-analytics\\.com|googletagmanager\\.com|doubleclick\\.net|amazon\\.com|facebook\\.com/,route=>route.abort());
+  await context.route(/google-analytics\.com|googletagmanager\.com|doubleclick\.net|amazon\.com|facebook\.com/,route=>route.abort());
   // Wait for GitHub Pages to serve the new SHA. Success here means actual public
   // content matches the source. Retries only read public pages.
   let published=false,last='not started';
@@ -52,6 +52,7 @@ try {
     await page.setViewportSize({width,height:900});
     const res=await page.goto(BASE,{waitUntil:'domcontentloaded',timeout:25000});
     await page.evaluate(()=>document.fonts.ready);
+    await page.locator('.hero-cover').evaluate(img=>img.decode().catch(()=>{}));
     const result=await page.evaluate(()=>({
       width:innerWidth,scroll:document.documentElement.scrollWidth,
       css:!![...document.styleSheets].find(s=>s.href?.includes('phase1-illuminated.css')),
@@ -79,7 +80,7 @@ try {
   check('Live December chapter navigation',await page.locator('#monthHeading').textContent()==='December');
   // A clean browser context tests opt-out without writing data to the user's browser.
   const privacy=await browser.newContext({viewport:{width:390,height:844}});
-  await privacy.route(/google-analytics\\.com|googletagmanager\\.com/,r=>r.abort());
+  await privacy.route(/google-analytics\.com|googletagmanager\.com/,r=>r.abort());
   const privatePage=await privacy.newPage();
   privatePage.on('dialog',d=>d.dismiss());
   await privatePage.goto(BASE+'#tyme-analytics-off',{waitUntil:'domcontentloaded'});
