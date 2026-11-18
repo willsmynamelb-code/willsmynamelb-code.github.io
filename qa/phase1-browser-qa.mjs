@@ -101,6 +101,7 @@ try {
   await verify('Escape closes menu and restores focus',async()=>await page.locator('#menuButton').getAttribute('aria-expanded')==='false' && await page.locator('#menuButton').evaluate(el=>document.activeElement===el));
   await verify('Reader has exactly seven original day regions',async()=>await page.locator('[data-reader-day]').count()===7);
   await verify('Reader has exactly seven selectable day buttons',async()=>await page.locator('[data-reader-select]').count()===7);
+  await verify('Reflection buttons include visible Jan X text in accessible name',async()=>await page.locator('.reader-day-btn').evaluateAll(btns=>btns.every(el=>el.getAttribute('aria-label')?.includes(el.textContent.trim()))));
   await verify('Day 1 initial state and disabled Previous',async()=>await page.locator('#reader-page').textContent()==='1 / 7' && await page.locator('#reader-prev').isDisabled());
   for(let day=1;day<=7;day++) {
     await page.locator('[data-reader-select="'+day+'"]').click();
