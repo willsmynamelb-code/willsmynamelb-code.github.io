@@ -1,7 +1,7 @@
 name: Phase 1 Lighthouse lab (branch only)
 on:
   push:
-    branches: [phase1-approved-figma-implementation, phase1-figma-visual-fidelity-hero]
+    branches: [phase1-approved-figma-implementation]
     paths: [index.html, phase1-illuminated.css, .github/workflows/phase1-lighthouse-lab.yml]
   workflow_dispatch:
 permissions:
