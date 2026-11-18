@@ -1,0 +1,174 @@
+// Branch-only, browser-based QA. Never contacts real analytics or makes a deployment.
+import assert from 'node:assert/strict';
+import { spawn } from 'node:child_process';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { setTimeout as delay } from 'node:timers/promises';
+import { chromium } from 'playwright';
+import AxeBuilder from '@axe-core/playwright';
+
+const BASE = 'http://127.0.0.1:8765/';
+const widths = [320, 360, 390, 768, 1024, 1440];
+const report = { branch: process.env.GITHUB_REF_NAME || 'local', checks: [], viewports: [], axe: [], pageErrors: [], consoleErrors: [], notes: [] };
+const checks = (name, condition, details = '') => {
+  report.checks.push({ name, pass: Boolean(condition), details });
+  console.log((condition ? 'PASS' : 'FAIL') + ' ' + name + (details ? ' :: ' + details : ''));
+};
+const verify = async (name, task) => {
+  try { const value = await task(); checks(name, Boolean(value), value === false ? 'false' : ''); }
+  catch (error) { checks(name, false, String(error?.message || error)); }
+};
+await mkdir('qa-results', { recursive:true });
+const server = spawn('python3', ['-m','http.server','8765','--bind','127.0.0.1'], { stdio:'ignore' });
+let browser;
+try {
+  for (let i=0;i<50;i++) {
+    try { const response=await fetch(BASE); if(response.ok) break; }
+    catch { /* starting */ }
+    await delay(180);
+    if(i===49) throw new Error('Local HTTP server did not start');
+  }
+  browser = await chromium.launch({ headless:true });
+  const context = await browser.newContext({ viewport:{width:1440,height:900}, reducedMotion:'reduce' });
+  // Avoid real third-party analytics requests during QA; leave application code unchanged.
+  await context.route(/google-analytics\.com|googletagmanager\.com|facebook\.com|amazon\.com|doubleclick\.net/, route => route.abort());
+  const page = await context.newPage();
+  page.on('pageerror',error=>report.pageErrors.push(String(error.message)));
+  page.on('console',msg=>{if(msg.type()==='error' && !/ERR_FAILED|google-analytics|googletagmanager/i.test(msg.text()))report.consoleErrors.push(msg.text());});
+  page.on('dialog',dialog=>dialog.dismiss());
+  for(const width of widths) {
+    await page.setViewportSize({width,height:900});
+    await page.goto(BASE,{waitUntil:'domcontentloaded'});
+    await page.evaluate(() => document.fonts.ready);
+    await page.locator('.hero-cover').waitFor({state:'visible'});
+    const metrics=await page.evaluate(()=>{
+      const hero=document.querySelector('.hero');
+      const btns=[...document.querySelectorAll('.hero .action-row a, .reader-day-btn, .month-pick, #menuButton')]
+        .filter(el=>getComputedStyle(el).display!=='none')
+        .map(el=>({name:el.getAttribute('aria-label')||el.textContent.trim().slice(0,25),w:Math.round(el.getBoundingClientRect().width),h:Math.round(el.getBoundingClientRect().height)}));
+      return {
+        width:innerWidth,scrollWidth:document.documentElement.scrollWidth,
+        bodyWidth:document.body.scrollWidth,
+        heroHeight:Math.round(hero.getBoundingClientRect().height),
+        headings:[...document.querySelectorAll('h1')].map(x=>x.textContent.trim()),
+        coverLoaded:[...document.querySelectorAll('.hero-cover,.journey-cover img')].every(x=>x.complete && x.naturalWidth>0),
+        svgLoaded:getComputedStyle(hero).backgroundImage.includes('illuminated-path-hero.svg'),
+        fontLibre:document.fonts.check('400 20px "Libre Baskerville"'),
+        fontInter:document.fonts.check('400 20px "Inter"'),
+        actionableMinSize:btns.reduce((min,x)=>Math.min(min,x.w,x.h),Infinity),
+        smallControls:btns.filter(x=>x.w<44||x.h<44),
+        navMenuVisible:getComputedStyle(document.querySelector('#menuButton')).display!=='none'
+      };
+    });
+    report.viewports.push(metrics);
+    checks(width+'px horizontal reflow',metrics.scrollWidth<=width+1,'scrollWidth '+metrics.scrollWidth);
+    checks(width+'px original SVG background',metrics.svgLoaded);
+    checks(width+'px authentic cover(s) loaded',metrics.coverLoaded);
+    checks(width+'px primary controls min 44px',metrics.smallControls.length===0,JSON.stringify(metrics.smallControls));
+    if(width===390 || width===1440) {
+      await page.screenshot({path:'qa-results/homepage-'+width+'.png',fullPage:true,animations:'disabled'});
+    } else {
+      await page.locator('.hero').screenshot({path:'qa-results/hero-'+width+'.png',animations:'disabled'});
+    }
+  }
+  checks('Approved literary display font available',report.viewports.every(x=>x.fontLibre));
+  checks('Approved body font available',report.viewports.every(x=>x.fontInter));
+  checks('Browser console has no uncaught JavaScript exceptions',report.pageErrors.length===0,JSON.stringify(report.pageErrors));
+
+  await page.setViewportSize({width:390,height:844});
+  await page.goto(BASE,{waitUntil:'domcontentloaded'});
+  await verify('Mobile menu begins collapsed',async()=>await page.locator('#menuButton').getAttribute('aria-expanded')==='false');
+  await page.locator('#menuButton').click();
+  await verify('Mobile menu opens and exposes links',async()=>await page.locator('#menuButton').getAttribute('aria-expanded')==='true' && await page.locator('#navLinks a[href="#resources"]').isVisible());
+  await page.keyboard.press('Escape');
+  await verify('Escape closes menu and restores focus',async()=>await page.locator('#menuButton').getAttribute('aria-expanded')==='false' && await page.locator('#menuButton').evaluate(el=>document.activeElement===el));
+  await verify('Reader has exactly seven original day regions',async()=>await page.locator('[data-reader-day]').count()===7);
+  await verify('Reader has exactly seven selectable day buttons',async()=>await page.locator('[data-reader-select]').count()===7);
+  await verify('Day 1 initial state and disabled Previous',async()=>await page.locator('#reader-page').textContent()==='1 / 7' && await page.locator('#reader-prev').isDisabled());
+  for(let day=1;day<=7;day++) {
+    await page.locator('[data-reader-select="'+day+'"]').click();
+    await verify('Day '+day+' selects only its own full reflection',async()=>{
+      return await page.locator('#reader-page').textContent()===day+' / 7'
+        && await page.locator('[data-reader-day="'+day+'"]').isVisible()
+        && await page.locator('.reader-entry:visible').count()===1
+        && await page.locator('[data-reader-select="'+day+'"]').getAttribute('aria-pressed')==='true'
+        && await page.locator('[data-reader-day="'+day+'"] .reader-prompts .prompt-label').count()===3;
+    });
+  }
+  await verify('Day 7 does not claim completion from page selection',async()=>{
+    const finish=await page.locator('#reader-finish').textContent();
+    return await page.locator('#reader-next').isDisabled() && /January 7 selected/.test(finish) && !/week is complete/i.test(finish);
+  });
+  await page.locator('#reader-prev').click();
+  await verify('Previous day navigation',async()=>await page.locator('#reader-page').textContent()==='6 / 7');
+  await page.locator('[data-reader-select="3"]').focus();
+  await page.keyboard.press('ArrowRight');
+  await verify('Keyboard ArrowRight selects next reflection',async()=>await page.locator('#reader-page').textContent()==='4 / 7');
+  await page.keyboard.press('Home');
+  await verify('Keyboard Home selects Jan 1',async()=>await page.locator('#reader-page').textContent()==='1 / 7');
+
+  await verify('Twelve original month controls retained',async()=>await page.locator('.month-pick').count()===12);
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  for(let i=0;i<12;i++) {
+    await page.locator('.month-pick').nth(i).click();
+    await verify(months[i]+' selection updates correct month panel',async()=>{
+      return await page.locator('#monthHeading').textContent()===months[i]
+        && await page.locator('.month-pick').nth(i).getAttribute('aria-pressed')==='true';
+    });
+  }
+  await page.locator('#monthNext').click();
+  await verify('December Next wraps to January',async()=>await page.locator('#monthHeading').textContent()==='January');
+  await page.locator('#monthPrev').click();
+  await verify('January Previous wraps to December',async()=>await page.locator('#monthHeading').textContent()==='December');
+  await page.locator('.month-pick').nth(5).focus();
+  await page.keyboard.press('Home');
+  await verify('Keyboard Home returns to January month',async()=>await page.locator('#monthHeading').textContent()==='January');
+
+  const links=await page.locator('a[target="_blank"]').evaluateAll(els=>els.map(el=>({href:el.href,rel:el.rel})));
+  checks('External new-tab links protect opener',links.every(x=>x.rel.includes('noopener')),JSON.stringify(links.filter(x=>!x.rel.includes('noopener'))));
+  const preserved=await page.evaluate(()=>({
+    original7:[...document.querySelectorAll('[data-reader-day]')].every(x=>x.querySelector('.body')&&x.querySelectorAll('.reader-prompts p').length===3),
+    noPromptInputs:document.querySelectorAll('.reader-entry input,.reader-entry textarea').length===0,
+    analyticsFlagInScript:document.documentElement.outerHTML.includes('tyme_analytics_opt_out_v1'),
+    vision:document.querySelector('#vision')?.textContent.includes('My vision for'),
+    resources:document.querySelector('#resources')?.querySelectorAll('a').length>=7,
+    headings:document.querySelectorAll('h1').length===1
+  }));
+  for(const [k,v] of Object.entries(preserved)) checks('Preserve '+k,Boolean(v));
+
+  // One specific browser, no persistent account data or analytics traffic.
+  const optoutContext=await browser.newContext({viewport:{width:390,height:844}});
+  await optoutContext.route(/google-analytics\.com|googletagmanager\.com/,route=>route.abort());
+  const optPage=await optoutContext.newPage();
+  optPage.on('dialog',dialog=>dialog.dismiss());
+  await optPage.goto(BASE+'#tyme-analytics-off',{waitUntil:'domcontentloaded'});
+  const opted=await optPage.evaluate(()=>({flag:window['ga-disable-G-Y46CQ8WRY5'],saved:localStorage.getItem('tyme_analytics_opt_out_v1')}));
+  checks('Analytics opt-out blocks tracking in browser',opted.flag===true && opted.saved==='1',JSON.stringify(opted));
+  await optPage.goto(BASE+'#tyme-analytics-on',{waitUntil:'domcontentloaded'});
+  const optedBack=await optPage.evaluate(()=>({flag:window['ga-disable-G-Y46CQ8WRY5'],saved:localStorage.getItem('tyme_analytics_opt_out_v1')}));
+  checks('Analytics re-enable reverses browser flag',optedBack.flag===false && optedBack.saved===null,JSON.stringify(optedBack));
+  await optoutContext.close();
+
+  // Audit a representative mobile and desktop page. Axe is a supplementary
+  // signal, not WCAG certification; report both existing and introduced risks.
+  for(const width of [390,1440]) {
+    await page.setViewportSize({width,height:900});
+    await page.goto(BASE,{waitUntil:'domcontentloaded'});
+    const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze();
+    const violations=scan.violations.map(v=>({id:v.id,impact:v.impact,count:v.nodes.length,description:v.help,targets:v.nodes.slice(0,5).map(n=>n.target.join(' '))}));
+    report.axe.push({width,violations,incomplete:scan.incomplete.length,passes:scan.passes.length});
+    console.log('AXE '+width+' '+JSON.stringify(violations));
+    checks('Axe '+width+'px no critical violations',!violations.some(v=>v.impact==='critical'));
+  }
+} catch(error) {
+  report.notes.push('Browser QA fatal: '+String(error.stack||error));
+  checks('Browser QA execution completes',false,String(error.message||error));
+} finally {
+  if(browser) await browser.close();
+  server.kill('SIGTERM');
+  const passed=report.checks.filter(x=>x.pass).length;
+  const failed=report.checks.filter(x=>!x.pass);
+  report.summary={passed,failed:failed.length,total:report.checks.length,failures:failed};
+  await writeFile('qa-results/report.json',JSON.stringify(report,null,2));
+  console.log('QA SUMMARY '+JSON.stringify(report.summary));
+  if(failed.length) process.exitCode=1;
+}
