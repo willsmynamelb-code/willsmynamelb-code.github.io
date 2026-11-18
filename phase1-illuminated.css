@@ -394,6 +394,9 @@ br.mobile-title-break { display:none; }
   .journey .section-head h2 { font-size:32px; }
   .journey-cover img { width:min(57%,220px); }
   .journey .month-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; }
+  /* Allow month controls to wrap instead of shrinking text below its readable width. */
+  .journey .month-actions { flex-wrap:wrap; gap:12px 6px; }
+  .journey .month-actions .month-nav, .journey .month-actions .month-index { flex-shrink:0; }
   .journey .month-panel { padding:15px 0 0; }
   .journey .month-feature { padding-top:23px; min-height:0; }
   .journey .month-panel h3 { font-size:27px; }
