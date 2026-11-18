@@ -202,12 +202,20 @@ try {
     // as native browser zoom, platform text enlargement or assistive technology.
     const scalable=await page.evaluate(()=>{
       document.documentElement.style.fontSize='32px';
+      const offenders=[...document.querySelectorAll('body *')].filter(el=>{
+        const st=getComputedStyle(el),r=el.getBoundingClientRect();
+        return st.display!=='none' && r.width>0 && r.height>0 &&
+          (r.right>window.innerWidth+2 || r.left< -2);
+      }).slice(0,20).map(el=>({tag:el.tagName,cl:String(el.className).slice(0,90),
+        text:(el.textContent||'').trim().slice(0,35),left:Math.round(el.getBoundingClientRect().left),
+        right:Math.round(el.getBoundingClientRect().right)}));
       return {horizontal:document.documentElement.scrollWidth>window.innerWidth+1,
-        display:getComputedStyle(document.querySelector('h1')).fontFamily};
+        display:getComputedStyle(document.querySelector('h1')).fontFamily,
+        documentWidth:document.documentElement.scrollWidth,offenders};
     });
     checks('Text-only font scaling has no horizontal page overflow at '+width+'px',
       !scalable.horizontal,JSON.stringify(scalable));
-    if(width===390) await page.screenshot({path:'qa-results/text-scale-200-percent-390.png',
+    if(width===320 || width===390) await page.screenshot({path:'qa-results/text-scale-200-percent-'+width+'.png',
       fullPage:false,animations:'disabled'});
   }
   await page.evaluate(()=>document.documentElement.style.fontSize='');
