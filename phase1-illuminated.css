@@ -573,3 +573,29 @@ br.mobile-title-break { display:none; }
   .contact-section .founder-card .contact-link { font-size:17px; }
   .footer { padding-block:44px; }
 }
+
+/* Avoid double-counting section margin + root scroll padding for this shortcut.
+   The global 98px scroll padding already clears the sticky navigation. */
+#vision { scroll-margin-top:0; }
+/* Small third invitation: native #vision anchor keeps reader and book CTAs primary. */
+.hero .action-row .btn-vision-jump {
+  border:1px solid rgba(233,196,138,.9);
+  background:rgba(7,44,46,.48);
+  color:#f8d69a;
+  font-weight:600;
+}
+.hero .action-row .btn-vision-jump:hover {
+  background:rgba(24,75,70,.8);
+  color:#ffe3b4;
+}
+@media (max-width:740px) {
+  .hero .action-row .btn-vision-jump {
+    width:max-content;
+    max-width:100%;
+    align-self:flex-start;
+    min-height:44px;
+    padding:10px 18px;
+    font-size:14px;
+    font-weight:600;
+  }
+}
