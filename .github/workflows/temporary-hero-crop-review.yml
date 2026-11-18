@@ -68,6 +68,15 @@ jobs:
           await browser.close();
           JS
           node crop-visual-review.mjs
+          # Use runner's installed Chrome for full regression, avoiding a second download.
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('qa/phase1-browser-qa.mjs')
+          text=p.read_text()
+          old='chromium.launch({ headless:true });'
+          assert old in text
+          p.write_text(text.replace(old, "chromium.launch({ headless:true, executablePath:'/usr/bin/google-chrome' });"))
+          PY
           node qa/phase1-browser-qa.mjs
       - name: Preserve isolated visual comparison
         if: always()
