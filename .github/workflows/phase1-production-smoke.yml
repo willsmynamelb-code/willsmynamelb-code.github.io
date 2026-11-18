@@ -1,0 +1,40 @@
+# Actual production verification after a separately authorized merge.
+# This workflow is read-only. It does not deploy, change DNS, or publish.
+name: T.Y.M.E. Phase 1 live website verification
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - phase1-illuminated.css
+      - 'fonts/**'
+      - 'qa/phase1-production-smoke.mjs'
+      - '.github/workflows/phase1-production-smoke.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  deployed-site-smoke:
+    name: Compare live website with merged source and test controls
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser QA tools on isolated runner
+        run: npm install --no-save playwright @axe-core/playwright
+      - name: Install Chromium for public-page verification
+        run: npx playwright install --with-deps chromium
+      - name: Verify actual live website without sending analytics
+        run: node qa/phase1-production-smoke.mjs
+      - name: Preserve post-release verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase1-deployed-website-QA
+          path: qa-results/postrelease/
+          if-no-files-found: warn
+          retention-days: 7
