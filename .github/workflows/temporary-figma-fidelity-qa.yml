@@ -32,9 +32,9 @@ jobs:
           const variants={
             baseline:'',
             geometry:`@media (min-width:1280px){.hero{background-size:max(100%,1529px) auto;background-position:right bottom}}
-@media (max-width:740px){.hero{background-size:auto 1254px;background-position:-1083px -85px}}`,
+          @media (max-width:740px){.hero{background-size:auto 1254px;background-position:-1083px -85px}}`,
             cinematic:`@media (min-width:1280px){.hero{background-size:max(100%,1529px) auto;background-position:right bottom}.hero::before{background:linear-gradient(90deg,rgba(1,32,35,.72),rgba(3,36,39,.46) 39%,rgba(6,39,42,.08) 75%,rgba(6,39,42,.03))}}
-@media (max-width:740px){.hero{background-size:auto 1254px;background-position:-1083px -85px}.hero::before{background:linear-gradient(180deg,rgba(1,31,34,.96) 0%,rgba(2,35,38,.92) 28%,rgba(4,42,42,.74) 48%,rgba(8,47,45,.43) 64%,rgba(10,46,46,.09) 95%)}}`
+          @media (max-width:740px){.hero{background-size:auto 1254px;background-position:-1083px -85px}.hero::before{background:linear-gradient(180deg,rgba(1,31,34,.96) 0%,rgba(2,35,38,.92) 28%,rgba(4,42,42,.74) 48%,rgba(8,47,45,.43) 64%,rgba(10,46,46,.09) 95%)}}`
           };
           const report=[];
           for(const width of [320,360,390,768,1024,1440]){
