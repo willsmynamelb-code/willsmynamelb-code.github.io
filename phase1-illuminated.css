@@ -353,9 +353,11 @@ br.mobile-title-break { display:none; }
   .wrap { padding-inline:24px; }
   .nav { min-height:84px; }
   .nav .logo { font-size:26px; }
-  .hero { background-position:72% center; }
+  /* Match the approved editable Figma mobile art, a fixed oversized crop
+     (96:615 / 130:560 / 130:817), without distorting the original SVG. */
+  .hero { background-size:auto 1254px; background-position:-1083px -85px; }
   .hero::before {
-    background:linear-gradient(180deg,rgba(1,31,34,.98) 0%,rgba(3,36,40,.96) 30%,rgba(7,45,47,.86) 57%,rgba(10,46,46,.42) 100%);
+    background:linear-gradient(180deg,rgba(1,31,34,.96) 0%,rgba(2,35,38,.92) 28%,rgba(4,42,42,.74) 48%,rgba(8,47,45,.43) 64%,rgba(10,46,46,.09) 95%);
   }
   .hero-inner {
     display:flex; flex-direction:column; align-items:stretch;
@@ -441,6 +443,12 @@ br.mobile-title-break { display:none; }
    the already approved Figma frames without deleting existing content. */
 @media (min-width:1046px) {
   .hero-inner { justify-content:start; gap:112px; }
+}
+@media (min-width:1280px) {
+  /* Original SVG fills the approved 1440 × 860 Figma artwork extent.
+     Only its visual focal placement changes; content geometry stays fixed. */
+  .hero { background-size:max(100%,1529px) auto; background-position:right bottom; }
+  .hero::before { background:linear-gradient(90deg,rgba(1,32,35,.72),rgba(3,36,39,.46) 39%,rgba(6,39,42,.08) 75%,rgba(6,39,42,.03)); }
 }
 .mission,.vision { background:#f1e9d9; color:#123f42; }
 .mission { padding-bottom:42px; }
