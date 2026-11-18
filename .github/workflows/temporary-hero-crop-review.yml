@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm install --no-save playwright
+      - run: npm install --no-save playwright @axe-core/playwright
       - name: Capture original SVG artwork at multiple placements
         shell: bash
         run: |
@@ -68,6 +68,7 @@ jobs:
           await browser.close();
           JS
           node crop-visual-review.mjs
+          node qa/phase1-browser-qa.mjs
       - name: Preserve isolated visual comparison
         if: always()
         uses: actions/upload-artifact@v4
