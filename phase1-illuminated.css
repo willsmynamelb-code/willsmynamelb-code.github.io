@@ -417,6 +417,8 @@ br.mobile-title-break { display:none; }
   .reflection .reader-arrow { padding-inline:9px; font-size:12px; }
   .journey .month-meta { flex-wrap:wrap; }
   .journey .month-nav { min-width:0; font-size:12px; padding:9px 10px; }
+  /* Preserve legibility under 200% text enlargement without clipping long resource headings. */
+  .resources .section-head h2 { overflow-wrap:anywhere; hyphens:auto; }
 }
 @media (max-width:340px) {
   .hero-inner { min-height:1169px; }
