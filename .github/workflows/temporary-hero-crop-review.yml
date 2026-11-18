@@ -56,8 +56,8 @@ jobs:
               results.push({variant:name,...data});
               if(data.scroll>width+1) throw Error('Horizontal overflow at '+width+'px');
               if(name==='baseline'){
-                const expected=(width>=741&&width<=1045)?'100% 100%':'cover';
-                if(data.bgSize!==expected)throw Error('Unexpected background size at '+width+': '+data.bgSize);
+                if(data.bgSize!=='cover')throw Error('Original image aspect ratio changed at '+width+': '+data.bgSize);
+                if(width>=741&&width<=1045 && !data.bgPosition.includes('100%')) throw Error('Right-side path not in view at '+width+': '+data.bgPosition);
                 if(!data.svg)throw Error('Original landscape SVG missing at '+width);
               }
               await hero.screenshot({path:'qa-results/hero-'+width+'-'+name+'.png',animations:'disabled'});
