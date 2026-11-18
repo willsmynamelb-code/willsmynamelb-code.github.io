@@ -45,6 +45,11 @@ try {
     await page.goto(BASE,{waitUntil:'domcontentloaded'});
     await page.evaluate(() => document.fonts.ready);
     await page.locator('.hero-cover').waitFor({state:'visible'});
+    // The lower book-cover image is intentionally lazy-loaded. Trigger its
+    // fetch before verifying it, rather than treating lazy loading as a failure.
+    await page.locator('.journey-cover img').scrollIntoViewIfNeeded();
+    await page.locator('.journey-cover img').evaluate(img=>img.decode().catch(()=>{}));
+    await page.evaluate(()=>window.scrollTo(0,0));
     const metrics=await page.evaluate(()=>{
       const hero=document.querySelector('.hero');
       const btns=[...document.querySelectorAll('.hero .action-row a, .reader-day-btn, .month-pick, #menuButton')]
