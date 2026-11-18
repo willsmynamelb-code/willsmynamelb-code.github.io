@@ -49,6 +49,10 @@ try {
         width:innerWidth,scrollWidth:document.documentElement.scrollWidth,
         bodyWidth:document.body.scrollWidth,
         heroHeight:Math.round(hero.getBoundingClientRect().height),
+        navHeight:Math.round(document.querySelector('.nav-wrap').getBoundingClientRect().height),
+        heroCopy:(()=>{const r=document.querySelector('.hero-copy').getBoundingClientRect();return {x:Math.round(r.x),y:Math.round(r.y),w:Math.round(r.width)};})(),
+        heroCover:(()=>{const r=document.querySelector('.hero-cover').getBoundingClientRect();return {x:Math.round(r.x),y:Math.round(r.y),w:Math.round(r.width),h:Math.round(r.height)};})(),
+        factsY:Math.round(document.querySelector('.quick-facts').getBoundingClientRect().y),
         headings:[...document.querySelectorAll('h1')].map(x=>x.textContent.trim()),
         coverLoaded:[...document.querySelectorAll('.hero-cover,.journey-cover img')].every(x=>x.complete && x.naturalWidth>0),
         svgLoaded:getComputedStyle(hero).backgroundImage.includes('illuminated-path-hero.svg'),
@@ -60,6 +64,7 @@ try {
       };
     });
     report.viewports.push(metrics);
+    console.log('VIEWPORT METRICS '+JSON.stringify(metrics));
     checks(width+'px horizontal reflow',metrics.scrollWidth<=width+1,'scrollWidth '+metrics.scrollWidth);
     checks(width+'px original SVG background',metrics.svgLoaded);
     checks(width+'px authentic cover(s) loaded',metrics.coverLoaded);
@@ -143,6 +148,9 @@ try {
   await optPage.goto(BASE+'#tyme-analytics-off',{waitUntil:'domcontentloaded'});
   const opted=await optPage.evaluate(()=>({flag:window['ga-disable-G-Y46CQ8WRY5'],saved:localStorage.getItem('tyme_analytics_opt_out_v1')}));
   checks('Analytics opt-out blocks tracking in browser',opted.flag===true && opted.saved==='1',JSON.stringify(opted));
+  // The public opt-out page's re-enable link navigates to the homepage.
+  // Test that real cross-document flow, not a same-document fragment jump.
+  await optPage.goto(BASE+'analytics-off.html',{waitUntil:'domcontentloaded'});
   await optPage.goto(BASE+'#tyme-analytics-on',{waitUntil:'domcontentloaded'});
   const optedBack=await optPage.evaluate(()=>({flag:window['ga-disable-G-Y46CQ8WRY5'],saved:localStorage.getItem('tyme_analytics_opt_out_v1')}));
   checks('Analytics re-enable reverses browser flag',optedBack.flag===false && optedBack.saved===null,JSON.stringify(optedBack));
@@ -157,7 +165,7 @@ try {
     const violations=scan.violations.map(v=>({id:v.id,impact:v.impact,count:v.nodes.length,description:v.help,targets:v.nodes.slice(0,5).map(n=>n.target.join(' '))}));
     report.axe.push({width,violations,incomplete:scan.incomplete.length,passes:scan.passes.length});
     console.log('AXE '+width+' '+JSON.stringify(violations));
-    checks('Axe '+width+'px no critical violations',!violations.some(v=>v.impact==='critical'));
+    checks('Axe '+width+'px no serious or critical violations',!violations.some(v=>v.impact==='critical'||v.impact==='serious'));
   }
 } catch(error) {
   report.notes.push('Browser QA fatal: '+String(error.stack||error));
