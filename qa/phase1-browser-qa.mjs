@@ -29,12 +29,9 @@ await mkdir('qa-results', { recursive:true });
 const server = spawn('python3', ['-m','http.server','8765','--bind','127.0.0.1'], { stdio:'ignore' });
 let browser;
 try {
-  for (let i=0;i<50;i++) {
-    try { const response=await fetch(BASE); if(response.ok) break; }
-    catch { /* starting */ }
-    await delay(180);
-    if(i===49) throw new Error('Local HTTP server did not start');
-  }
+  // Node's undici may intermittently assert when a server closes a readiness
+  // socket. Let Chromium itself load the local page instead of using fetch.
+  await delay(800);
   browser = await chromium.launch({ headless:true });
   const context = await browser.newContext({ viewport:{width:1440,height:900}, reducedMotion:'reduce' });
   // Avoid real third-party analytics requests during QA; leave application code unchanged.
