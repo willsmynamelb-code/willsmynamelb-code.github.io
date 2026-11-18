@@ -209,9 +209,15 @@ try {
       }).slice(0,20).map(el=>({tag:el.tagName,cl:String(el.className).slice(0,90),
         text:(el.textContent||'').trim().slice(0,35),left:Math.round(el.getBoundingClientRect().left),
         right:Math.round(el.getBoundingClientRect().right)}));
+      const overflowContainers=[...document.querySelectorAll('html,body,body *')].filter(el=>
+        el.scrollWidth>el.clientWidth+3 && el.clientWidth>0).slice(0,35).map(el=>({
+        tag:el.tagName,cl:String(el.className).slice(0,80),
+        id:el.id,scroll:el.scrollWidth,client:el.clientWidth,
+        overflow:getComputedStyle(el).overflowX}));
       return {horizontal:document.documentElement.scrollWidth>window.innerWidth+1,
         display:getComputedStyle(document.querySelector('h1')).fontFamily,
-        documentWidth:document.documentElement.scrollWidth,offenders};
+        documentWidth:document.documentElement.scrollWidth,viewport:window.innerWidth,
+        bodyWidth:document.body.scrollWidth,offenders,overflowContainers};
     });
     checks('Text-only font scaling has no horizontal page overflow at '+width+'px',
       !scalable.horizontal,JSON.stringify(scalable));
