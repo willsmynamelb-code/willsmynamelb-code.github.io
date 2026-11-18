@@ -156,6 +156,65 @@ try {
   }));
   for(const [k,v] of Object.entries(preserved)) checks('Preserve '+k,Boolean(v));
 
+  // Isolated preview checks: keyboard reachability, reading-order integrity, and
+  // larger text. These simulations are supplementary, not manual AT certification.
+  await page.setViewportSize({width:390,height:844});
+  await page.goto(BASE,{waitUntil:'domcontentloaded'});
+  await page.keyboard.press('Tab');
+  const skipState=await page.locator('.skip-link').evaluate(el=>({
+    focused:document.activeElement===el,
+    visible:el.getBoundingClientRect().top>=0,
+    focusVisible:el.matches(':focus-visible')
+  }));
+  checks('Keyboard first Tab exposes usable Skip to main content link',
+    skipState.focused&&skipState.visible&&skipState.focusVisible,JSON.stringify(skipState));
+  await page.keyboard.press('Enter');
+  checks('Skip to main content actually moves focus to main',
+    await page.locator('#main-content').evaluate(el=>document.activeElement===el));
+  // The prompts must remain behind their approved reflection in DOM order;
+  // never send any answers, and do not infer reading or completion from viewing.
+  const readingOrder=await page.evaluate(()=>{
+    const entries=[...document.querySelectorAll('[data-reader-day]')];
+    return entries.every(entry=>{
+      const body=entry.querySelector('.body');
+      const prompts=entry.querySelector('.reader-prompts');
+      const labels=prompts?[...prompts.querySelectorAll('.prompt-label')].map(x=>x.textContent.trim()):[];
+      return !!body&&!!prompts&&body.compareDocumentPosition(prompts)&Node.DOCUMENT_POSITION_FOLLOWING
+        && labels.length===3 && labels[0].includes('Practice')
+        && labels[1].includes('Ask Yourself')
+        && labels[2].includes('Carry This');
+    });
+  });
+  checks('All seven reflection prompts follow full reflection text in reading order',Boolean(readingOrder));
+  await page.locator('#menuButton').click();
+  await page.screenshot({path:'qa-results/interactive-menu-open-390.png',animations:'disabled'});
+  await page.keyboard.press('Escape');
+  await page.locator('[data-reader-select="4"]').click();
+  await page.locator('#readerDay4').scrollIntoViewIfNeeded();
+  await page.screenshot({path:'qa-results/interactive-day4-390.png',animations:'disabled'});
+  await page.locator('.month-pick[data-month="8"]').click();
+  await page.locator('#monthPanel').scrollIntoViewIfNeeded();
+  await page.screenshot({path:'qa-results/interactive-month9-390.png',animations:'disabled'});
+  for(const width of [320,390,768,1440]){
+    await page.setViewportSize({width,height:900});
+    await page.goto(BASE,{waitUntil:'domcontentloaded'});
+    // Text-only resizing is a valuable regression signal but is not the same
+    // as native browser zoom, platform text enlargement or assistive technology.
+    const scalable=await page.evaluate(()=>{
+      document.documentElement.style.fontSize='32px';
+      return {horizontal:document.documentElement.scrollWidth>window.innerWidth+1,
+        display:getComputedStyle(document.querySelector('h1')).fontFamily};
+    });
+    checks('Text-only font scaling has no horizontal page overflow at '+width+'px',
+      !scalable.horizontal,JSON.stringify(scalable));
+    if(width===390) await page.screenshot({path:'qa-results/text-scale-200-percent-390.png',
+      fullPage:false,animations:'disabled'});
+  }
+  await page.evaluate(()=>document.documentElement.style.fontSize='');
+  checks('Reduced-motion mode disables reader progress animation',
+    await page.locator('#reader-progress-fill').evaluate(el=>
+      parseFloat(getComputedStyle(el).transitionDuration)<=0.02));
+
   // One specific browser, no persistent account data or analytics traffic.
   const optoutContext=await browser.newContext({viewport:{width:390,height:844}});
   await optoutContext.route(/google-analytics\.com|googletagmanager\.com/,route=>route.abort());
