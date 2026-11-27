@@ -485,6 +485,64 @@
   <link rel="preload" href="fonts/libre-baskerville-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="illuminated-path-hero.svg" as="image" fetchpriority="high">
   <link rel="stylesheet" href="phase1-illuminated.css">
+  <!-- Mission-first homepage: scoped overrides preserve the approved base stylesheet and original artwork. -->
+  <style>
+    .mission-first-hero.hero{background-color:#092f33;background-size:cover;background-position:center center}
+    .mission-first-hero.hero::before{background:linear-gradient(90deg,rgba(1,32,35,.96) 0%,rgba(3,36,39,.9) 44%,rgba(6,39,42,.58) 100%)}
+    .mission-first-hero.hero::after{display:none}
+    .mission-first-hero .hero-inner{display:block;min-height:0;padding-block:clamp(64px,8vw,112px);gap:0}
+    .mission-first-hero .hero-copy{max-width:760px}
+    .mission-first-hero h1{font-size:clamp(2.6rem,5.4vw,4.4rem);line-height:1.2;max-width:13ch;margin:22px 0 22px}
+    .mission-first-hero h1::after{margin-top:20px}
+    .mission-first-tagline{font:400 clamp(1.25rem,2.4vw,1.85rem)/1.45 'Libre Baskerville',Georgia,serif;color:#f5cd96;margin:0 0 18px}
+    .mission-first-hero .lead{max-width:60ch;margin-bottom:24px}
+    .mission-first-hero .btn-primary{background:#e4bb73;color:#103a3c}
+    .mission-first-hero .hero-secondary-links a{text-decoration:underline;text-underline-offset:4px}
+    .mission-first-vision.vision{background:#103a3c;color:#f6f7ef;padding-block:clamp(56px,6vw,84px)}
+    .mission-first-vision .vision-layout{grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:clamp(28px,5vw,72px);border:0;padding-top:0}
+    .mission-first-vision .vision-heading{grid-column:1;grid-row:1}
+    .mission-first-vision .vision-copy{grid-column:2;grid-row:1;max-width:65ch}
+    .mission-first-vision .eyebrow{color:#efc88f}
+    .mission-first-vision h2{font-size:clamp(1.9rem,3.3vw,3rem);line-height:1.25;color:#f6f7ef}
+    .mission-first-vision .vision-copy p,.mission-first-vision .vision-signature span{color:#d9e8df}
+    .mission-first-vision .vision-copy strong{color:#fff}
+    .mission-first-vision .vision-copy .vision-note{color:#c5dbd0}
+    .mission-first-vision .vision-statement{color:#f5deb3;border-color:#e4bb73}
+    .mission-first-book{background:#f2e9da;color:#123f42}
+    .mission-book-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.45fr);align-items:center;gap:clamp(28px,6vw,88px)}
+    .mission-book-copy .eyebrow{color:#80512f}
+    .mission-book-copy h2{margin:14px 0 20px}
+    .mission-book-copy .book-intro{color:#425e59}
+    .mission-first-book .book-facts{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .mission-first-book .book-facts>div{min-width:0;border-top-color:#b08b53}
+    .mission-first-book .book-facts strong{font-size:clamp(1rem,2vw,1.7rem);line-height:1.3;overflow-wrap:anywhere}
+    .mission-first-book .book-facts span{display:block;margin-top:6px}
+    .mission-book-art{text-align:center}
+    .mission-book-cover{display:block;width:min(100%,280px);height:auto;margin:0 auto;box-shadow:0 16px 36px rgba(16,49,45,.22)}
+    .mission-book-art p{margin:14px auto 0;font-size:.82rem;color:#425e59}
+    .mission-book-sample{margin:22px 0 0;line-height:1.9;font-size:.9rem}
+    #book{scroll-margin-top:0}
+    @media(max-width:950px){
+      .mission-first-vision .vision-layout,.mission-book-layout{display:grid;grid-template-columns:minmax(0,1fr)}
+      .mission-first-vision .vision-heading,.mission-first-vision .vision-copy{grid-column:1;grid-row:auto}
+      .mission-first-vision .vision-sunrise{margin:24px 0 0;width:min(100%,215px)}
+    }
+    @media(max-width:740px){
+      .mission-first-hero.hero{background-size:cover;background-position:72% center}
+      .mission-first-hero.hero::before{background:linear-gradient(180deg,rgba(1,32,35,.95),rgba(3,36,39,.87))}
+      .mission-first-hero .hero-inner{min-height:0;padding-block:44px 48px}
+      .mission-first-hero h1{font-size:clamp(1.95rem,8.5vw,2.65rem);max-width:100%;margin:19px 0 18px;overflow-wrap:anywhere}
+      .mission-first-hero .action-row .btn{min-height:48px}
+      .mission-first-hero .hero-secondary-links{margin-top:20px}
+      .mission-first-vision.vision{padding-block:50px}
+      .mission-first-vision .vision-copy p{font-size:1rem}
+      .mission-book-cover{width:min(100%,220px)}
+      .mission-first-book .action-row{flex-direction:column;align-items:stretch}
+      .mission-first-book .action-row .btn{width:100%}
+      .mission-first-book .book-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .mission-first-book .book-facts>div:last-child{grid-column:1/-1}
+    }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -494,9 +552,10 @@
     <button id="menuButton" class="menu-btn" aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation">☰</button>
     <div class="links" id="navLinks">
       <a href="#home">Home</a>
+      <a href="#vision">The Vision of T.Y.M.E.</a>
+      <a href="#book">The Book</a>
       <a href="#development">Reflections</a>
       <a href="#connect">Connect</a>
-      <a href="#journey">The Book</a>
       <a href="#mission">Our Story</a>
       <a href="#resources">Resources</a>
     </div>
@@ -504,32 +563,79 @@
   </nav>
 </header>
   <main id="main-content" tabindex="-1">
-    <section class="hero" id="home">
+    <section class="hero mission-first-hero" id="home">
   <div class="wrap hero-inner">
     <div class="hero-copy">
-      <div class="eyebrow">Daily reflections · Recovery<span class="hero-extra-eyebrow"> · Personal growth</span></div>
-      <h1>You can begin<br><em>right where<br class="mobile-title-break"> you are.</em></h1>
-      <p class="lead"><strong>T.Y.M.E. — Today You Mean Everything: A Sober Companion</strong> by William Meyers offers 365 daily reflections for recovery and everyday life. Honest reflection. Practical action. One day at a time.</p>
+      <div class="eyebrow">Recovery · Human dignity · Personal growth</div>
+      <h1>Today You Mean Everything.</h1>
+      <p class="mission-first-tagline">Your past does not define your future.</p>
+      <p class="lead">A vision rooted in recovery, human dignity, personal growth and the belief that meaningful change can begin today.</p>
       <div class="action-row">
-        <a class="btn btn-primary" href="#development">Read a Free Reflection</a>
-        <a class="btn btn-outline" href="#journey">Explore the Book</a>
-        <a class="btn btn-vision-jump" href="#vision">Our Vision ↓</a>
+        <a class="btn btn-primary" href="#vision">The Vision of T.Y.M.E.</a>
+        <a class="btn btn-outline" href="#development">Read a Free Reflection</a>
       </div>
-      <div class="hero-secondary-links" aria-label="More ways to connect with T.Y.M.E.">
+      <div class="hero-secondary-links" aria-label="More ways to explore T.Y.M.E.">
+        <a href="#book">Explore the Book ↓</a>
         <a href="https://www.facebook.com/tyme.today.you.mean.everything" target="_blank" rel="noopener noreferrer">Follow on Facebook ↗</a>
-        <a href="https://www.amazon.com/dp/B0HQY8BFKL" target="_blank" rel="noopener noreferrer">Paperback ↗</a>
-        <a href="https://www.amazon.com/dp/B0HQV7DYGN" target="_blank" rel="noopener noreferrer">Kindle ↗</a>
       </div>
-    </div>
-    <div class="book-stage">
-      <img class="hero-cover" src="tyme-sober-companion-cover.webp" width="720" height="1152" alt="A Sober Companion by William Meyers, sunrise over mountains, a lake, and winding path" fetchpriority="high" decoding="async">
-      <div class="cover-caption">A Sober Companion · William Meyers</div>
     </div>
   </div>
-  <div id="book" class="wrap quick-facts" aria-label="Book highlights">
-    <div><strong>365</strong><span>Daily reflections</span></div>
-    <div><strong>12</strong><span>Monthly themes</span></div>
-    <div><strong>Paperback + Kindle</strong><span>Available on Amazon</span></div>
+</section>
+
+<section class="section-pad vision mission-first-vision" id="vision" tabindex="-1" aria-labelledby="vision-title">
+      <div class="wrap vision-layout">
+        <div class="vision-heading">
+          <div class="eyebrow">Looking ahead</div>
+          <h2 id="vision-title">The Vision of T.Y.M.E.</h2>
+
+<svg class="vision-sunrise" viewBox="0 0 340 205" width="340" height="205" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="tymeSunGlow" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F6DCAC"/><stop offset="100%" stop-color="#D9AB73"/></linearGradient>
+    <linearGradient id="tymeHillFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#40786F"/><stop offset="100%" stop-color="#1C5552"/></linearGradient>
+  </defs>
+  <circle cx="170" cy="89" r="53" fill="url(#tymeSunGlow)" opacity=".94"/>
+  <path d="M72 89a98 98 0 0 1 196 0M37 91a133 133 0 0 1 266 0" fill="none" stroke="#E9C68C" stroke-width="1.5" opacity=".45"/>
+  <path d="M0 145Q44 94 89 124T170 111T265 120T340 100V205H0Z" fill="#427D71" opacity=".75"/>
+  <path d="M0 160Q72 115 130 144T252 139T340 143V205H0Z" fill="url(#tymeHillFill)"/>
+  <path d="M0 181Q56 158 114 173T225 163T340 162V205H0Z" fill="#174B4B"/>
+  <path d="M171 205C147 191 157 180 179 170C202 158 200 150 182 143" fill="none" stroke="#EED6AD" stroke-width="12" stroke-linecap="round" opacity=".78"/>
+  <path d="M172 205C151 192 160 181 180 171C198 161 198 153 183 145" fill="none" stroke="#F8E6C8" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+</svg>
+        </div>
+        <div class="vision-copy">
+          <p>My vision for <strong>T.Y.M.E. (Today You Mean Everything)</strong> is to help create a world where no one is defined by their past, their struggles, or their mistakes.</p>
+          <p>T.Y.M.E. began with books inspired by lived experience and a simple belief: meaningful change can begin today. But the vision extends far beyond any one book or one person's story.</p>
+          <p><strong>We all have a story to tell.</strong> The lessons we gain through our hardest experiences may be exactly what someone else needs to find their way forward.</p>
+          <p>I think of it as passing a flashlight to someone in the dark. We cannot walk their path for them, but we can help them see the next step. If sharing my story brings hope to even one person, it will have been worth telling. And when others share what they have learned, that light reaches farther.</p>
+          <p>My hope is to grow T.Y.M.E. into a compassionate, recovery-centered community offering encouragement, connection, and practical resources. Over time, I envision partnerships with qualified professionals and organizations providing counseling, therapy, sober living, and eventually licensed treatment and rehabilitation services.</p>
+          <p class="vision-note">These are goals for the future. Today, our work begins with books, reflection, and connections to independent resources.</p>
+          <blockquote class="vision-statement">Because your past does not define your future, and today, you mean everything.</blockquote>
+          <p class="vision-signature"><strong>William Meyers</strong><span>Founder, T.Y.M.E.</span></p>
+        </div>
+      </div>
+    </section>
+
+<section class="section-pad mission-first-book" id="book" aria-labelledby="mission-book-title">
+  <div class="wrap mission-book-layout">
+    <div class="mission-book-copy">
+      <div class="eyebrow">Bringing the Vision to Life</div>
+      <h2 id="mission-book-title">A Sober Companion</h2>
+      <p class="book-intro"><strong>T.Y.M.E. — Today You Mean Everything: A Sober Companion</strong> by William Meyers offers 365 daily reflections for recovery and everyday life. Honest reflection. Practical action. One day at a time.</p>
+      <div class="book-facts" aria-label="Book highlights">
+        <div><strong>365</strong><span>Daily reflections</span></div>
+        <div><strong>12</strong><span>Monthly themes</span></div>
+        <div><strong>Paperback + Kindle</strong><span>Available on Amazon</span></div>
+      </div>
+      <div class="action-row">
+        <a class="btn btn-dark" href="https://www.amazon.com/dp/B0HQY8BFKL" target="_blank" rel="noopener noreferrer">Paperback on Amazon ↗</a>
+        <a class="btn book-kindle-btn" href="https://www.amazon.com/dp/B0HQV7DYGN" target="_blank" rel="noopener noreferrer">Kindle on Amazon ↗</a>
+      </div>
+      <p class="mission-book-sample"><a class="quiet-link" href="#development">Read a Free Reflection ↓</a> · <a class="quiet-link" href="#journey">Explore the monthly themes ↓</a></p>
+    </div>
+    <div class="mission-book-art">
+      <img class="mission-book-cover" src="tyme-sober-companion-cover.webp" width="720" height="1152" alt="A Sober Companion by William Meyers, sunrise over mountains, a lake, and winding path" loading="lazy" decoding="async">
+      <p>A Sober Companion · William Meyers</p>
+    </div>
   </div>
 </section>
     
@@ -657,38 +763,7 @@
     
     
     <section class="section-pad mission" id="mission"><div class="wrap"><div class="mission-about"><div class="mission-copy"><div class="eyebrow" style="color:#80512f">The purpose behind T.Y.M.E.</div><h2>Today is where change begins.</h2><p>We cannot change yesterday, but we can choose how we meet today. T.Y.M.E. brings honest reflection, responsibility, compassion, and connection to people navigating recovery and everyday life.</p><p class="mission-quote">We don't deny the past. We learn from it. We don't ignore the future. We prepare for it.</p><h3 id="about">About the founder</h3><p>T.Y.M.E. was founded by William Lee Meyers, who writes as William Meyers. His lived experiences with addiction and mental health challenges helped shape this project and the book <em>A Sober Companion</em>.</p><p><a class="contact-link" href="https://www.amazon.com/author/williammeyerstyme" target="_blank" rel="noopener noreferrer">Meet the Author on Amazon</a></p></div></div></div></section>
-    <section class="section-pad vision" id="vision" tabindex="-1" aria-labelledby="vision-title">
-      <div class="wrap vision-layout">
-        <div class="vision-heading">
-          <div class="eyebrow">Looking ahead</div>
-          <h2 id="vision-title">The Vision</h2>
-
-<svg class="vision-sunrise" viewBox="0 0 340 205" width="340" height="205" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-  <defs>
-    <linearGradient id="tymeSunGlow" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F6DCAC"/><stop offset="100%" stop-color="#D9AB73"/></linearGradient>
-    <linearGradient id="tymeHillFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#40786F"/><stop offset="100%" stop-color="#1C5552"/></linearGradient>
-  </defs>
-  <circle cx="170" cy="89" r="53" fill="url(#tymeSunGlow)" opacity=".94"/>
-  <path d="M72 89a98 98 0 0 1 196 0M37 91a133 133 0 0 1 266 0" fill="none" stroke="#E9C68C" stroke-width="1.5" opacity=".45"/>
-  <path d="M0 145Q44 94 89 124T170 111T265 120T340 100V205H0Z" fill="#427D71" opacity=".75"/>
-  <path d="M0 160Q72 115 130 144T252 139T340 143V205H0Z" fill="url(#tymeHillFill)"/>
-  <path d="M0 181Q56 158 114 173T225 163T340 162V205H0Z" fill="#174B4B"/>
-  <path d="M171 205C147 191 157 180 179 170C202 158 200 150 182 143" fill="none" stroke="#EED6AD" stroke-width="12" stroke-linecap="round" opacity=".78"/>
-  <path d="M172 205C151 192 160 181 180 171C198 161 198 153 183 145" fill="none" stroke="#F8E6C8" stroke-width="3" stroke-linecap="round" opacity=".8"/>
-</svg>
-        </div>
-        <div class="vision-copy">
-          <p>My vision for <strong>T.Y.M.E. (Today You Mean Everything)</strong> is to help create a world where no one is defined by their past, their struggles, or their mistakes.</p>
-          <p>T.Y.M.E. began with books inspired by lived experience and a simple belief: meaningful change can begin today. But the vision extends far beyond any one book or one person's story.</p>
-          <p><strong>We all have a story to tell.</strong> The lessons we gain through our hardest experiences may be exactly what someone else needs to find their way forward.</p>
-          <p>I think of it as passing a flashlight to someone in the dark. We cannot walk their path for them, but we can help them see the next step. If sharing my story brings hope to even one person, it will have been worth telling. And when others share what they have learned, that light reaches farther.</p>
-          <p>My hope is to grow T.Y.M.E. into a compassionate, recovery-centered community offering encouragement, connection, and practical resources. Over time, I envision partnerships with qualified professionals and organizations providing counseling, therapy, sober living, and eventually licensed treatment and rehabilitation services.</p>
-          <p class="vision-note">These are goals for the future. Today, our work begins with books, reflection, and connections to independent resources.</p>
-          <blockquote class="vision-statement">Because your past does not define your future, and today, you mean everything.</blockquote>
-          <p class="vision-signature"><strong>William Meyers</strong><span>Founder, T.Y.M.E.</span></p>
-        </div>
-      </div>
-    </section>
+    
     <section class="section-pad connect-band" id="connect" aria-labelledby="connect-title">
   <div class="wrap connect-inner">
     <div>
@@ -734,8 +809,9 @@
 </main>
   <footer class="footer"><div class="wrap footer-grid"><div><a class="logo" href="#home">T.Y.M.E.<small>TODAY YOU MEAN EVERYTHING</small></a><p>© <span id="year"></span> William Lee Meyers. All rights reserved.</p><p><em>A Sober Companion</em> is an independent publication and is not affiliated with, reviewed by, or endorsed by any recovery fellowship. T.Y.M.E. does not currently provide treatment, emergency response, or housing services.</p><p>We use Google Analytics to measure website visits, navigation in the free seven-day reader, and clicks to Amazon listings. We do not collect answers to the reflection questions. <a href="/analytics-off.html">Turn off analytics for this browser</a>.</p></div><div class="footer-nav">
   <nav aria-label="Footer navigation">
+    <a href="#vision">The Vision of T.Y.M.E.</a>
     <a href="#development">Reflections</a>
-    <a href="#journey">The Book</a>
+    <a href="#book">The Book</a>
     <a href="#mission">Our Story</a>
     <a href="#resources">Resources</a>
     <a href="#contact">Contact</a>
