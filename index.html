@@ -497,7 +497,7 @@
       background: linear-gradient(90deg, rgb(9 45 50 / 48%), rgb(9 45 50 / 26%) 40%, transparent 68%);
     }
     .mission-first-hero.hero::after, .mission-first-hero h1::after { display: none; }
-    .mission-first-hero .hero-inner { display: block; min-height: 0; padding-block: clamp(48px, 5.1vw, 73px) 48px; }
+    .mission-first-hero .hero-inner { display: block; min-height: 0; padding-block: clamp(48px, 5.1vw, 73px) 54px; }
     .mission-first-hero .hero-copy { max-width: 730px; }
     .mission-first-hero h1 {
       overflow-wrap: anywhere;
@@ -515,25 +515,27 @@
       color: #e9c48a;
     }
     .mission-first-hero .lead { max-width: 570px; margin: 0 0 32px; font-size: 1.125rem; line-height: 1.61; }
-    .mission-first-hero .action-row { flex-flow: row wrap; align-items: center; gap: 8px 18px; }
-    .mission-first-hero .action-row .btn {
-      width: auto;
+    .home-actions {
+      display: grid;
+      grid-template-columns: minmax(0, 202px) minmax(0, 178px) minmax(0, 196px);
+      gap: 12px;
+    }
+    .home-actions .btn {
+      width: 100%;
+      min-width: 0;
       min-height: 52px;
-      max-width: 100%;
-      padding: 10px 20px;
+      padding: 10px 16px;
+      color: #123c3e;
+      background: #e9c48a;
       font-size: .8125rem;
       font-weight: 600;
+      text-align: center;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      gap: .3em;
     }
-    .mission-first-hero .btn-primary { min-width: 196px; color: #123c3e; background: #e9c48a; }
-    .mission-first-hero .btn-outline {
-      color: #fcf8f0;
-      background: transparent;
-      border-color: transparent;
-      text-decoration: underline;
-      text-underline-offset: .2em;
-    }
-    .mission-first-hero .hero-secondary-links { margin-top: 14px; gap: 0 24px; }
-    .mission-first-hero .hero-secondary-links a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; }
+    .home-actions .external-arrow { flex: none; width: .85em; height: .85em; }
+    .home-actions .btn:hover { background: #f3d39e; }
     .mission-first-hero a:focus-visible { outline: 3px solid #fcf8f0; outline-offset: 3px; }
 
     .mission-first-vision.vision { padding-block: 61px 68px; background: #fcf8f0; color: #123c3e; }
@@ -613,7 +615,7 @@
       .nav-wrap .nav { min-height: 63px; }
       .mission-first-hero.hero { background: #092d32; }
       .mission-first-hero.hero::before { display: none; }
-      .mission-first-hero .hero-inner { padding-block: 0 26px; }
+      .mission-first-hero .hero-inner { padding-block: 0 22px; }
       .mission-first-hero .mission-title {
         min-height: 261px;
         margin-inline: -24px;
@@ -628,11 +630,9 @@
       .mission-first-hero h1 em { font-size: 1.29em; line-height: 1.2; }
       .mission-first-tagline { margin: 12px 0; font-size: 1.3125rem; line-height: 1.38; }
       .mission-first-hero .lead { margin: 0 0 12px; font-size: 1rem; line-height: 1.5625; }
-      .mission-first-hero .action-row { gap: 6px 10px; }
-      .mission-first-hero .action-row .btn { min-height: 48px; padding: 8px 6px; }
-      .mission-first-hero .btn-primary { min-width: min(160px, 100%); }
-      .mission-first-hero .btn-outline { min-width: min(167px, 100%); }
-      .mission-first-hero .hero-secondary-links { margin-top: 12px; gap: 0 20px; font-size: .75rem; }
+      .home-actions { grid-template-columns: minmax(0, 162fr) minmax(0, 170fr); gap: 12px 10px; }
+      .home-actions .btn { min-height: 48px; padding: 8px 6px; }
+      .home-actions .btn:first-child { grid-column: 1 / -1; }
       .mission-first-vision.vision { padding-block: 32px 42px; }
       .mission-first-vision h2 { font-size: 1.6875rem; }
       .mission-first-vision .vision-copy p { margin-bottom: 18px; font-size: 1rem; line-height: 1.625; }
@@ -650,10 +650,6 @@
       .mission-book-art p { grid-row: 3; }
       .mission-first-book .book-facts { grid-template-columns: 1fr; }
       .mission-first-book .action-row .btn { width: 100%; }
-    }
-    @media (max-width: 384px) {
-      .mission-first-hero .action-row { flex-direction: column; align-items: stretch; }
-      .mission-first-hero .action-row .btn { width: 100%; }
     }
   </style>
 </head>
@@ -685,13 +681,10 @@
       </div>
       <p class="mission-first-tagline">Your past does not define your future.</p>
       <p class="lead">A vision rooted in recovery, human dignity, personal growth and the belief that meaningful change can begin today.</p>
-      <div class="action-row">
-        <a class="btn btn-primary" href="#vision">The Vision of T.Y.M.E.</a>
-        <a class="btn btn-outline" href="#development">Read a Free Reflection</a>
-      </div>
-      <div class="hero-secondary-links" aria-label="More ways to explore T.Y.M.E.">
-        <a href="#book">Explore the Book ↓</a>
-        <a href="https://www.facebook.com/tyme.today.you.mean.everything" target="_blank" rel="noopener noreferrer">Follow on Facebook ↗</a>
+      <div class="home-actions">
+        <a class="btn btn-primary" href="#development">Read a Free Reflection</a>
+        <a class="btn btn-primary" href="#book">Explore the Book ↓</a>
+        <a class="btn btn-primary" href="https://www.facebook.com/tyme.today.you.mean.everything" target="_blank" rel="noopener noreferrer">Follow on Facebook<svg class="external-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path d="M3 13 13 3M4 3h9v9"/></svg></a>
       </div>
     </div>
   </div>
