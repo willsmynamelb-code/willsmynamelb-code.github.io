@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.tymetobegin.com/sitemap.xml
+Sitemap: https://tymetobegin.com/sitemap.xml
